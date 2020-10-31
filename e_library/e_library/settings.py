@@ -24,6 +24,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Django Rest Framework
+    'rest_framework',
+
+    # app for User Model
+    # 'management', 
+    # app for All E-library Funcation
+    'system',
 ]
 
 MIDDLEWARE = [
