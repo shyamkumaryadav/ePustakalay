@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from rest_framework import permissions
+
 
 # System Config
-from system import serializers, models, authentication
+from system import serializers, models, permissions
 
 
 
@@ -13,4 +13,4 @@ class BookViewSet(viewsets.ModelViewSet):
     """
     queryset = models.Book.objects.all()
     serializer_class = serializers.BookSerializers
-    permission_classes = [permissions.IsAdminUser]
+    permission_classes = [permissions.IsAdminUserOrReadOnly]
