@@ -32,7 +32,7 @@ INSTALLED_APPS = [
     # 'management', 
     # app for All E-library Funcation
     'system',
-    # 'management',
+    'management',
 
 ]
 
