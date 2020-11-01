@@ -25,6 +25,7 @@ npm run build
 ```bash  
 cd ~/E_library
 pipenv shell
+pipenv install
 # uncomment if you forget to do
 # ./e_library/manage.py makemigrations
 # ./e_library/manage.py migrate
