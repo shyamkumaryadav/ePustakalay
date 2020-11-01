@@ -1,8 +1,8 @@
 # E-library Managment System
 
-Install (Node)[https://nodejs.org/en/]  
-install (Git)[https://git-scm.com/]  
-Install (python 3)[https://www.python.org/]
+Install [Node](https://nodejs.org/en/)  
+install [Git](https://git-scm.com/)  
+Install [python 3](https://www.python.org/)  
 
 ### First Clone The Project  
 
