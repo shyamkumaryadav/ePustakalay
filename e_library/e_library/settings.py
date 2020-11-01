@@ -44,7 +44,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # Simplified static file serving.
+    # Simplified static file serving on heroku.
     'whitenoise.middleware.WhiteNoiseMiddleware', # whitenoise for serve static file on producation
 ]
 

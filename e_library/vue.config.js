@@ -1,5 +1,6 @@
 module.exports = {
     outputDir: 'management',
-    assetsDir: 'static',
-    productionSourceMap: false
+    assetsDir: 'static/management',
+    productionSourceMap: false,
+    filenameHashing: false,
 }
