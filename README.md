@@ -1,6 +1,6 @@
 # E-library Managment System
 
-Install [Node](https://nodejs.org/en/)  
+<!-- Install [Node](https://nodejs.org/en/)   -->
 install [Git](https://git-scm.com/)  
 Install [python 3](https://www.python.org/)  
 
@@ -12,14 +12,14 @@ mkdir ~/E_library
 cd ~/E_library
 git clone git@github.com:shyamkumaryadav/e-library-management-system.git .
 ```
-
+<!-- 
 ### npm build
 ```bash  
 cd ~/E_library/e_library
 # Note: first check package.json file present at this location if yes follow this step
 npm install # or use npm i 
 npm run build
-```
+``` -->
 
 ### Django runserver
 ```bash  
