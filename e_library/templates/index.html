@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+
+   <!-- Google Web Fonts CDN For Material Icon -->
+  <!-- <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet"> -->
+  <!-- Self hosting For Material Icon -->
+  <link rel="stylesheet" type="text/css" href="{% static 'Material-Icons.css' %}">
+  <!-- CDN vuetify v2.x for Development -->
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <!-- CDN vue v2.x for Development -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.min.js"></script> -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+<body>
+	{% verbatim %}
+	<script type="text/x-template" id="app-template">
+	  <v-app>
+	    <v-container>
+	      <h1>This is hello {{mess}} </h1>
+	       <v-switch v-model="$vuetify.theme.dark"></v-switch>
+	    </v-container>
+	  </v-app>
+	</script>
+  <div id="app"></div>
+  <!-- CDN vue v2.x for Production -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <!-- CDN vuetify v2.x for Production -->
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  <script>
+    const App = {
+	  template: '#app-template',
+	  data: () => ({
+	    mess: "This is Vueasas"
+	  })
+	}
+
+
+	new Vue({
+	  vuetify: new Vuetify(),
+	  render: h => h(App)
+	}).$mount('#app')
+
+  </script>
+  {% endverbatim %}
+</body>
+</html>

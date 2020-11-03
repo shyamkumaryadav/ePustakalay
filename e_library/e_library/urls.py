@@ -8,11 +8,11 @@ from django.views.generic.base import TemplateView
 
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name="management/index.html")),
-    path('api/', include('rest_framework.urls', namespace='rest_framework')),
-    path('system/', include('system.urls')),
-    path('management/', include('management.urls')),
+    path('', TemplateView.as_view(template_name="index.html")),
     path('admin/', admin.site.urls),
+    path('api/', include('rest_framework.urls', namespace='rest_framework')),
+    path('management/', include('management.urls')),
+    path('system/', include('system.urls')),
 ]
 
 if settings.DEBUG:
