@@ -1,10 +1,8 @@
-from django.shortcuts import render
 from rest_framework import viewsets
 
 
 # System Config
 from system import serializers, models, permissions
-
 
 
 class BookViewSet(viewsets.ModelViewSet):

@@ -1,8 +1,8 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-<head>
-	<!-- 
+	<head>
+		<!--
 		Google Font Roboto (min)
 		Material Icon
 		vuetify.css (min)
@@ -10,92 +10,149 @@
 		vuetify.js (min)
 	-->
 
-	<!-- Google Font Roboto -->
-	<!-- CDN For Google Font Roboto -->
-  <!-- <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet"> -->
-  <!-- Self hosting For Google Font Roboto -->
-  <link rel="stylesheet" type="text/css" href="{% static 'roboto.min.css' %}">
-  <!-- <link rel="stylesheet" type="text/css" href="{% static 'roboto.css' %}"> -->
-  <!-- Google Font Roboto -->
+		<!-- Google Font Roboto -->
+		<!-- CDN For Google Font Roboto -->
+		<!-- <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet"> -->
+		<!-- Self hosting For Google Font Roboto -->
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="{% static 'roboto.min.css' %}"
+		/>
+		<!-- <link rel="stylesheet" type="text/css" href="{% static 'roboto.css' %}"> -->
+		<!-- Google Font Roboto -->
 
-   <!-- Material Icon -->
-   <!-- Google Web Fonts CDN For Material Icon -->
-  <!-- <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet"> -->
-  <!-- Self hosting For Material Icon -->
-  <link rel="stylesheet" type="text/css" href="{% static 'Material-Icons.css' %}">
-  <!-- Material Icon -->
+		<!-- Material Icon -->
+		<!-- Google Web Fonts CDN For Material Icon -->
+		<!-- <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet"> -->
+		<!-- Self hosting For Material Icon -->
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="{% static 'Material-Icons.css' %}"
+		/>
+		<!-- Material Icon -->
 
-  <!-- vuetify min css -->
-  <!-- CDN vuetify.min.css v2.x for Development -->
-  <!-- <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet"> -->
-  <!-- Self hosting vuetify.min.css v2.x for Development -->
-  <!-- <link rel="stylesheet" type="text/css" href="{% static 'vuetify.min.css' %}"> -->
-  <!-- vuetify min css -->
+		<!-- vuetify min css -->
+		<!-- CDN vuetify.min.css v2.x for Development -->
+		<!-- <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet"> -->
+		<!-- Self hosting vuetify.min.css v2.x for Development -->
+		<!-- <link rel="stylesheet" type="text/css" href="{% static 'vuetify.min.css' %}"> -->
+		<!-- vuetify min css -->
 
-  <!-- vuetify css -->
-  <!-- CDN vuetify.css v2.x for Development -->
-  <!-- <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.css" rel="stylesheet"> -->
-  <!-- Self hosting vuetify.min.css v2.x for Development -->
-  <link rel="stylesheet" type="text/css" href="{% static 'vuetify.css' %}">
-  <!-- vuetify css -->
+		<!-- vuetify css -->
+		<!-- CDN vuetify.css v2.x for Development -->
+		<!-- <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.css" rel="stylesheet"> -->
+		<!-- Self hosting vuetify.min.css v2.x for Development -->
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="{% static 'vuetify.css' %}"
+		/>
+		<!-- vuetify css -->
 
-  <!-- vue js -->
-  <!-- CDN vue.min.js v2.x for Development -->
-  <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script> -->
-  <!-- Self hosting vue.min.js v2.x for Production -->
-  <script src="{% static 'vue.js' %}"></script>
-  <!-- vue js -->
+		<!-- vue js -->
+		<!-- CDN vue.min.js v2.x for Development -->
+		<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script> -->
+		<!-- Self hosting vue.min.js v2.x for Production -->
+		<script src="{% static 'vue.js' %}"></script>
+		<!-- vue js -->
 
- <!-- vue min js -->
-  <!-- CDN vue.js v2.x for Development -->
-  <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.min.js"></script> -->
-  <!-- Self hosting vue.js v2.x for Production -->
-  <!-- <script src="{% static 'vue.min.js' %}"></script> -->
-  <!-- vue min js -->
+		<!-- vue min js -->
+		<!-- CDN vue.js v2.x for Development -->
+		<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.min.js"></script> -->
+		<!-- Self hosting vue.js v2.x for Production -->
+		<!-- <script src="{% static 'vue.min.js' %}"></script> -->
+		<!-- vue min js -->
 
-  <!-- vuetify min js -->
-  <!-- CDN vuetify.min.js v2.x for Development -->
-  <!-- <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.js"></script> -->
-  <!-- Self hosting vuetify.min.js v2.x for Production -->
-  <!-- <script src="{% static 'vuetify.min.js' %}"></script> -->
-  <!-- vuetify min js -->
+		<!-- vuex min js -->
+		<!-- CDN vuex.min.js v3.x for Development -->
+		<!-- <script src="https://cdn.jsdelivr.net/npm/vuex@3.x/dist/vuex.min.js"></script> -->
+		<!-- Self hosting vuex.min.js v3.x for Production -->
+		<!-- <script src="{% static 'vuex.min.js' %}"></script> -->
+		<!-- vuex min js -->
 
-	<!-- vuetify js -->
-  <!-- CDN vuetify.js v2.x for Development -->
-  <!-- <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script> -->
-  <!-- Self hosting vuetify.js v2.x for Production -->
-  <script src="{% static 'vuetify.js' %}"></script>
-  <!-- vuetify js -->
+		<!-- vuex js -->
+		<!-- CDN vuex.js v3.x for Development -->
+		<!-- <script src="https://cdn.jsdelivr.net/npm/vuex@3.x/dist/vuex.js"></script> -->
+		<!-- Self hosting vuex.js v3.x for Production -->
+		<script src="{% static 'vuex.js' %}"></script>
+		<!-- vuex js -->
 
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
-</head>
-<body>
-	{% verbatim %}
-	<script type="text/x-template" id="app-template">
-	  <v-app>
-	    <v-container>
-	      <h1>This is hello {{mess}} <i class="material-icons">face</i> </h1>
-	       <v-switch v-model="$vuetify.theme.dark"></v-switch>
-	    </v-container>
-	  </v-app>
-	</script>
-  <div id="app"></div>
-  
-  <script>
-    const App = {
-	  template: '#app-template',
-	  data: () => ({
-	    mess: "This is Vueasas"
-	  })
-	}
+		<!-- vuetify min js -->
+		<!-- CDN vuetify.min.js v2.x for Development -->
+		<!-- <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.js"></script> -->
+		<!-- Self hosting vuetify.min.js v2.x for Production -->
+		<!-- <script src="{% static 'vuetify.min.js' %}"></script> -->
+		<!-- vuetify min js -->
 
+		<!-- vuetify js -->
+		<!-- CDN vuetify.js v2.x for Development -->
+		<!-- <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script> -->
+		<!-- Self hosting vuetify.js v2.x for Production -->
+		<script src="{% static 'vuetify.js' %}"></script>
+		<!-- vuetify js -->
 
-	new Vue({
-	  vuetify: new Vuetify(),
-	  render: h => h(App)
-	}).$mount('#app')
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui"
+		/>
 
-  </script>
-  {% endverbatim %}
-</body>
+		<title>E-library management system</title>
+	</head>
+	<body>
+		<noscript>
+			<h1>Sorry we required Javascrip for Runing This Page</h1></noscript
+		>
+		{% verbatim %}
+		<script type="text/x-template" id="app-template">
+			<v-app>
+			  <v-container>
+			    <h1>{{ name }} <i class="material-icons">face</i> </h1>
+			       <v-switch label="Dark Theme" :hide-details="true" :dense="true" v-model="$store.state.dark"></v-switch>
+			  </v-container>
+			</v-app>
+		</script>
+		<div id="app">
+			<hello></hello>
+		</div>
+
+		<script>
+			const store = new Vuex.Store({
+				state: {
+					dark: true,
+				},
+				mutations: {
+					darktheme(state) {
+						state.dark = !state.dark;
+					},
+				},
+				methods: {
+					updatedarktheme(e) {
+						this.commit("darktheme");
+					},
+				},
+			});
+
+			Vue.component("hello", {
+				template: "#app-template",
+				store,
+				data: () => ({
+					name: "shyamkumar yadav",
+				}),
+				methods: {},
+			});
+
+			new Vue({
+				vuetify: new Vuetify({
+					theme: {
+						dark: true,
+					},
+				}),
+				store,
+				// render: (h) => h(App),
+			}).$mount("#app");
+		</script>
+		{% endverbatim %}
+	</body>
 </html>

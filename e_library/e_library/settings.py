@@ -1,4 +1,8 @@
+"""
+SETTINGS for e_library project.
+"""
 from pathlib import Path
+import re
 
 # e-library-management-system/e_library.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,7 +33,7 @@ INSTALLED_APPS = [
     'rest_framework',
 
     # app for User Model
-    # 'management', 
+    # 'management',
     # app for All E-library Funcation
     'system',
     'management',
@@ -45,15 +49,23 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # Simplified static file serving on heroku.
-    'whitenoise.middleware.WhiteNoiseMiddleware', # whitenoise for serve static file on producation
+    # whitenoise for serve static file on producation
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'e_library.urls'
 
+IGNORABLE_404_URLS = [
+    re.compile(r'^/favicon.ico$'),
+    re.compile(r'^/robots.txt$'),
+    re.compile(r'^/phpmyadmin/'),
+    re.compile(r'\.(cgi|php|pl)$'),
+]
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates',],
+        'DIRS': [BASE_DIR / 'templates', ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -112,6 +124,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+Error404 = [
+    'favicon.ico',
+]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
