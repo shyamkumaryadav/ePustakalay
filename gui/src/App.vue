@@ -16,15 +16,24 @@
     </v-app-bar> -->
     <v-app id="inspire">
     <!-- <v-system-bar app>
-      
+      <v-spacer></v-spacer>
+      <v-icon>mdi-wifi-strength-4</v-icon>
+      <v-icon>mdi-signal-cellular-outline</v-icon>
+      <v-icon>mdi-battery</v-icon>
+      <span>12:30</span>
     </v-system-bar> -->
 
     <v-app-bar app hide-on-scroll>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-toolbar-title>E library</v-toolbar-title>
+      <v-toolbar-title >E library</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-responsive max-width="156" class="hide-md">
+
+      <v-btn icon @click="$vuetify.theme.dark = !$vuetify.theme.dark">
+        <v-icon>mdi-theme-light-dark</v-icon>
+      </v-btn>
+
+      <!-- <v-responsive max-width="156" class="hide-md">
         <v-text-field
           dense
           flat
@@ -32,13 +41,8 @@
           rounded
           solo-inverted
         ></v-text-field>
-      </v-responsive>
-
-      <v-btn icon :to="{path: '/asasasa'}">
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
-
-      <v-btn icon :to="{path: '/'}">
+      </v-responsive> -->
+      <v-btn icon>
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
 
@@ -82,13 +86,13 @@
 
           <v-list-item-content>
             <v-list-item-title>Anonymous User</v-list-item-title>
-            <!-- <v-list-item-subtitle>Login</v-list-item-subtitle> -->
+            <v-list-item-subtitle>{{ $store.state.isDark }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
       </template>
       <v-divider></v-divider>
       <v-list
-        
+        nav
         dense
       >
         <v-list-item-group>
