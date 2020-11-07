@@ -11,6 +11,7 @@ django = "*"
 whitenoise = "*"
 djangorestframework = "*"
 faker = "*"
+djangorestframework-jwt = "*"
 
 [requires]
 python_version = "3.8"
