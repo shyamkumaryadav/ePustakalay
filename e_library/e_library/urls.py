@@ -9,7 +9,7 @@ from django.conf import settings
 from django.views.generic.base import TemplateView
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.views.generic.base import RedirectView
-from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
 
 urlpatterns = [
@@ -18,8 +18,9 @@ urlpatterns = [
     # path('api/', include('rest_framework.urls', namespace='rest_framework')),
     path('management/', include('management.urls')),
     path('system/', include('system.urls')),
-    path('api/auth/ojwt', obtain_jwt_token),
-    path('api/auth/rjwt', refresh_jwt_token),
+    path('api/auth/token/', TokenObtainPairView.as_view()),
+    path('api/auth/token/refresh/', TokenRefreshView.as_view()),
+    path('api/auth/token/verify/', TokenVerifyView.as_view()),
     path('favicon.ico', RedirectView.as_view(
         url=staticfiles_storage.url('favicon.ico')))
 

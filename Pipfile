@@ -12,6 +12,7 @@ whitenoise = "*"
 djangorestframework = "*"
 faker = "*"
 djangorestframework-jwt = "*"
+djangorestframework-simplejwt = "*"
 
 [requires]
 python_version = "3.8"

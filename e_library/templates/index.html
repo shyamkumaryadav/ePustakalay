@@ -109,7 +109,7 @@
 			<v-app>
 			  <v-container>
 			    <h1>{{ name }} <i class="material-icons">face</i> </h1>
-			       <v-switch label="Dark Theme" :hide-details="true" :dense="true" v-model="$store.state.dark"></v-switch>
+			       <v-switch label="Dark Theme" :hide-details="true" :dense="true" v-model="$store.state.count" @click="increment"></v-switch>
 			  </v-container>
 			</v-app>
 		</script>
@@ -120,37 +120,37 @@
 		<script>
 			const store = new Vuex.Store({
 				state: {
-					dark: true,
+					count: true,
 				},
 				mutations: {
-					darktheme(state) {
-						state.dark = !state.dark;
-					},
-				},
-				methods: {
-					updatedarktheme(e) {
-						this.commit("darktheme");
+					increment(state) {
+						state.count = !state.count;
 					},
 				},
 			});
 
-			Vue.component("hello", {
+			const VC = Vue.component("hello", {
 				template: "#app-template",
-				store,
 				data: () => ({
 					name: "shyamkumar yadav",
 				}),
-				methods: {},
+				methods: {
+					increment() {
+						store.commit("increment");
+						console.log(store.state.count);
+					},
+				},
+			});
+
+			const vuetify = new Vuetify({
+				theme: {
+					dark: true,
+				},
 			});
 
 			new Vue({
-				vuetify: new Vuetify({
-					theme: {
-						dark: true,
-					},
-				}),
+				vuetify,
 				store,
-				// render: (h) => h(App),
 			}).$mount("#app");
 		</script>
 		{% endverbatim %}
