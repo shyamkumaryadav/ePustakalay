@@ -29,7 +29,7 @@
       <v-toolbar-title >E library</v-toolbar-title>
       <v-spacer></v-spacer>
 
-      <v-btn icon @click="$vuetify.theme.dark = !$vuetify.theme.dark">
+      <v-btn icon @click="localTheme">
         <v-icon>mdi-theme-light-dark</v-icon>
       </v-btn>
 
@@ -66,7 +66,7 @@
             :key="n"
             @click="() => {}"
           >
-            <v-list-item-title>Option {{ n }}</v-list-item-title>
+            <v-list-item-title>status {{ n }}</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
@@ -130,8 +130,20 @@
 </template>
 
 <script>
+import store from '@/store/index.js'
 export default {
+  store,
+  name: 'App',
   data: () => ({ drawer: null }),
+  computed: {
+    // pass
+  },
+  methods:{
+    localTheme(){
+      this.$store.commit('chanegTheme')
+      // console.log(this);
+    }
+  }
 }
 </script>
 

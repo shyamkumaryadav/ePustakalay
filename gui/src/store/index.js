@@ -8,6 +8,9 @@ export default new Vuex.Store({
     isDark: false,
   },
   mutations: {
+    chanegTheme(state){
+      state.isDark = !state.isDark
+    }
   },
   actions: {
   },
