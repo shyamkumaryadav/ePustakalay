@@ -13,6 +13,14 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    themeChange({commit}){
+      commit('changeTheme')
+    }
+  },
+  getters:{
+    theme(state){
+      return state.isdark
+    }
   },
   modules: {
   }

@@ -29,7 +29,7 @@
       <v-toolbar-title >E library</v-toolbar-title>
       <v-spacer></v-spacer>
 
-      <v-btn icon @click="localTheme">
+      <v-btn icon @click="chanegTheme">
         <v-icon>mdi-theme-light-dark</v-icon>
       </v-btn>
 
@@ -86,7 +86,7 @@
 
           <v-list-item-content>
             <v-list-item-title>Anonymous User</v-list-item-title>
-            <v-list-item-subtitle>{{ $store.state.isDark }}</v-list-item-subtitle>
+            <v-list-item-subtitle>{{ isDark }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
       </template>
@@ -130,17 +130,18 @@
 </template>
 
 <script>
-import store from '@/store/index.js'
+
+import {mapState, mapMutations} from 'vuex'
 export default {
-  store,
   name: 'App',
   data: () => ({ drawer: null }),
   computed: {
-    // pass
+   ...mapState(['isDark'])
   },
   methods:{
+    ...mapMutations(['chanegTheme']),
     localTheme(){
-      this.$store.commit('chanegTheme')
+      this.$store.state.commit('changeTheme') // store Dark mode
       // console.log(this);
     }
   }
