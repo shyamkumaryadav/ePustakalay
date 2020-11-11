@@ -4,7 +4,7 @@
 	<head>
 		<!--
 		Google Font Roboto (min)
-		Material Icon
+		Material DESIGN Icon
 		vuetify.css (min)
 		vue (min)
 		vuetify.js (min)
@@ -24,12 +24,12 @@
 
 		<!-- Material Icon -->
 		<!-- Google Web Fonts CDN For Material Icon -->
-		<!-- <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet"> -->
+		<!-- <link href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css" rel="stylesheet"> -->
 		<!-- Self hosting For Material Icon -->
 		<link
 			rel="stylesheet"
 			type="text/css"
-			href="{% static 'Material-Icons.css' %}"
+			href="{% static 'materialdesignicons.min.css' %}"
 		/>
 		<!-- Material Icon -->
 
@@ -44,18 +44,18 @@
 		<!-- CDN vuetify.css v2.x for Development -->
 		<!-- <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.css" rel="stylesheet"> -->
 		<!-- Self hosting vuetify.min.css v2.x for Development -->
-		<link
+		<!-- <link
 			rel="stylesheet"
 			type="text/css"
 			href="{% static 'vuetify.css' %}"
-		/>
+		/> -->
 		<!-- vuetify css -->
 
 		<!-- vue js -->
 		<!-- CDN vue.min.js v2.x for Development -->
 		<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script> -->
 		<!-- Self hosting vue.min.js v2.x for Production -->
-		<script src="{% static 'vue.js' %}"></script>
+		<!-- <script src="{% static 'vue.js' %}"></script> -->
 		<!-- vue js -->
 
 		<!-- vue min js -->
@@ -76,7 +76,7 @@
 		<!-- CDN vuex.js v3.x for Development -->
 		<!-- <script src="https://cdn.jsdelivr.net/npm/vuex@3.x/dist/vuex.js"></script> -->
 		<!-- Self hosting vuex.js v3.x for Production -->
-		<script src="{% static 'vuex.js' %}"></script>
+		<!-- <script src="{% static 'vuex.js' %}"></script> -->
 		<!-- vuex js -->
 
 		<!-- vuetify min js -->
@@ -90,7 +90,7 @@
 		<!-- CDN vuetify.js v2.x for Development -->
 		<!-- <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script> -->
 		<!-- Self hosting vuetify.js v2.x for Production -->
-		<script src="{% static 'vuetify.js' %}"></script>
+		<!-- <script src="{% static 'vuetify.js' %}"></script> -->
 		<!-- vuetify js -->
 
 		<meta
@@ -99,25 +99,44 @@
 		/>
 
 		<title>E-library management system</title>
+
+		<!-- from vue build -->
+		<link href="{% static 'js/about.js' %}" rel="prefetch" />
+		<link
+			href="{% static 'css/chunk-vendors.css' %}"
+			rel="preload"
+			as="style"
+		/>
+		<link href="{% static 'js/app.js' %}" rel="preload" as="script" />
+		<link
+			href="{% static 'js/chunk-vendors.js' %}"
+			rel="preload"
+			as="script"
+		/>
+		<link href="{% static 'css/chunk-vendors.css' %}" rel="stylesheet" />
 	</head>
 	<body>
 		<noscript>
-			<h1>Sorry we required Javascrip for Runing This Page</h1></noscript
+			<strong>
+				We're sorry but gui doesn't work properly without JavaScript
+				enabled. Please enable it to continue.
+			</strong></noscript
 		>
-		{{ user.username }} {% verbatim %}
-		<script type="text/x-template" id="app-template">
-			<v-app>
-			  <v-container>
-			    <h1>{{ name }} <i class="material-icons">face</i> </h1>
-			       <v-switch label="Dark Theme" :hide-details="true" :dense="true" v-model="$store.state.count" @click="increment"></v-switch>
-			  </v-container>
-			</v-app>
-		</script>
-		<div id="app">
-			<hello></hello>
-		</div>
-
-		<script>
+		{% verbatim %}
+		<!-- <script type="text/x-template" id="app-template">
+				<v-app>
+					<v-container>
+						<h1>{{ name }} <i class="material-icons">face</i> </h1>
+						<v-switch label="Dark Theme" :hide-details="true" :dense="true" v-model="$store.state.count" @click="increment"></v-switch>
+					</v-container>
+				</v-app>
+			</script> -->
+		<div id="app"></div>
+		{% endverbatim %}
+		<!-- from vue build -->
+		<script src="{% static 'js/chunk-vendors.js' %}"></script>
+		<script src="{% static 'js/app.js' %}"></script>
+		<!-- <script>
 			const store = new Vuex.Store({
 				state: {
 					count: true,
@@ -152,7 +171,6 @@
 				vuetify,
 				store,
 			}).$mount("#app");
-		</script>
-		{% endverbatim %}
+		</script> -->
 	</body>
 </html>

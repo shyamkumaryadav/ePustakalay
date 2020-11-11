@@ -29,7 +29,7 @@
       <v-toolbar-title >E library</v-toolbar-title>
       <v-spacer></v-spacer>
 
-      <v-btn icon @click="chanegTheme">
+      <v-btn icon @click="$vuetify.theme.dark = !$vuetify.theme.dark">
         <v-icon>mdi-theme-light-dark</v-icon>
       </v-btn>
 

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1 style="color:red">Http404 Path: {{ $route.path }} Not Valid</h1>
+        <h1 style="color:red">Http404 Path: {{ $route.path }} Not Valid update</h1>
     </div>
 </template>
 
