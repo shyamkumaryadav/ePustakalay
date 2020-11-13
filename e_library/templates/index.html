@@ -3,12 +3,12 @@
 <html>
 	<head>
 		<!--
-		Google Font Roboto (min)
-		Material DESIGN Icon
-		vuetify.css (min)
-		vue (min)
-		vuetify.js (min)
-	-->
+        Google Font Roboto (min)
+        Material DESIGN Icon
+        vuetify.css (min)
+        vue (min)
+        vuetify.js (min)
+    -->
 
 		<!-- Google Font Roboto -->
 		<!-- CDN For Google Font Roboto -->
@@ -24,7 +24,7 @@
 
 		<!-- Material Icon -->
 		<!-- Google Web Fonts CDN For Material Icon -->
-		<!-- <link href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialicons.min.css" rel="stylesheet"> -->
+		<!-- <link href="https://cdn.jsdelivr.net/npm/@md/font@latest/css/materialicons.min.css" rel="stylesheet"> -->
 		<!-- Self hosting For Material Icon -->
 		<link
 			rel="stylesheet"
@@ -102,18 +102,18 @@
 
 		<!-- from vue build -->
 		<!-- <link href="{% static 'js/about.js' %}" rel="prefetch" />
-		<link
-			href="{% static 'css/chunk-vendors.css' %}"
-			rel="preload"
-			as="style"
-		/>
-		<link href="{% static 'js/app.js' %}" rel="preload" as="script" />
-		<link
-			href="{% static 'js/chunk-vendors.js' %}"
-			rel="preload"
-			as="script"
-		/>
-		<link href="{% static 'css/chunk-vendors.css' %}" rel="stylesheet" /> -->
+        <link
+            href="{% static 'css/chunk-vendors.css' %}"
+            rel="preload"
+            as="style"
+        />
+        <link href="{% static 'js/app.js' %}" rel="preload" as="script" />
+        <link
+            href="{% static 'js/chunk-vendors.js' %}"
+            rel="preload"
+            as="script"
+        />
+        <link href="{% static 'css/chunk-vendors.css' %}" rel="stylesheet" /> -->
 	</head>
 	<body>
 		<noscript>
@@ -123,47 +123,106 @@
 			</strong></noscript
 		>
 		<div id="app">
-			<!-- <hello></hello> -->
-		</div>
-		{% verbatim %}
-		<script type="text/x-template" id="app-template">
-			<v-app>
-				<v-container>
-					<h1>{{ name }} <i class="material-icons">account_circle</i></h1>
-					<v-switch label="Dark Theme" :hide-details="true" :dense="true" v-model="$vuetify.theme.dark" @click="themeSave"></v-switch>
-				</v-container>
+			<v-app id="inspire">
+				<!-- <v-system-bar app>
+			        <v-spacer></v-spacer>
+			        <v-icon>wifi-strength-4</v-icon>
+			        <v-icon>signal-cellular-outline</v-icon>
+			        <v-icon>battery</v-icon>
+			        <span>12:30</span>
+			      </v-system-bar> -->
+
+				<v-app-bar app hide-on-scroll>
+					<v-app-bar-nav-icon
+						@click="drawer = !drawer"
+					></v-app-bar-nav-icon>
+
+					<v-toolbar-title>E library</v-toolbar-title>
+					<v-spacer></v-spacer>
+
+					<v-btn
+						icon
+						@click="$vuetify.theme.dark = !$vuetify.theme.dark"
+					>
+						<v-icon>settings_brightness</v-icon>
+					</v-btn>
+					<v-btn icon>
+						<v-icon>search</v-icon>
+					</v-btn>
+
+					<v-menu left bottom>
+						<template v-slot:activator="{ on, attrs }">
+							<v-btn icon v-bind="attrs" v-on="on">
+								<v-icon>more_vert</v-icon>
+							</v-btn>
+						</template>
+
+						<v-list>
+							<v-list-item
+								v-for="n in 5"
+								:key="n"
+								@click="() => {}"
+							>
+								<v-list-item-title
+									>status ${ n }</v-list-item-title
+								>
+							</v-list-item>
+						</v-list>
+					</v-menu>
+				</v-app-bar>
+
+				<v-navigation-drawer v-model="drawer" fixed app temporary>
+					<template v-slot:prepend>
+						<v-list-item two-line>
+							<v-list-item-avatar>
+								<img
+									src="https://randomuser.me/api/portraits/men/81.jpg"
+								/>
+							</v-list-item-avatar>
+
+							<v-list-item-content>
+								<v-list-item-title
+									>{{ user }}</v-list-item-title
+								>
+								<v-list-item-subtitle
+									>${ isDark }</v-list-item-subtitle
+								>
+							</v-list-item-content>
+						</v-list-item>
+					</template>
+					<v-divider></v-divider>
+					<v-list nav dense>
+						<v-list-item-group>
+							<v-list-item to="/">
+								<v-list-item-icon>
+									<v-icon>home</v-icon>
+								</v-list-item-icon>
+								<v-list-item-title>Home</v-list-item-title>
+							</v-list-item>
+
+							<v-list-item :to="{path: '/about'}">
+								<v-list-item-icon>
+									<v-icon>settings_brightness</v-icon>
+								</v-list-item-icon>
+								<v-list-item-title>Account</v-list-item-title>
+							</v-list-item>
+						</v-list-item-group>
+					</v-list>
+
+					<template v-slot:append>
+						<div class="pa-2">
+							<v-btn block> Logout </v-btn>
+						</div>
+					</template>
+				</v-navigation-drawer>
+
+				<v-main>
+					<v-container>
+						{% block main %} {% endblock main %}
+					</v-container>
+				</v-main>
 			</v-app>
-		</script>
-		<!-- from vue build -->
-		<!-- <script src="{% static 'js/chunk-vendors.js' %}"></script>
-			<script src="{% static 'js/app.js' %}"></script> -->
-		<script>
-			const VC = Vue.component("App", {
-				template: "#app-template",
-				data: () => ({
-					name: "shyamkumar yadav",
-				}),
-				methods: {
-					themeSave() {
-						localStorage.setItem(
-							"Dark",
-							!localStorage.getItem("Dark") && false
-						);
-					},
-				},
-			});
-
-			const vuetify = new Vuetify({
-				theme: {
-					dark: localStorage.getItem("Dark") && false,
-				},
-			});
-
-			new Vue({
-				vuetify,
-				render: (h) => h("App"),
-			}).$mount("#app");
-		</script>
-		{% endverbatim %}
+		</div>
+		<script src="{% static 'index.js' %}"></script>
 	</body>
 </html>
