@@ -24,12 +24,12 @@
 
 		<!-- Material Icon -->
 		<!-- Google Web Fonts CDN For Material Icon -->
-		<!-- <link href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css" rel="stylesheet"> -->
+		<!-- <link href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialicons.min.css" rel="stylesheet"> -->
 		<!-- Self hosting For Material Icon -->
 		<link
 			rel="stylesheet"
 			type="text/css"
-			href="{% static 'materialdesignicons.min.css' %}"
+			href="{% static 'Material-Icons.css' %}"
 		/>
 		<!-- Material Icon -->
 
@@ -44,18 +44,18 @@
 		<!-- CDN vuetify.css v2.x for Development -->
 		<!-- <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.css" rel="stylesheet"> -->
 		<!-- Self hosting vuetify.min.css v2.x for Development -->
-		<!-- <link
+		<link
 			rel="stylesheet"
 			type="text/css"
 			href="{% static 'vuetify.css' %}"
-		/> -->
+		/>
 		<!-- vuetify css -->
 
 		<!-- vue js -->
 		<!-- CDN vue.min.js v2.x for Development -->
 		<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script> -->
 		<!-- Self hosting vue.min.js v2.x for Production -->
-		<!-- <script src="{% static 'vue.js' %}"></script> -->
+		<script src="{% static 'vue.js' %}"></script>
 		<!-- vue js -->
 
 		<!-- vue min js -->
@@ -76,7 +76,7 @@
 		<!-- CDN vuex.js v3.x for Development -->
 		<!-- <script src="https://cdn.jsdelivr.net/npm/vuex@3.x/dist/vuex.js"></script> -->
 		<!-- Self hosting vuex.js v3.x for Production -->
-		<!-- <script src="{% static 'vuex.js' %}"></script> -->
+		<script src="{% static 'vuex.js' %}"></script>
 		<!-- vuex js -->
 
 		<!-- vuetify min js -->
@@ -90,7 +90,7 @@
 		<!-- CDN vuetify.js v2.x for Development -->
 		<!-- <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script> -->
 		<!-- Self hosting vuetify.js v2.x for Production -->
-		<!-- <script src="{% static 'vuetify.js' %}"></script> -->
+		<script src="{% static 'vuetify.js' %}"></script>
 		<!-- vuetify js -->
 
 		<meta
@@ -101,7 +101,7 @@
 		<title>E-library management system</title>
 
 		<!-- from vue build -->
-		<link href="{% static 'js/about.js' %}" rel="prefetch" />
+		<!-- <link href="{% static 'js/about.js' %}" rel="prefetch" />
 		<link
 			href="{% static 'css/chunk-vendors.css' %}"
 			rel="preload"
@@ -113,7 +113,7 @@
 			rel="preload"
 			as="script"
 		/>
-		<link href="{% static 'css/chunk-vendors.css' %}" rel="stylesheet" />
+		<link href="{% static 'css/chunk-vendors.css' %}" rel="stylesheet" /> -->
 	</head>
 	<body>
 		<noscript>
@@ -122,55 +122,48 @@
 				enabled. Please enable it to continue.
 			</strong></noscript
 		>
+		<div id="app">
+			<!-- <hello></hello> -->
+		</div>
 		{% verbatim %}
-		<!-- <script type="text/x-template" id="app-template">
-				<v-app>
-					<v-container>
-						<h1>{{ name }} <i class="material-icons">face</i> </h1>
-						<v-switch label="Dark Theme" :hide-details="true" :dense="true" v-model="$store.state.count" @click="increment"></v-switch>
-					</v-container>
-				</v-app>
-			</script> -->
-		<div id="app"></div>
-		{% endverbatim %}
+		<script type="text/x-template" id="app-template">
+			<v-app>
+				<v-container>
+					<h1>{{ name }} <i class="material-icons">account_circle</i></h1>
+					<v-switch label="Dark Theme" :hide-details="true" :dense="true" v-model="$vuetify.theme.dark" @click="themeSave"></v-switch>
+				</v-container>
+			</v-app>
+		</script>
 		<!-- from vue build -->
-		<script src="{% static 'js/chunk-vendors.js' %}"></script>
-		<script src="{% static 'js/app.js' %}"></script>
-		<!-- <script>
-			const store = new Vuex.Store({
-				state: {
-					count: true,
-				},
-				mutations: {
-					increment(state) {
-						state.count = !state.count;
-					},
-				},
-			});
-
-			const VC = Vue.component("hello", {
+		<!-- <script src="{% static 'js/chunk-vendors.js' %}"></script>
+			<script src="{% static 'js/app.js' %}"></script> -->
+		<script>
+			const VC = Vue.component("App", {
 				template: "#app-template",
 				data: () => ({
 					name: "shyamkumar yadav",
 				}),
 				methods: {
-					increment() {
-						store.commit("increment");
-						console.log(store.state.count);
+					themeSave() {
+						localStorage.setItem(
+							"Dark",
+							!localStorage.getItem("Dark") && false
+						);
 					},
 				},
 			});
 
 			const vuetify = new Vuetify({
 				theme: {
-					dark: true,
+					dark: localStorage.getItem("Dark") && false,
 				},
 			});
 
 			new Vue({
 				vuetify,
-				store,
+				render: (h) => h("App"),
 			}).$mount("#app");
-		</script> -->
+		</script>
+		{% endverbatim %}
 	</body>
 </html>

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "vue-cli-service serve",
-    "build": "vue-cli-service build --no-clean",
+    "build": "vue-cli-service build npx create-nuxt-app--no-clean",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
