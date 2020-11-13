@@ -1,14 +1,10 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Management</title>
-	</head>
-	<body>
-		<noscript>This Site required javascript!!!!</noscript>
-		<div id="app"></div>
-		<script src="{% static 'management/script.js' %}"></script>
-	</body>
-</html>
+{% load static %} {% include 'index.html' %} {% block main %}
+<management></management>
+
+{% endblock main %} {% block javascript %}
+<script>
+	Vue.component("management", {
+		template: `This is working`,
+	});
+</script>
+{% endblock javascript %}
