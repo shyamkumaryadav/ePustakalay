@@ -35,8 +35,9 @@ INSTALLED_APPS = [
     # app for User Model
     # 'management',
     # app for All E-library Funcation
-    'system',
-    'management',
+    'system', # System models and urls
+    'management', # User Management models and urls
+    'gui', # For GUI
 
 ]
 

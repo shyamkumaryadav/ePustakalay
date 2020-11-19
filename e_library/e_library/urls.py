@@ -13,7 +13,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name="index.html")),
+    path('', include('gui.urls')),
     path('admin/', admin.site.urls),
     # path('api/', include('rest_framework.urls', namespace='rest_framework')),
     path('management/', include('management.urls')),
