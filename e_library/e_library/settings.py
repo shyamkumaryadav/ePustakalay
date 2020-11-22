@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     # app for All E-library Funcation
     'system', # System models and urls
     'management', # User Management models and urls
-    'gui', # For GUI
+    'djvue', # For GUI
 
 ]
 
@@ -117,7 +117,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
