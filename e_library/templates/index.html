@@ -64,7 +64,7 @@
 		<!-- Self hosting vue.js v2.x for Production -->
 		<!-- <script src="{% static 'vue.min.js' %}"></script> -->
 		<!-- vue min js -->
-
+		
 		<!-- vuex min js -->
 		<!-- CDN vuex.min.js v3.x for Development -->
 		<!-- <script src="https://cdn.jsdelivr.net/npm/vuex@3.x/dist/vuex.min.js"></script> -->
@@ -142,7 +142,7 @@
 
 					<v-btn
 						icon
-						@click="$vuetify.theme.dark = !$vuetify.theme.dark"
+						@click="is_dark"
 					>
 						<v-icon>settings_brightness</v-icon>
 					</v-btn>
@@ -200,7 +200,7 @@
 								<v-list-item-title>Home</v-list-item-title>
 							</v-list-item>
 
-							<v-list-item>
+							<v-list-item to="/account">
 								<v-list-item-icon>
 									<v-icon>settings_brightness</v-icon>
 								</v-list-item-icon>
@@ -208,22 +208,72 @@
 							</v-list-item>
 						</v-list-item-group>
 					</v-list>
-
+					{% if user.is_authenticated%}
 					<template v-slot:append>
 						<div class="pa-2">
 							<v-btn block> Logout </v-btn>
 						</div>
 					</template>
+					{%endif %}
 				</v-navigation-drawer>
 
 				<v-main>
 					<v-container>
-						{% block main %} {% endblock main %}
+						<span>Hello ji {{ request.path }}</span><br>
+						<app-render>
 					</v-container>
 				</v-main>
 			</v-app>
 		</div>
-		{% block javascript %}{% endblock javascript %}
+		{% if request.path == '/' %}
 		<script src="{% static 'index.js' %}"></script>
+		{% elif request.path == '/account/' %}
+		<script src="{% static 'componet/account.js' %}"></script>
+		{% else %}
+		<script src="{% static 'componet/404.js' %}"></script>
+		{% endif %}
+
+		<script>
+			const vuetify = new Vuetify({
+				theme: {
+					options: {
+						themeCache: {
+							get: key => localStorage.getItem(key),
+							set: (key, value) => localStorage.setItem(key, value),
+						},
+					},
+				},
+				icons: {
+					iconfont: "md",
+				},
+			});
+
+			new Vue({
+				el: "#app",
+				delimiters: ["${", "}"],
+				data: () => ({
+					drawer: false,
+					name: "Test Name Vue",
+				}),
+				mounted(){
+					const theme = localStorage.getItem("elibrary_dark");
+					if (theme) {
+						if (theme == "true") {
+							this.$vuetify.theme.dark = true;
+						} else {
+							this.$vuetify.theme.dark = false;
+						}
+					}
+				},
+				methods:{
+					is_dark: function(){
+						this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+						localStorage.setItem("elibrary_dark", this.$vuetify.theme.dark.toString());
+					}
+				},
+				vuetify,
+			});
+		</script>
+
 	</body>
 </html>

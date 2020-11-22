@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     # app for All E-library Funcation
     'system', # System models and urls
     'management', # User Management models and urls
-    'djvue', # For GUI
+    # 'djvue', # For GUI
 
 ]
 

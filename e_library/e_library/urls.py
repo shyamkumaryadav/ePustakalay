@@ -9,11 +9,13 @@ from django.conf import settings
 from django.views.generic.base import TemplateView
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.views.generic.base import RedirectView
+from django.views.generic import TemplateView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
 
 urlpatterns = [
-    path('', include('djvue.urls')),
+    path('', TemplateView.as_view(template_name="index.html")),
+    path('account/', TemplateView.as_view(template_name="index.html")),
     path('admin/', admin.site.urls),
     # path('api/', include('rest_framework.urls', namespace='rest_framework')),
     path('management/', include('management.urls')),
@@ -29,3 +31,4 @@ urlpatterns = [
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL,
                           document_root=settings.STATIC_ROOT)
+
