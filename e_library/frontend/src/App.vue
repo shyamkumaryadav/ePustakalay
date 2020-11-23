@@ -77,10 +77,18 @@
 
           <v-list-item :to="{path: '/about'}">
             <v-list-item-icon>
-              <v-icon>mdi-account</v-icon>
+              <v-icon>mdi-decagram</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>Account</v-list-item-title>
+            <v-list-item-title>About us</v-list-item-title>
           </v-list-item>
+
+          <v-list-item :to="{path: '/terms'}">
+            <v-list-item-icon>
+              <v-icon>mdi-information</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Terms</v-list-item-title>
+          </v-list-item>
+
         </v-list-item-group>
       </v-list>
       <template v-slot:append>
