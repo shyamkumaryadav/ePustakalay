@@ -17,7 +17,7 @@
 
       <v-btn
         icon
-        @click="is_dark"
+        @click="changeTheme"
       >
         <v-icon>mdi-theme-light-dark</v-icon>
       </v-btn>
@@ -107,6 +107,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'App',
@@ -116,24 +117,10 @@ export default {
     name: 'shyamkumar yadav'
   }),
 
-  mounted(){
-    const theme = localStorage.getItem("elibrary_dark");
-    if (theme) {
-      if (theme == "true") {
-        this.$vuetify.theme.dark = true;
-      } else {
-        this.$vuetify.theme.dark = false;
-      }
-    }
-  },
-        
-  
   methods:{
-    is_dark: function(){
-      this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
-      localStorage.setItem("elibrary_dark", this.$vuetify.theme.dark.toString());
-    }
+    ...mapActions(['changeTheme']),
   },
+  computed:mapGetters(['isDark'])
         
 
 };
