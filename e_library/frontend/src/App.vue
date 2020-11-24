@@ -1,13 +1,13 @@
 <template>
   <v-app id="inspire">
-    <v-system-bar app>
+    <!-- <v-system-bar app>
       <v-spacer></v-spacer>
       <v-icon>mdi-wifi-off</v-icon>
       <v-icon>mdi-signal-off</v-icon>
       <v-icon>mdi-airplane</v-icon>
-      </v-system-bar>
+    </v-system-bar> -->
 
-    <v-app-bar app hide-on-scroll>
+    <v-app-bar app hide-on-scroll dense flat>
       <v-app-bar-nav-icon
         @click="drawer = !drawer"
       ></v-app-bar-nav-icon>
@@ -22,7 +22,7 @@
         <v-icon>mdi-theme-light-dark</v-icon>
       </v-btn>
       <v-btn icon>
-        <v-icon>mdi-book-search</v-icon>
+        <v-icon>mdi-book-variant-multiple</v-icon>
       </v-btn>
 
       <v-menu left bottom>
@@ -60,7 +60,7 @@
               >shyamkumar</v-list-item-title
             >
             <v-list-item-subtitle
-              >Admin</v-list-item-subtitle
+              >admin</v-list-item-subtitle
             >
           </v-list-item-content>
         </v-list-item>
@@ -99,15 +99,25 @@
     </v-navigation-drawer>
 
     <v-main>
-      <v-container>
-        <router-view></router-view>
-      </v-container>
+      <router-view></router-view>
     </v-main>
+
+    <v-footer absolute app>
+        <v-row no-gutters justify="center">
+          <v-col
+          class="text-center py-4"
+          cols="12"
+          >
+            <v-icon>mdi-copyright</v-icon> All right Reversed by — <strong>Shyamkumar Yadav</strong> {{ new Date().getFullYear() }} 
+          </v-col>
+
+        </v-row>
+    </v-footer>
   </v-app>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+// import { mapGetters } from 'vuex'
 
 export default {
   name: 'App',
@@ -116,12 +126,19 @@ export default {
     drawer: false,
     name: 'shyamkumar yadav'
   }),
-
-  methods:{
-    ...mapActions(['changeTheme']),
+  created(){
+    const theme = localStorage.getItem('elibrary-theme') === "true"
+    this.$vuetify.theme.dark = theme
   },
-  computed:mapGetters(['isDark'])
-        
-
+  methods:{
+    changeTheme(){
+      console.log('click')
+      localStorage.setItem('elibrary-theme', !this.$vuetify.theme.dark)
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark
+      console.log('click end', this.$vuetify.theme.dark)
+    }
+  },
+  computed:{
+  }
 };
 </script>

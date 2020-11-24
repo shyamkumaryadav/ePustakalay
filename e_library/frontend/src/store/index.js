@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import theme from './modules/theme'
 
 // Load Vuex
 Vue.use(Vuex)
@@ -10,7 +9,7 @@ export default new Vuex.Store({
   // App level data/state
   state: {
   },
-  // Mutat the state (Update state)
+  // The only way to actually change state in a Vuex store is by committing a mutation.
   mutations: {
   },
   // Called from components to commit a mutation (like api call)
@@ -21,6 +20,5 @@ export default new Vuex.Store({
   },
   // Each one have own state, getters, actions, mutations
   modules:{
-    theme
   }
 })
