@@ -1,8 +1,14 @@
 <template>
 <v-container fluid>
     <v-row>
-      <v-col lg="4" md="1" sm="12" class="text-center" v-for="book in $store.state.Books.BooksList" :key="book.id">
-        <v-card outlined>
+        
+      <v-col lg="4" md="1" sm="12" class="text-center">
+        <v-skeleton-loader
+        v-if="$store.state.Books.isDone"
+        class="mx-auto"
+        type="image"
+        ></v-skeleton-loader>
+        <v-card outlined v-for="book in $store.state.Books.BooksList" :key="book.id">
             <v-card-title class="headline">
                 {{ book.title}}
             </v-card-title>

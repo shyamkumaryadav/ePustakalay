@@ -1,12 +1,14 @@
 export default {
     // namespaced: true,
     state: {
-        BooksList: []
+        BooksList: [],
+        isDone: true
     },
     // Mutat the state (Update state)
     mutations: {
         setBook(state, payload){
             state.BooksList = payload.books
+            state.isDone = false
         }
 
     },
