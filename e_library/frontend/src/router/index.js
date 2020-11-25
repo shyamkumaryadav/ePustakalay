@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Terms from '@/views/Terms.vue'
 import Error404 from '@/views/Error404.vue'
+import ViewBook from '@/views/ViewBook.vue'
 
 Vue.use(VueRouter)
 
@@ -24,6 +25,11 @@ const routes = [
     path: '/terms',
     name: 'Terms',
     component: Terms
+  },
+  {
+    path: '/books',
+    name: 'ViewBook',
+    component: ViewBook
   },
   {
     path: '*',

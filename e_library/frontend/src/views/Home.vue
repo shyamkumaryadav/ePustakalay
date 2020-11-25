@@ -19,12 +19,15 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col md="4" class="text-center" v-for="i in [1, 2, 3]" :key="i">
-        <img width="150px" src="https://raw.githubusercontent.com/shyamkumaryadav/E_library/master/src/system/static/system/images/imgs/digital-inventory.png"/>
-        <h4>Digital Book Inventory</h4>
-        <p class="align-middle">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </p>
+      <v-col md="4" xl="12" class="pink" v-for="i in [1, 2, 3]" :key="i">
+          <v-img
+            width="150"
+            src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+          ></v-img>
+          <v-card-title>Cafe Badilico</v-card-title>
+          <v-card-text>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Non optio maxime eveniet fugiat blanditiis nisi nihil impedit fuga ratione reiciendis asperiores ipsa illum, accusantium vitae molestias sequi quos maiores placeat.
+          </v-card-text>
       </v-col>
     </v-row>
     <v-row>
@@ -47,7 +50,7 @@
     </v-row>
     <v-row>
       <v-col md="4" class="text-center" v-for="i in [1, 2, 3]" :key="i">
-        <img width="150px" src="https://raw.githubusercontent.com/shyamkumaryadav/E_library/master/src/system/static/system/images/imgs/digital-inventory.png"/>
+        <v-img width="150px" src="https://picsum.photos/510/300?random"></v-img>
         <h4>Digital Book Inventory</h4>
         <p class="align-middle">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.

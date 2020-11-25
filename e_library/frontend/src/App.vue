@@ -21,7 +21,7 @@
       >
         <v-icon>mdi-theme-light-dark</v-icon>
       </v-btn>
-      <v-btn icon>
+      <v-btn icon :to="{name: 'ViewBook'}">
         <v-icon>mdi-book-variant-multiple</v-icon>
       </v-btn>
 
