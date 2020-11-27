@@ -25,5 +25,8 @@ export default {
         }
     },
     getters:{
+        getBooks(state, payload){
+            return state.BooksList.filter(book => payload.q in book.title) ?? state.BooksList
+        }
     },
   }

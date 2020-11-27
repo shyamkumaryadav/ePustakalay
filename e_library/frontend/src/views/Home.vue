@@ -26,7 +26,14 @@
           <v-img
             width="125px"
             :src="`https://raw.githubusercontent.com/shyamkumaryadav/E_library/master/src/system/static/system/images/imgs/${i.img}`"
-          ></v-img>
+          >
+            <template v-slot:placeholder>
+              <v-skeleton-loader
+              type="image"
+              class="fill-height ma-0"
+              ></v-skeleton-loader>
+            </template>
+          </v-img>
           <v-card-title class="justify-center">{{i.title}}</v-card-title>
           <v-card-text class="text-center">
             {{ i.body }}
@@ -57,7 +64,14 @@
           <v-img
             width="125px"
             :src="`https://raw.githubusercontent.com/shyamkumaryadav/E_library/master/src/system/static/system/images/imgs/${i.img}`"
-          ></v-img>
+          >
+            <template v-slot:placeholder>
+              <v-skeleton-loader
+              type="image"
+              class="fill-height ma-0"
+              ></v-skeleton-loader>
+            </template>
+          </v-img>
           <v-card-title class="justify-center">{{i.title}}</v-card-title>
           <v-card-text class="text-center">
             {{ i.body }}

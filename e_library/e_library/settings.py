@@ -32,6 +32,9 @@ INSTALLED_APPS = [
     # Django Rest Framework
     'rest_framework',
 
+    # corsheaders
+    "corsheaders",
+
     # app for User Model
     # 'management',
     # app for All E-library Funcation
@@ -44,6 +47,8 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    # CORS
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -54,14 +59,13 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:8080',
+)
+
 ROOT_URLCONF = 'e_library.urls'
 
-IGNORABLE_404_URLS = [
-    re.compile(r'^/favicon.ico$'),
-    re.compile(r'^/robots.txt$'),
-    re.compile(r'^/phpmyadmin/'),
-    re.compile(r'\.(cgi|php|pl)$'),
-]
 
 TEMPLATES = [
     {
@@ -136,6 +140,14 @@ STATICFILES_DIRS = (BASE_DIR / "static",)
 # https://warehouse.python.org/project/whitenoise/
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# Simple JWT
+SIMPLE_JWT = {
+    # 'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    # 'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'UPDATE_LAST_LOGIN': True,
+    'AUTH_HEADER_TYPES': ('Bearer','elibrary'),
+}
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',

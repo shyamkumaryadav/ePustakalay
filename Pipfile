@@ -13,6 +13,7 @@ djangorestframework = "*"
 faker = "*"
 djangorestframework-jwt = "*"
 djangorestframework-simplejwt = "*"
+django-cors-headers = "*"
 
 [requires]
 python_version = "3.8"
