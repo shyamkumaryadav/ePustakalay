@@ -22,7 +22,7 @@ admin.AdminSite.site_header = gettext_lazy('E-library Management System')
 admin.AdminSite.index_title = gettext_lazy('Models List')
 
 # URL for the "View site" link at the top of each admin page.
-admin.AdminSite.site_url = 'https://elibrarymanagementsystem.herokuapp.com/'
+admin.AdminSite.site_url = '/' # 'https://elibrarymanagementsystem.herokuapp.com/'
 
 admin.AdminSite.enable_nav_sidebar = False
 
@@ -43,6 +43,7 @@ from management import models as man_models
 urlpatterns = [
     path('', include(router.urls)),
     path('admin/', admin.site.urls),
+    path('auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('auth/token/', TokenObtainPairView.as_view()),
     path('auth/token/refresh/', TokenRefreshView.as_view()),
     path('auth/token/verify/', TokenVerifyView.as_view()),

@@ -7,14 +7,12 @@ verify_ssl = true
 pylint = "*"
 
 [packages]
-django = "*"
+Django = "*"
 whitenoise = "*"
 djangorestframework = "*"
-faker = "*"
-djangorestframework-jwt = "*"
+Faker = "*"
 djangorestframework-simplejwt = "*"
 django-cors-headers = "*"
-drf-yasg = "*"
 
 [requires]
 python_version = "3.8"

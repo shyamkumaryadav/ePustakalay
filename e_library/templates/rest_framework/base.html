@@ -8,16 +8,33 @@
     {% block head %}
 
       {% block meta %}
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <meta name="robots" content="NONE,NOARCHIVE" />
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+      <meta name="robots" content="NONE,NOARCHIVE" />
       {% endblock %}
 
-      <title>{% block title %}{% if name %}{{ name }} – {% endif %}E-library Management System{% endblock %}</title>
+      <title>{% block title %}{% if name %}{{ name }} – {% endif %}E-library{% endblock %}</title>
 
       {% block style %}
         {% block bootstrap_theme %}
-          <link rel="stylesheet" type="text/css" href="{% static "rest_framework/css/bootstrap.min.css" %}"/>
-          <link rel="stylesheet" type="text/css" href="{% static "rest_framework/css/bootstrap-tweaks.css" %}"/>
+        <script>
+          window.addEventListener('load', function () {
+            if (localStorage.getItem("elibrary-theme") === "true"){
+                document.getElementById('theme').setAttribute("href", "{% static 'bootstrap-darkly.min.css' %}");
+                document.getElementById('el-dark').setAttribute("class", "disabled");
+            }else{
+                if ((localStorage.getItem("elibrary-theme") === undefined)){
+                    localStorage.setItem("elibrary-theme", false);
+                }
+                document.getElementById('theme').setAttribute("href", "{% static 'bootstrap.min.css' %}");
+                document.getElementById('el-light').setAttribute("class", "disabled");
+            }
+        }, false);
+        
+        </script>
+        
+        <link rel="stylesheet" id="theme" href="" type="text/css">
+      
         {% endblock %}
 
         <link rel="stylesheet" type="text/css" href="{% static "rest_framework/css/prettify.css" %}"/>
@@ -33,8 +50,7 @@
 
     <div class="wrapper">
       {% block navbar %}
-        <div class="navbar {% block bootstrap_navbar_variant %}navbar-default{% endblock %}"
-             role="navigation" aria-label="{% trans "navbar" %}">
+        <div class="navbar navbar-default" role="navigation" aria-label="{% trans "navbar" %}">
           <div class="container-fluid">
             <div class="navbar-header">
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -44,15 +60,31 @@
                 <span class="icon-bar"></span>
               </button>
               {% block branding %}
-                <a class='navbar-brand' rel="nofollow" href='https://www.django-rest-framework.org/'>
-                    E-library Management System
-                </a>
-              {% endblock %}
+              <p class='navbar-brand'><a href='https://elibrarymanagementsystem.herokuapp.com/' target="_blank">E-library </a><a href="{% url 'api-root' %}">
+                  Management System
+              </a></p>
+              {% endblock branding %}
             </div>
+
             <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" aria-expanded="false" style="height: 1px;">
+              {% if user.is_superuser %}
               <ul class="nav navbar-nav">
-                <li><a style="cursor: pointer;" onclick="localStorage.setItem('elibrary-theme', false);location.reload();">Light</a></li>
-                <li><a style="cursor: pointer;" onclick="localStorage.setItem('elibrary-theme', true);location.reload();" >Dark</a></li>
+                <li><a href="{% url 'admin:index' %}">Admin</a></li>
+              </ul>
+              {% endif %}
+              <ul class="nav navbar-nav navbar-right">
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        Theme
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li id="el-light"><a style="cursor: pointer;" onclick="localStorage.setItem('elibrary-theme', false);location.reload();">Default</a></li>
+                      <li id="el-dark"><a style="cursor: pointer;" onclick="localStorage.setItem('elibrary-theme', true);location.reload();" >Darkly</a></li>
+                    </ul>
+                </li>
+                
                 <li class="divider"></li>
                 {% block userlinks %}
                   {% if user.is_authenticated %}
@@ -60,14 +92,17 @@
                   {% else %}
                     {% optional_login request %}
                   {% endif %}
-                {% endblock %}
+                {% endblock userlinks %}
               </ul>
             </div>
           </div>
         </div>
-      {% endblock %}
+      {% endblock navbar %}
+
+
       <div class="container-fluid">
         {% block breadcrumbs %}
+        {% if breadcrumblist %}
           <ul class="breadcrumb">
             {% for breadcrumb_name, breadcrumb_url in breadcrumblist %}
               {% if forloop.last %}
@@ -79,10 +114,12 @@
               {% block breadcrumbs_empty %}&nbsp;{% endblock breadcrumbs_empty %}
             {% endfor %}
           </ul>
-        {% endblock %}
+          {% endif %}
+        {% endblock breadcrumbs %}
+
 
         <!-- Content -->
-        <div id="content" role="main" aria-label="{% trans "content" %}">
+        <div id="content" class="container-fluid" role="main" aria-label="{% trans "content" %}">
           {% block content %}
 
           <div class="region"  aria-label="{% trans "request form" %}">
@@ -131,6 +168,7 @@
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <span>&nbsp;</span>
                     <form class="button-form" action="{{ request.get_full_path }}" data-method="DELETE">
                       <button class="btn btn-danger">Delete</button>
                     </form>
@@ -169,10 +207,12 @@
                 <div class="col-sm-12 page-header">
                   <h1>{{ name }}</h1>
                 </div>
-                <div class="col-sm-12" style="float:left">
+                <div class="col-xs-12 col-md-12 text-info" style="float:left">
+                  <blockquote>
                   {% block description %}
                     {{ description }}
                   {% endblock %}
+                </blockquote>
                 </div>
 
                 {% if paginator %}
@@ -291,14 +331,13 @@
             {% endif %}
           {% endblock content %}
         </div><!-- /.content -->
-        <nav style="margin: 10px;">
-          <div class="row">
-            <div class="col text-center">
-              made by &hearts; <a href="//github.com/shyamkumaryadav">Shyamkumar Yadav</a>
-            </div>
-          </div>
-        </nav>
       </div><!-- /.container -->
+      
+      <nav class="navbar navbar-fixied-bottom" style="margin-top: 20px;">
+          <div class="text-center">
+            made by <span style="color: red;font-size: 25px;">&hearts; </span><a href="//github.com/shyamkumaryadav">Shyamkumar Yadav</a>
+        </div>
+      </nav>
     </div><!-- ./wrapper -->
 
     {% if filter_form %}
