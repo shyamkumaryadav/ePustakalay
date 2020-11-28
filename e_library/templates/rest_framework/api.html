@@ -1,0 +1,49 @@
+{% extends "rest_framework/base.html" %}
+{% load static %}
+
+{% block meta %}
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="robots" content="NONE,NOARCHIVE" />
+{% endblock %}
+
+{% block bootstrap_theme %}
+<script>
+    window.addEventListener('load', function () {
+        if (localStorage.getItem("elibrary-theme") === "true"){
+            document.getElementById('theme').setAttribute("href", "{% static 'bootstrap-darkly.min.css' %}");
+        }else{
+            if ((localStorage.getItem("elibrary-theme") === undefined)){
+                localStorage.setItem("elibrary-theme", false);
+            }
+            document.getElementById('theme').setAttribute("href", "{% static 'bootstrap.min.css' %}");
+        }
+    }, false);
+
+</script>
+
+<link rel="stylesheet" id="theme" href="" type="text/css">
+
+{% endblock %}
+
+
+{% block title %}{% if name %}{{ name }} – {% endif %}E-library{% endblock %}
+
+{% block branding %}
+<p class='navbar-brand'><a href="/">E-library </a><a class="" rel="nofollow" href='https://elibrarymanagementsystem.herokuapp.com/' target="_blank">
+    Management System
+</a></p>
+{% endblock %}
+
+{% block userlinks %}
+{% if user.is_authenticated %}
+<li>
+    <a> hello {{ user.username|default:"User"|capfirst }}</a>
+</li>
+<li><a  class="btn-xs" href='/admin/logout' class="">Logout</a></li>
+{% else %}
+    <li><a href='/admin/login'>Log in</a></li>
+    <li><a class="" href="#">Sign Up</a></li>
+{% endif %}
+{% endblock %}
+

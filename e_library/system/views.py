@@ -1,13 +1,15 @@
 from rest_framework import viewsets
 
 
-# System Config
+'''
+System view Config
+'''
 from system import serializers, models, permissions
 
 
 class BookViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows users to be viewed or edited.
+    `permission_classes = [permissions.IsAdminUserOrReadOnly]`
     """
     queryset = models.Book.objects.all()
     serializer_class = serializers.BookSerializers

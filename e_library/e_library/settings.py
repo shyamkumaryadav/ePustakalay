@@ -129,6 +129,16 @@ USE_L10N = True
 
 USE_TZ = True
 
+LANGUAGE_COOKIE_NAME = 'library_language'
+
+LOCALE_PATH = (
+    BASE_DIR / 'locale',
+)
+
+LOGIN_URL = ''
+LOGIN_REDIRECT_URL = 'api-root'
+LOGOUT_REDIRECT_URL = 'api-root'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
