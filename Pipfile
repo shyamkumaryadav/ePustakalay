@@ -5,6 +5,7 @@ verify_ssl = true
 
 [dev-packages]
 pylint = "*"
+pylint-django = "*"
 
 [packages]
 Django = "*"
@@ -13,6 +14,7 @@ djangorestframework = "*"
 Faker = "*"
 djangorestframework-simplejwt = "*"
 django-cors-headers = "*"
+markdown = "*"
 
 [requires]
 python_version = "3.8"

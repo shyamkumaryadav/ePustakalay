@@ -32,12 +32,17 @@ admin.AdminSite.empty_value_display = '-'
 # Root Url Of DRF
 router = routers.DefaultRouter()
 
-# All system Models
+# All system Views
 from system import views as sys_views
-router.register('books', sys_views.BookViewSet, 'book')
+router.register('books-sys', sys_views.BookViewSet)
 
-# All management Models
-from management import models as man_models
+
+# All management Views
+from management import views as man_views
+router.register('books', man_views.BookAPI)
+router.register('book_authors', man_views.BookAuthorAPI)
+router.register('book_publish', man_views.BookPublishAPI)
+router.register('book_genres', man_views.GenreAPI)
 
 
 urlpatterns = [

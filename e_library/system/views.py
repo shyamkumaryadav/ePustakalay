@@ -4,12 +4,13 @@ from rest_framework import viewsets
 '''
 System view Config
 '''
+
 from system import serializers, models, permissions
 
 
 class BookViewSet(viewsets.ModelViewSet):
     """
-    `permission_classes = [permissions.IsAdminUserOrReadOnly]`
+    
     """
     queryset = models.Book.objects.all()
     serializer_class = serializers.BookSerializers
