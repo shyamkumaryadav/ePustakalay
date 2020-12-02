@@ -42,6 +42,7 @@ router.register('books', man_views.BookAPI)
 router.register('book-authors', man_views.BookAuthorAPI)
 router.register('book-publish', man_views.BookPublishAPI)
 router.register('book-genres', man_views.GenreAPI)
+router.register('book-issue', man_views.IssueAPI)
 
 
 urlpatterns = [

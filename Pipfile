@@ -6,6 +6,7 @@ verify_ssl = true
 [dev-packages]
 pylint = "*"
 pylint-django = "*"
+bpython = "*"
 
 [packages]
 Django = "*"
@@ -14,9 +15,8 @@ djangorestframework = "*"
 Faker = "*"
 djangorestframework-simplejwt = "*"
 django-cors-headers = "*"
-markdown = "*"
+Markdown = "*"
 django-cleanup = "*"
-faker = "*"
 django-filter = "*"
 
 [requires]

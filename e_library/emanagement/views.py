@@ -37,4 +37,9 @@ class GenreAPI(viewsets.ModelViewSet):
     queryset = models.Genre.objects.all()
     serializer_class = serializers.GenreSerializers
 
-
+class IssueAPI(viewsets.ModelViewSet):
+    """
+    A simple ViewSet for viewing and editing `Issue` Model.
+    """
+    queryset = models.Issue.objects.all()
+    serializer_class = serializers.IssueSerializers

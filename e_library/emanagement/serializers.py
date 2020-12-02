@@ -14,14 +14,14 @@ class GenreSerializers(serializers.HyperlinkedModelSerializer):
     '''
     class Meta:
         model = models.Genre
-        fields = '__all__'
+        fields = ['id', 'name']
 
 class BookAuthorSerializers(serializers.HyperlinkedModelSerializer):
     '''
     The system.models.Book `Serializer`
     '''
 
-    genre = GenreSerializers(many= True)
+    genre = serializers.StringRelatedField(many=True)
 
     class Meta:
         model = models.BookAuthor
@@ -33,8 +33,8 @@ class BookPublishSerializers(serializers.HyperlinkedModelSerializer):
     The system.models.Book `Serializer`
     '''
 
-    genre = GenreSerializers(many= True)
-    
+    genre = serializers.StringRelatedField(many= True)
+
     class Meta:
         model = models.BookPublish
         fields = '__all__'
@@ -52,4 +52,17 @@ class BookSerializers(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.Book
-        fields = ['id', 'name', 'genre', 'author', 'publish', 'publish_date', 'date', 'language', 'edition', 'cost', 'page', 'description', 'stock', 'today_stock', 'rating', 'profile']
+        fields = '__all__'
+
+class IssueSerializers(serializers.HyperlinkedModelSerializer):
+    '''
+    The system.models.Book `Serializer`
+    '''
+    book = serializers.StringRelatedField(many= False, read_only=True)
+    user = serializers.StringRelatedField(many=False, read_only=True)
+
+    class Meta:
+        model = models.Issue
+        fields = '__all__'
+        read_only_fields = ['due_date']
+        # exclude = ['user']

@@ -5,6 +5,7 @@ from django.conf import global_settings
 from emanagement import utils
 from django.core import validators
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 
 
 UserModel = get_user_model()
@@ -15,8 +16,7 @@ class Genre(models.Model):
 
     fields = ['id', 'name']
     '''
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=50, choices=[
+    name = models.CharField(max_length=50, unique=True, choices=[
                                (None, "Select Language")] + data_list.BOOK_GENRE, editable=False)
 
     class Meta:
@@ -70,7 +70,7 @@ class BookPublish(models.Model):
                                 "unique": "This name is already exists."
                             }
                             )
-    website = models.TextField(unique=True,)
+    website = models.URLField(unique=True,)
     genre = models.ManyToManyField(
         Genre, verbose_name="Genre", help_text='Hold down “Control”, or “Command” on a Mac, to select more than one.')
 
@@ -134,14 +134,18 @@ class Issue(models.Model):
 
     fields = ['id', 'user', 'book', 'date', 'due_date']
     '''
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     date = models.DateField(auto_now_add=True, editable=False)
-    due_date = models.DateField()
+    due_date = models.DateField(
+        default=timezone.now() + timezone.timedelta(days=7),
+        help_text="By defualt date is now + 7",
+    )
 
     class Meta:
         unique_together = ('user', 'book',)
 
     def __str__(self):
-        return f"{self.user} <---> {self.book}"
+        return f"{self.user} take {self.book}"
 

@@ -19,4 +19,10 @@ class BookAdmin(admin.ModelAdmin):
 
 admin.site.register(models.BookAuthor)
 admin.site.register(models.BookPublish)
-admin.site.register(models.Genre)
+
+@admin.register(models.Genre)
+class GenreAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'id')
+    readonly_fields = ('name',)
+
+admin.site.register(models.Issue)
