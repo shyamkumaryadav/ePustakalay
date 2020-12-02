@@ -4,7 +4,7 @@
 *.pyc
 __pycache__/
 e_library/system/__pycache__/
-e_library/management/__pycache__/
+e_library/emanagement/__pycache__/
 e_library/e_library/__pycache__/
 e_library/__pycache__/
 
@@ -17,4 +17,4 @@ e_library/staticfiles
 e_library/media
 !e_library/media/default.png
 e_library/system/migrations/0*
-e_library/management/migrations/0*
+e_library/emanagement/migrations/0*
