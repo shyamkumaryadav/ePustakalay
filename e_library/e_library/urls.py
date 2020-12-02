@@ -34,15 +34,14 @@ router = routers.DefaultRouter()
 
 # All system Views
 from system import views as sys_views
-router.register('books-sys', sys_views.BookViewSet)
 
 
 # All management Views
-from management import views as man_views
+from emanagement import views as man_views
 router.register('books', man_views.BookAPI)
-router.register('book_authors', man_views.BookAuthorAPI)
-router.register('book_publish', man_views.BookPublishAPI)
-router.register('book_genres', man_views.GenreAPI)
+router.register('book-authors', man_views.BookAuthorAPI)
+router.register('book-publish', man_views.BookPublishAPI)
+router.register('book-genres', man_views.GenreAPI)
 
 
 urlpatterns = [
@@ -60,4 +59,5 @@ urlpatterns = [
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL,
                           document_root=settings.STATIC_ROOT)
-
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)

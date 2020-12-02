@@ -9,4 +9,4 @@ r'''
                                       |___/                                         
 '''
 
-default_app_config = 'management.apps.ManagementConfig'
+default_app_config = 'emanagement.apps.EmanagementConfig'

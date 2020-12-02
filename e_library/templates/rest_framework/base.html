@@ -26,14 +26,13 @@
                 if ((localStorage.getItem("elibrary-theme") === undefined)){
                     localStorage.setItem("elibrary-theme", false);
                 }
-                document.getElementById('theme').setAttribute("href", "{% static 'bootstrap.min.css' %}");
                 document.getElementById('el-light').setAttribute("class", "disabled");
             }
         }, false);
         
         </script>
         
-        <link rel="stylesheet" id="theme" href="" type="text/css">
+        <link rel="stylesheet" id="theme" href="{% static 'bootstrap.min.css' %}" type="text/css">
       
         {% endblock %}
 
@@ -84,6 +83,7 @@
                       <li id="el-dark"><a style="cursor: pointer;" onclick="localStorage.setItem('elibrary-theme', true);location.reload();" >Darkly</a></li>
                     </ul>
                 </li>
+                <li><a href="https:www.github.com/shyamkumaryadav/E_library" target="_blank">GitHub</a></li>
                 
                 <li class="divider"></li>
                 {% block userlinks %}
@@ -106,7 +106,7 @@
           <ul class="breadcrumb">
             {% for breadcrumb_name, breadcrumb_url in breadcrumblist %}
               {% if forloop.last %}
-                <li class="active">{{ breadcrumb_name }}</li>
+                <li style="cursor: pointer;" class="active" onclick="location.href = '{{ breadcrumb_url }}'">{{ breadcrumb_name }}</li>
               {% else %}
                 <li><a href="{{ breadcrumb_url }}">{{ breadcrumb_name }}</a></li>
               {% endif %}

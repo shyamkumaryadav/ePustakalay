@@ -2,7 +2,7 @@ import uuid
 from django.db import models
 import data_list
 from django.conf import global_settings
-from management import utils
+from emanagement import utils
 from django.core import validators
 from django.contrib.auth import get_user_model
 
@@ -10,9 +10,14 @@ from django.contrib.auth import get_user_model
 UserModel = get_user_model()
 
 class Genre(models.Model):
-    name = models.IntegerField(choices=[
-                               (None, "Select Language")] + data_list.BOOK_GENRE)
-    # objects = GenreManager()
+    '''
+    Management all book author Data
+
+    fields = ['id', 'name']
+    '''
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=50, choices=[
+                               (None, "Select Language")] + data_list.BOOK_GENRE, editable=False)
 
     class Meta:
         ordering = ['name']
@@ -22,6 +27,11 @@ class Genre(models.Model):
 
 
 class BookAuthor(models.Model):
+    '''
+    Management all book author Data
+
+    fields = ['id', 'first_name', 'middle_name', 'last_name', 'date_of_birth', 'died', 'aboutAuthor', 'genre']
+    '''
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     first_name = models.CharField(verbose_name="First Name", max_length=100)
     middle_name = models.CharField(verbose_name="Middle Name", max_length=100)
@@ -49,6 +59,11 @@ class BookAuthor(models.Model):
 
 
 class BookPublish(models.Model):
+    """
+    Management all book publisher Data
+
+    fields = ['id', 'company_name', 'website', 'genre']
+    """
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     company_name = models.CharField(max_length=100, unique=True,
                             error_messages={
@@ -63,14 +78,14 @@ class BookPublish(models.Model):
         ordering = ['company_name']
 
     def __str__(self):
-        return self.company_name
+        return f"{self.company_name}"
 
 class Book(models.Model):
-    """
-    Management all book Data
+    '''
+    Management all book author Data
 
-    filds = ['id', 'name', 'genre', 'author']
-    """
+    fields = ['id', 'name', 'genre', 'author', 'publish', 'publish_date', 'date', 'language', 'edition', 'cost', 'page', 'description', 'stock', 'today_stock', 'rating', 'profile']
+    '''
     id = models.UUIDField(verbose_name="Book ID",
                           primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=120, verbose_name="Name", unique=True)
@@ -107,12 +122,18 @@ class Book(models.Model):
 
     class Meta:
         ordering = ['name']
+        unique_together = ('name', 'author',)
         permissions = [('is_defaulter', 'User in defaulter list')]
 
     def __str__(self):
-        return self.name
+        return f"{self.name}"
 
 class Issue(models.Model):
+    '''
+    Management all book author Data
+
+    fields = ['id', 'user', 'book', 'date', 'due_date']
+    '''
     user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     date = models.DateField(auto_now_add=True, editable=False)

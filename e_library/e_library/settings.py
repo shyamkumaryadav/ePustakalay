@@ -31,6 +31,8 @@ INSTALLED_APPS = [
 
     # Django Rest Framework
     'rest_framework',
+    'django_cleanup',
+    'django_filters',
 
     # corsheaders
     "corsheaders",
@@ -39,7 +41,7 @@ INSTALLED_APPS = [
     # 'management',
     # app for All E-library Funcation
     'system', # System models and urls
-    'management', # User Management models and urls
+    'emanagement', # User Management models and urls
     # 'djvue', # For GUI
 
 ]
@@ -146,6 +148,10 @@ STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = (BASE_DIR / "static",)
 
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 
@@ -161,6 +167,7 @@ SIMPLE_JWT = {
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
     'PAGE_SIZE': 20,
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',

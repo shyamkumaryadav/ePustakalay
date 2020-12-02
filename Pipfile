@@ -15,6 +15,9 @@ Faker = "*"
 djangorestframework-simplejwt = "*"
 django-cors-headers = "*"
 markdown = "*"
+django-cleanup = "*"
+faker = "*"
+django-filter = "*"
 
 [requires]
 python_version = "3.8"
