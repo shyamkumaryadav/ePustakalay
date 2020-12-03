@@ -31,10 +31,13 @@ admin.AdminSite.empty_value_display = '-'
 
 # Root Url Of DRF
 router = routers.DefaultRouter()
+router.APIRootView.__doc__ = """
+```python
+print("Hello world")
 
-# All system Views
-from system import views as sys_views
-
+from emanagement import views
+```
+"""
 
 # All management Views
 from emanagement import views as man_views
@@ -42,7 +45,7 @@ router.register('books', man_views.BookAPI)
 router.register('book-authors', man_views.BookAuthorAPI)
 router.register('book-publish', man_views.BookPublishAPI)
 router.register('book-genres', man_views.GenreAPI)
-router.register('book-issue', man_views.IssueAPI)
+router.register('book-issue', man_views.IssueAPI, basename="issue")
 
 
 urlpatterns = [

@@ -40,9 +40,7 @@ INSTALLED_APPS = [
     # app for User Model
     # 'management',
     # app for All E-library Funcation
-    'system', # System models and urls
-    'emanagement', # User Management models and urls
-    # 'djvue', # For GUI
+    'emanagement', # User E-Management models and urls
 
 ]
 
@@ -155,18 +153,16 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStoraQueryParameterVersioningge'
 
 # Simple JWT
 SIMPLE_JWT = {
-    # 'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
-    # 'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'UPDATE_LAST_LOGIN': True,
     'AUTH_HEADER_TYPES': ('Bearer','elibrary'),
 }
 
 REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
     'PAGE_SIZE': 20,
     'DEFAULT_AUTHENTICATION_CLASSES': (

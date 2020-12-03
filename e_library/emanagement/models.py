@@ -140,7 +140,7 @@ class Issue(models.Model):
     date = models.DateField(auto_now_add=True, editable=False)
     due_date = models.DateField(
         default=timezone.now() + timezone.timedelta(days=7),
-        help_text="By defualt date is now + 7",
+        help_text="By defualt date is 7 days",
     )
 
     class Meta:
@@ -148,4 +148,9 @@ class Issue(models.Model):
 
     def __str__(self):
         return f"{self.user} take {self.book}"
+    
+    @property
+    def due_date_end(self):
+        return self.due_date < timezone.now().date()
+
 

@@ -75,14 +75,33 @@
 
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        Theme
+                        Routers
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                      <li id="el-light"><a style="cursor: pointer;" onclick="localStorage.setItem('elibrary-theme', false);location.reload();">Default</a></li>
-                      <li id="el-dark"><a style="cursor: pointer;" onclick="localStorage.setItem('elibrary-theme', true);location.reload();" >Darkly</a></li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Book
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li id=""><a style="cursor: pointer;" >Book list</a></li>
+                          <li id=""><a style="cursor: pointer;" >Book update</a></li>
+                        </ul>
+                    </li>
+                      <li id=""><a style="cursor: pointer;" >Author</a></li>
                     </ul>
                 </li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                      Theme
+                      <b class="caret"></b>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li id="el-light"><a style="cursor: pointer;" onclick="localStorage.setItem('elibrary-theme', false);location.reload();">Default</a></li>
+                    <li id="el-dark"><a style="cursor: pointer;" onclick="localStorage.setItem('elibrary-theme', true);location.reload();" >Darkly</a></li>
+                  </ul>
+              </li>
                 <li><a href="https:www.github.com/shyamkumaryadav/E_library" target="_blank">GitHub</a></li>
                 
                 <li class="divider"></li>
@@ -192,6 +211,7 @@
             </div>
           {% endif %}
 
+          <!-- filter -->
           {% if filter_form %}
             <button style="float: right; margin-right: 10px" data-toggle="modal" data-target="#filtersModal" class="btn btn-default">
               <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
@@ -215,16 +235,19 @@
                 </blockquote>
                 </div>
 
+                <!-- paginator -->
                 {% if paginator %}
-                  <nav style="float: right">
+                  <div style="float: right">
                     {% get_pagination_html paginator %}
-                  </nav>
+                  </div>
                 {% endif %}
 
+                <!-- method path -->
                 <div class="request-info" style="clear: both" aria-label="{% trans "request info" %}">
                   <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
                 </div>
 
+                <!-- HTTP ok -->
                 <div class="response-info" aria-label="{% trans "response info" %}">
                   <pre class="prettyprint"><span class="meta nocode"><b>HTTP {{ response.status_code }} {{ response.status_text }}</b>{% for key, val in response_headers|items %}
   <b>{{ key }}:</b> <span class="lit">{{ val|break_long_headers|urlize }}</span>{% endfor %}
@@ -334,8 +357,8 @@
       </div><!-- /.container -->
       
       <nav class="navbar navbar-fixied-bottom" style="margin-top: 20px;">
-          <div class="text-center">
-            made by <span style="color: red;font-size: 25px;">&hearts; </span><a href="//github.com/shyamkumaryadav">Shyamkumar Yadav</a>
+          <div style="cursor: pointer;" class="text-center" ondblclick="location.href = '//github.com/shyamkumaryadav'">
+            made by <span style="color: red;font-size: 25px;">&hearts; </span>Shyamkumar Yadav
         </div>
       </nav>
     </div><!-- ./wrapper -->
