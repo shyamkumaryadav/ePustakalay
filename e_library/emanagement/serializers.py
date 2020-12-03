@@ -54,15 +54,10 @@ class BookSerializers(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.Book
-        fields = '__all__'
-
-class UserSerializers(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = get_user_model()
-        fields = ['username', 'email', 'first_name', 'last_name', 'date_joined',]
-        
+        # fields = '__all__'
+        exclude = ['genre', 'language']
+   
     
-
 class IssueSerializers(serializers.HyperlinkedModelSerializer):
     '''
     The system.models.Book `Serializer`

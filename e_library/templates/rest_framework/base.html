@@ -74,23 +74,18 @@
               <ul class="nav navbar-nav navbar-right">
 
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        Routers
-                        <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            Book
-                            <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                          <li id=""><a style="cursor: pointer;" >Book list</a></li>
-                          <li id=""><a style="cursor: pointer;" >Book update</a></li>
-                        </ul>
-                    </li>
-                      <li id=""><a style="cursor: pointer;" >Author</a></li>
-                    </ul>
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                      Routers
+                      <b class="caret"></b>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li class="dropdown-header">Emanagement</li>
+                    <li><a style="cursor: pointer;" href="{% url 'book-list' %}">Books</a></li>
+                    <li><a style="cursor: pointer;" href="{% url 'bookauthor-list' %}" >Book Author</a></li>
+                    <li><a style="cursor: pointer;" href="{% url 'bookpublish-list' %}" >Book Publisher</a></li>
+                    <li><a style="cursor: pointer;" href="{% url 'genre-list' %}" >Book Genre</a></li>
+                    <li><a style="cursor: pointer;" href="{% url 'issue-list' %}" >Book Issue</a></li>
+                  </ul>
                 </li>
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -356,9 +351,33 @@
         </div><!-- /.content -->
       </div><!-- /.container -->
       
+      <!-- heart  -->
+      <style>
+        @keyframes heartbeat {
+        0% {
+          transform: scale( .75);
+        }
+        20% {
+          transform: scale( 1);
+        }
+        40% {
+          transform: scale( .75);
+        }
+        60% {
+          transform: scale( 1);
+        }
+        80% {
+          transform: scale( .75);
+        }
+        100% {
+          transform: scale( .75);
+        }
+      }
+
+      </style>
       <nav class="navbar navbar-fixied-bottom" style="margin-top: 20px;">
           <div style="cursor: pointer;" class="text-center" ondblclick="location.href = '//github.com/shyamkumaryadav'">
-            made by <span style="color: red;font-size: 25px;">&hearts; </span>Shyamkumar Yadav
+            made by <div style="color: red;font-size: 35px;animation: heartbeat 1s infinite;">&hearts; </div>Shyamkumar Yadav
         </div>
       </nav>
     </div><!-- ./wrapper -->
