@@ -11,7 +11,7 @@ from emanagement import models
 
 class GenreSerializers(serializers.HyperlinkedModelSerializer):
     '''
-    The system.models.Book `Serializer`
+    The Serializer of `emanagement.models.Genre`
     '''
     class Meta:
         model = models.Genre
@@ -19,7 +19,7 @@ class GenreSerializers(serializers.HyperlinkedModelSerializer):
 
 class BookAuthorSerializers(serializers.HyperlinkedModelSerializer):
     '''
-    The system.models.Book `Serializer`
+    The Serializer of `emanagement.models.BookAuthor`  
     '''
 
     genre_list = serializers.StringRelatedField(source="genre", many=True, read_only=True)
@@ -30,7 +30,7 @@ class BookAuthorSerializers(serializers.HyperlinkedModelSerializer):
 
 class BookPublishSerializers(serializers.HyperlinkedModelSerializer):
     '''
-    The system.models.Book `Serializer`
+    The Serializer of `emanagement.models.BookPublish`
     '''
 
     genre_list = serializers.StringRelatedField(source="genre", many=True, read_only=True)
@@ -44,7 +44,7 @@ class BookPublishSerializers(serializers.HyperlinkedModelSerializer):
 
 class BookSerializers(serializers.HyperlinkedModelSerializer):
     '''
-    The system.models.Book `Serializer`
+    The Serializer of `emanagement.models.Book`
     '''
     genre_list = serializers.StringRelatedField(source="genre", many=True, read_only=True)
     author = serializers.StringRelatedField(many=False, read_only=True)
@@ -60,7 +60,7 @@ class BookSerializers(serializers.HyperlinkedModelSerializer):
     
 class IssueSerializers(serializers.HyperlinkedModelSerializer):
     '''
-    The system.models.Book `Serializer`
+    The Serializer of `emanagement.models.Issue`
     '''
     book = serializers.StringRelatedField(many= False, read_only=True)
     user = serializers.SlugRelatedField(many= False, read_only=True, slug_field="username")

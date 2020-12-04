@@ -12,7 +12,7 @@ class ReadOnly(permissions.BasePermission):
 
 class BookAPI(viewsets.ModelViewSet):
     """
-    A simple ViewSet for viewing and editing `Book` Model.
+    E-Management `Book` ViewSet
     """
     queryset = models.Book.objects.all()
     permission_classes = [permissions.IsAdminUser|ReadOnly]
@@ -23,7 +23,7 @@ class BookAPI(viewsets.ModelViewSet):
     
 class BookAuthorAPI(viewsets.ModelViewSet):
     """
-    A simple ViewSet for viewing and editing `BookAuthor` Model.
+    E-Management `BookAuthor` ViewSet
     """
     queryset = models.BookAuthor.objects.all()
     permission_classes = [permissions.IsAdminUser|ReadOnly]
@@ -31,7 +31,7 @@ class BookAuthorAPI(viewsets.ModelViewSet):
       
 class BookPublishAPI(viewsets.ModelViewSet):
     """
-    A simple ViewSet for viewing and editing `BookPublish` Model.  
+    E-Management `BookPublish` ViewSet
     """
     # name = "Book Puasblish"
     queryset = models.BookPublish.objects.all()
@@ -41,7 +41,11 @@ class BookPublishAPI(viewsets.ModelViewSet):
      
 class GenreAPI(viewsets.ModelViewSet):
     """
-    A simple ViewSet for viewing and editing `Genre` Model.
+    E-Management `Genre` ViewSet
+
+    fields  
+    - id : id of genre  
+    - name : Name of genre  
     """
     queryset = models.Genre.objects.all()
     permission_classes = [permissions.IsAdminUser|ReadOnly]
@@ -49,7 +53,7 @@ class GenreAPI(viewsets.ModelViewSet):
 
 class IssueAPI(viewsets.ModelViewSet):
     """
-    A simple ViewSet for viewing and editing `Issue` Model.
+    E-Management `Issue` ViewSet
     """
     # queryset = models.Issue.objects.filter(user=request.user)
     serializer_class = serializers.IssueSerializers

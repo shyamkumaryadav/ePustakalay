@@ -1,3 +1,12 @@
+'''
+All Models of Emanagement  
+
+1. Genre ['id', 'name']
+2. BookAuthor ['id', 'first_name', 'middle_name', 'last_name', 'date_of_birth', 'died', 'aboutAuthor', 'genre']
+3. BookPublish ['id', 'company_name', 'website', 'genre']
+4. Book ['id', 'name', 'genre', 'author', 'publish', 'publish_date', 'date', 'language', 'edition', 'cost', 'page', 'description', 'stock', 'today_stock', 'rating', 'profile']
+5. Issue ['id', 'user', 'book', 'date', 'due_date']
+'''
 import uuid
 from django.db import models
 import data_list
@@ -12,7 +21,7 @@ UserModel = get_user_model()
 
 class Genre(models.Model):
     '''
-    Management all book author Data
+    E-Management `Genre` Model
 
     fields = ['id', 'name']
     '''
@@ -28,7 +37,7 @@ class Genre(models.Model):
 
 class BookAuthor(models.Model):
     '''
-    Management all book author Data
+    E-Management `BookAuthor` Model
 
     fields = ['id', 'first_name', 'middle_name', 'last_name', 'date_of_birth', 'died', 'aboutAuthor', 'genre']
     '''
@@ -60,7 +69,7 @@ class BookAuthor(models.Model):
 
 class BookPublish(models.Model):
     """
-    Management all book publisher Data
+    E-Management `BookPublisher` Model
 
     fields = ['id', 'company_name', 'website', 'genre']
     """
@@ -82,7 +91,7 @@ class BookPublish(models.Model):
 
 class Book(models.Model):
     '''
-    Management all book author Data
+    E-Management `BookAuthor` Model
 
     fields = ['id', 'name', 'genre', 'author', 'publish', 'publish_date', 'date', 'language', 'edition', 'cost', 'page', 'description', 'stock', 'today_stock', 'rating', 'profile']
     '''
@@ -130,7 +139,7 @@ class Book(models.Model):
 
 class Issue(models.Model):
     '''
-    Management all book author Data
+    E-Management book issue by user `Issue` Model
 
     fields = ['id', 'user', 'book', 'date', 'due_date']
     '''
