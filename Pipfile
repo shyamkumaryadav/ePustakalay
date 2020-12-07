@@ -19,6 +19,7 @@ Markdown = "*"
 django-cleanup = "*"
 django-filter = "*"
 pillow = "*"
+mysqlclient = "*"
 
 [requires]
 python_version = "3.8"

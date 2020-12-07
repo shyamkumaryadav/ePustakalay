@@ -2,6 +2,7 @@
 *.log
 *.pot
 *.pyc
+.env
 __pycache__/
 e_library/system/__pycache__/
 e_library/emanagement/__pycache__/
