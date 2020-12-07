@@ -5,8 +5,9 @@ django-filter==2.4.0
 django==3.1.4
 djangorestframework-simplejwt==4.6.0
 djangorestframework==3.12.2
-faker==4.18.0
+faker==5.0.0
 markdown==3.3.3
+pillow==8.0.1
 pyjwt==1.7.1
 python-dateutil==2.8.1
 pytz==2020.4

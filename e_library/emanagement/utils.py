@@ -16,7 +16,7 @@ def age(value):
     dob = value.date()
     year = today.year - dob.year - ((today.month, today.day) < (dob.month, dob.day))
     if year < 18:
-        raise ValidationError("Your age not 18+, you are {year} year old.")
+        raise ValidationError(f"Your age not 18+, youcredentials: you are {year} year old.")
 
 def profile_size(value):
     if value.size > 1024 * 1024 * 0.5:
