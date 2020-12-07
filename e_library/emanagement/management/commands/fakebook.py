@@ -37,7 +37,7 @@ class Command(BaseCommand):
                 )
                 author.genre.set([*genre])
                 author.profile.save(f'{uuid.uuid4()}.jpg', ContentFile(
-                        requests.get(requests.get('https://randomuser.me/api/').json()['results'][0]["picture"]["large"]).content))
+                        requests.get('https://picsum.photos/200').content))
                 _, book = Book.objects.get_or_create(
                     name=f.name(),
                     author=author,
