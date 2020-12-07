@@ -36,11 +36,13 @@ class Command(BaseCommand):
                     aboutAuthor=f.paragraph(nb_sentences=5)
                 )
                 author.genre.set([*genre])
+                author.profile.save(f'{uuid.uuid4()}.jpg', ContentFile(
+                        requests.get(requests.get('https://randomuser.me/api/').json()['results'][0]["picture"]["large"]).content))
                 _, book = Book.objects.get_or_create(
                     name=f.name(),
                     author=author,
                     publish=publish,
-                    publish_date=f.date(),
+                    # publish_date=f.date(),
                     language=f.random_element([i[0] for i in Book.language.field.choices[1:]]),
                     edition=f.random_element([i[0] for i in Book.edition.field.choices[1:]]),
                     cost=f.pydecimal(

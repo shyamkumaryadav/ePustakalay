@@ -2,12 +2,9 @@
 views for management apps.
 """
 from rest_framework import viewsets, versioning, permissions
-from emanagement import serializers, models, filters
+from emanagement import serializers, models, filters, utils
 
 
-class ReadOnly(permissions.BasePermission):
-    def has_permission(self, request, view):
-        return request.method in permissions.SAFE_METHODS
 
 
 class BookAPI(viewsets.ModelViewSet):
@@ -15,7 +12,7 @@ class BookAPI(viewsets.ModelViewSet):
     E-Management `Book` ViewSet
     """
     queryset = models.Book.objects.all()
-    permission_classes = [permissions.IsAdminUser|ReadOnly]
+    permission_classes = [permissions.IsAdminUser|utils.ReadOnly]
     serializer_class = serializers.BookSerializers
     # filter_backends = (filters.DjangoFilterBackend,)
     # filterset_fields = ('name', 'author', 'publish')
@@ -26,8 +23,9 @@ class BookAuthorAPI(viewsets.ModelViewSet):
     E-Management `BookAuthor` ViewSet
     """
     queryset = models.BookAuthor.objects.all()
-    permission_classes = [permissions.IsAdminUser|ReadOnly]
+    permission_classes = [permissions.IsAdminUser|utils.ReadOnly]
     serializer_class = serializers.BookAuthorSerializers
+    filterset_class = filters.BookAuthorFilter
       
 class BookPublishAPI(viewsets.ModelViewSet):
     """
@@ -35,8 +33,9 @@ class BookPublishAPI(viewsets.ModelViewSet):
     """
     # name = "Book Puasblish"
     queryset = models.BookPublish.objects.all()
-    permission_classes = [permissions.IsAdminUser|ReadOnly]
+    permission_classes = [permissions.IsAdminUser|utils.ReadOnly]
     serializer_class = serializers.BookPublishSerializers
+    filterset_class = filters.BookPublishFilter
 
      
 class GenreAPI(viewsets.ModelViewSet):
@@ -48,7 +47,7 @@ class GenreAPI(viewsets.ModelViewSet):
     - name : Name of genre  
     """
     queryset = models.Genre.objects.all()
-    permission_classes = [permissions.IsAdminUser|ReadOnly]
+    permission_classes = [permissions.IsAdminUser|utils.ReadOnly]
     serializer_class = serializers.GenreSerializers
 
 class IssueAPI(viewsets.ModelViewSet):
@@ -57,7 +56,7 @@ class IssueAPI(viewsets.ModelViewSet):
     """
     # queryset = models.Issue.objects.filter(user=request.user)
     serializer_class = serializers.IssueSerializers
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAdminUser|utils.ReadOnly]
 
 
     def get_queryset(self):

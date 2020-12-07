@@ -15,7 +15,7 @@ class GenreSerializers(serializers.HyperlinkedModelSerializer):
     '''
     class Meta:
         model = models.Genre
-        fields = ['id', 'name']
+        fields = '__all__'
 
 class BookAuthorSerializers(serializers.HyperlinkedModelSerializer):
     '''
@@ -27,6 +27,7 @@ class BookAuthorSerializers(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.BookAuthor
         fields = '__all__'
+        extra_kwargs = {'genre': {'write_only': True}}
 
 class BookPublishSerializers(serializers.HyperlinkedModelSerializer):
     '''
@@ -37,7 +38,9 @@ class BookPublishSerializers(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.BookPublish
-        fields = '__all__'
+        fields = ('url', 'company_name', 'website', 'genre_list', 'genre')
+        extra_kwargs = {'genre': {'write_only': True}}
+
 
 
 
@@ -47,15 +50,21 @@ class BookSerializers(serializers.HyperlinkedModelSerializer):
     The Serializer of `emanagement.models.Book`
     '''
     genre_list = serializers.StringRelatedField(source="genre", many=True, read_only=True)
-    author = serializers.StringRelatedField(many=False, read_only=True)
-    author_url = serializers.HyperlinkedRelatedField(source='author', many=False, read_only=True, view_name='bookauthor-detail')
-    publish = serializers.StringRelatedField(many=False, read_only=True)
-    publish_url = serializers.HyperlinkedRelatedField(source='publish', many=False, read_only=True, view_name='bookpublish-detail')
+    # author = serializers.StringRelatedField(many=False, read_only=True)
+    author_name = serializers.StringRelatedField(source='author', many=False, read_only=True)
+    # publish = serializers.StringRelatedField(many=False, read_only=True)
+    publish_by = serializers.StringRelatedField(source='publish', many=False, read_only=True)
 
     class Meta:
         model = models.Book
-        # fields = '__all__'
-        exclude = ['genre', 'language']
+        fields = '__all__'
+        # exclude = ['genre', 'language']
+        extra_kwargs = {
+            'genre': {'write_only': True},
+            'author': {'write_only': True},
+            'publish': {'write_only': True},
+        }
+        # depth = 1
    
     
 class IssueSerializers(serializers.HyperlinkedModelSerializer):

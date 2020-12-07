@@ -15,6 +15,7 @@ from emanagement import utils
 from django.core import validators
 from django.contrib.auth import get_user_model
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
 
 UserModel = get_user_model()
@@ -26,7 +27,7 @@ class Genre(models.Model):
     fields = ['id', 'name']
     '''
     name = models.CharField(max_length=50, unique=True, choices=[
-                               (None, "Select Language")] + data_list.BOOK_GENRE, editable=False)
+                               (None, "Select Language")] + data_list.BOOK_GENRE)
 
     class Meta:
         ordering = ['name']
@@ -50,6 +51,14 @@ class BookAuthor(models.Model):
     aboutAuthor = models.TextField(max_length=250)
     genre = models.ManyToManyField(
         Genre, verbose_name="Genre", help_text='Hold down “Control”, or “Command” on a Mac, to select more than one.')
+    profile = models.FileField(
+        upload_to=utils.pic_upload, verbose_name="Author Profile",
+        default="user.jpg", blank=True,
+        validators=[validators.FileExtensionValidator(
+                allowed_extensions=validators.get_available_image_extensions(),
+                message="Select valid Cover Image."), utils.profile_size
+        ],
+    )
 
     class Meta:
         ordering = ['date_of_birth']
@@ -104,9 +113,8 @@ class Book(models.Model):
         BookAuthor, on_delete=models.CASCADE, verbose_name="Author Name")
     publish = models.ForeignKey(BookPublish, on_delete=models.CASCADE,
                                 verbose_name="Publisher Name")
-    publish_date = models.DateField(
-        validators=[], verbose_name="Publish Date")
-    date = models.DateTimeField(auto_now=True, verbose_name="Date", editable=False)
+    update_date = models.DateTimeField(auto_now=True, verbose_name="Last Update")
+    date = models.DateTimeField(auto_now_add=True, verbose_name="Date")
     language = models.CharField(max_length=12, verbose_name="Language", choices=[
                                 (None, "Select Language")] + global_settings.LANGUAGES)
     edition = models.IntegerField(verbose_name="Edition", choices=[
@@ -116,16 +124,17 @@ class Book(models.Model):
     page = models.PositiveIntegerField(verbose_name="Total Page")
     description = models.TextField(verbose_name="Book Description")
     stock = models.PositiveIntegerField(verbose_name="Stock")
+    in_stock = models.BooleanField(default=True, editable=False)
     today_stock = models.PositiveIntegerField(
-        verbose_name="Current stock", null=True, blank=True)
+        verbose_name="Current stock", editable=False)
     rating = models.DecimalField(
-        max_digits=2, decimal_places=1, verbose_name="Rating")
+        max_digits=3, decimal_places=1, verbose_name="Rating", validators=[utils.validate_rating])
     profile = models.FileField(
         upload_to=utils.pic_upload, verbose_name="Book cover",
-        default="default.jpg", blank=True,
+        default="elibrary.jpg", blank=True,
         validators=[validators.FileExtensionValidator(
                 allowed_extensions=validators.get_available_image_extensions(),
-                message="Select valid Cover Image.")
+                message="Select valid Cover Image."), utils.profile_size
         ],
     )
 
@@ -136,6 +145,7 @@ class Book(models.Model):
 
     def __str__(self):
         return f"{self.name}"
+    
 
 class Issue(models.Model):
     '''
@@ -144,12 +154,14 @@ class Issue(models.Model):
     fields = ['id', 'user', 'book', 'date', 'due_date']
     '''
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
-    book = models.ForeignKey(Book, on_delete=models.CASCADE)
-    date = models.DateField(auto_now_add=True, editable=False)
+    user = models.ForeignKey(UserModel, on_delete=models.CASCADE, limit_choices_to={'is_active': True})
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, limit_choices_to={'in_stock': True})
+    date = models.DateField(auto_now_add=True, editable=False,
+        help_text=_("The date book is issue by user."),
+    )
     due_date = models.DateField(
         default=timezone.now() + timezone.timedelta(days=7),
-        help_text="By defualt date is 7 days",
+        help_text=_("By defualt date is 7 days"),
     )
 
     class Meta:

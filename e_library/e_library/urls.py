@@ -9,6 +9,7 @@ from django.contrib.staticfiles.storage import staticfiles_storage
 from django.views.generic.base import RedirectView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 from rest_framework import routers
+from e_library.views import UserAPI
 from django.utils.translation import gettext as _, gettext_lazy
 
 
@@ -50,6 +51,7 @@ router.register('book-issue', man_views.IssueAPI, basename="issue")
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('user/', UserAPI.as_view()),
     path('admin/', admin.site.urls),
     path('auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('auth/token/', TokenObtainPairView.as_view()),
@@ -65,3 +67,5 @@ if settings.DEBUG:
                           document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)
+
+

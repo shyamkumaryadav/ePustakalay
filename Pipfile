@@ -18,6 +18,7 @@ django-cors-headers = "*"
 Markdown = "*"
 django-cleanup = "*"
 django-filter = "*"
+pillow = "*"
 
 [requires]
 python_version = "3.8"

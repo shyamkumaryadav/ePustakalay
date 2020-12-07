@@ -31,16 +31,14 @@ INSTALLED_APPS = [
 
     # Django Rest Framework
     'rest_framework',
-    'django_cleanup',
     'django_filters',
 
     # corsheaders
-    "corsheaders",
+    # "corsheaders",
 
-    # app for User Model
-    # 'management',
     # app for All E-library Funcation
-    'emanagement', # User E-Management models and urls
+    'emanagement', # User E-Management models, views
+    'django_cleanup', # To cleanup the storage
 
 ]
 
@@ -48,7 +46,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     # CORS
-    'corsheaders.middleware.CorsMiddleware',
+    # 'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -59,10 +57,10 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
-CORS_ORIGIN_ALLOW_ALL = False
-CORS_ORIGIN_WHITELIST = (
-    'http://localhost:8080',
-)
+# CORS_ORIGIN_ALLOW_ALL = False
+# CORS_ORIGIN_WHITELIST = (
+#     'http://localhost:8080',
+# )
 
 ROOT_URLCONF = 'e_library.urls'
 
@@ -135,7 +133,7 @@ LOCALE_PATH = (
     BASE_DIR / 'locale',
 )
 
-LOGIN_URL = ''
+LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'api-root'
 LOGOUT_REDIRECT_URL = 'api-root'
 
