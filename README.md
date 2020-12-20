@@ -6,7 +6,7 @@ Install [python 3](https://www.python.org/)
 ### First Clone The Project  
 
 ```bash
-pip install pipenv # use what you have
+pip install pipenv # to use script install or update pipenv with latest version
 mkdir ~/E_library
 cd ~/E_library
 git clone git@github.com:shyamkumaryadav/e-library-management-system-api.git .
