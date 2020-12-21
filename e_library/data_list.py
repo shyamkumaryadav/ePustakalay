@@ -1,105 +1,17 @@
-# Book Genre
-BOOK_GENRE = [
-    ('Action and adventure', 'Action and adventure'),
-    ('Art', 'Art'),
-    ('Alternate history', 'Alternate history'),
-    ('Autobiography', 'Autobiography'),
-    ('Anthology', 'Anthology'),
-    ('Biography', 'Biography'),
-    ('Chick lit', 'Chick lit'),
-    ('Book review', 'Book review'),
-    ('Children\'s', 'Children\'s'),
-    ('Cookbook', 'Cookbook'),
-    ('Comic book', 'Comic book'),
-    ('Diary', 'Diary'),
-    ('Coming-of-age', 'Coming-of-age'),
-    ('Dictionary', 'Dictionary'),
-    ('Crime', 'Crime'),
-    ('Encyclopedia', 'Encyclopedia'),
-    ('Drama', 'Drama'),
-    ('Guide', 'Guide'),
-    ('Fairytale', 'Fairytale'),
-    ('Health', 'Health'),
-    ('Fantasy', 'Fantasy'),
-    ('History', 'History'),
-    ('Graphic novel', 'Graphic novel'),
-    ('Journal', 'Journal'),
-    ('Historical fiction', 'Historical fiction'),
-    ('Math', 'Math'),
-    ('Horror', 'Horror'),
-    ('Memoir', 'Memoir'),
-    ('Mystery Prayer', 'Mystery Prayer'),
-    ('Paranormal romance', 'Paranormal romance'),
-    ('Religion, spirituality and new age', 'Religion, spirituality and new age'),
-    ('Picture book', 'Picture book'),
-    ('Textbook', 'Textbook'),
-    ('Poetry', 'Poetry'),
-    ('Review', 'Review'),
-    ('Political thriller', 'Political thriller'),
-    ('Science', 'Science'),
-    ('Romance', 'Romance'),
-    ('Self help', 'Self help'),
-    ('Satire', 'Satire'),
-    ('Travel', 'Travel'),
-    ('Science fiction', 'Science fiction'),
-    ('True crime', 'True crime'),
-    ('Short story', 'Short story'),
-    ('Suspense', 'Suspense'),
-    ('Thriller', 'Thriller'),
-    ('Young adult', 'Young adult'),
-]
+import json
+from django.conf import settings
 
-# book edition
-BOOK_EDITION = [
-    (1, '1st'),
-    (2, '2nd'),
-    (3, '3rd'),
-    (4, '4th'),
-    (5, '5th'),
-    (6, '6th'),
-    (7, '7th'),
-    (8, '8th'),
-    (9, '9th'),
-    (10, '10th')
-]
+# Book Genre list
+def book_genre():
+    with open(settings.BASE_DIR / 'data/book_genre.json') as f:
+        data = json.loads(f.read())
+    return data or None
+BOOK_GENRE = book_genre()
 
-# list state
-LIST_STATE = [
-    ('AP', 'Andhra Pradesh'),
-    ('AR', 'Arunachal Pradesh'),
-    ('AS', 'Assam'),
-    ('BR', 'Bihar'),
-    ('CT', 'Chhattisgarh'),
-    ('GA', 'Goa'),
-    ('GJ', 'Gujarat'),
-    ('HR', 'Haryana'),
-    ('HP', 'Himachal Pradesh'),
-    ('JH', 'Jharkhand'),
-    ('KA', 'Karnataka'),
-    ('KL', 'Kerala'),
-    ('MP', 'Madhya Pradesh'),
-    ('MH', 'Maharashtra'),
-    ('MN', 'Manipur'),
-    ('ML', 'Meghalaya'),
-    ('MZ', 'Mizoram'),
-    ('NL', 'Nagaland'),
-    ('OR', 'Odisha'),
-    ('PB', 'Punjab'),
-    ('RJ', 'Rajasthan'),
-    ('SK', 'Sikkim'),
-    ('TN', 'Tamil Nadu'),
-    ('TG', 'Telangana'),
-    ('TR', 'Tripura'),
-    ('UT', 'Uttarakhand'),
-    ('UP', 'Uttar Pradesh'),
-    ('WB', 'West Bengal'),
-    ('AN', 'Andaman and Nicobar Islands'),
-    ('CH', 'Chandigarh'),
-    ('DB', 'Dadra and Nagar Haveli'),
-    ('DD', 'Daman and Diu'),
-    ('DL', 'Delhi'),
-    ('JK', 'Jammu and Kashmir'),
-    ('LA', 'Ladakh'),
-    ('LD', 'Lakshadweep'),
-    ('PY', 'Puducherry'),
-]
+# book edition list
+def book_edition():
+    with open(settings.BASE_DIR / 'data/book_edition.json') as f:
+        data = json.loads(f.read())
+    return data or None
+BOOK_EDITION = book_edition()
+

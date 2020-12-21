@@ -3,22 +3,9 @@ import data_list
 from django.db import models
 from django.contrib.auth.models import AbstractUser as BaseAbstractUser
 from django.core import validators
+from django.utils.html import mark_safe, escape
 from django.utils.translation import gettext_lazy as _
 from emanagement import utils
-
-
-class Countrie(models.Model):
-    name = models.CharField(max_length=30)
-    sortname = models.CharField(max_length=3)
-    phone_code = models.IntegerField()
-
-class State(models.Model):
-    name = models.CharField(max_length=20)
-    country = models.ForeignKey(Countrie, on_delete=models.CASCADE)
-
-class City(models.Model):
-    name = models.CharField(max_length=20)
-    state = models.ForeignKey(State, on_delete=models.CASCADE)
 
 
 
@@ -42,11 +29,12 @@ class AbstractUser(BaseAbstractUser):
                                     max_length=13,
                                     null=True,blank=True,
                                     validators=[validators.RegexValidator(
-                                        regex=r"^[4-9]\d{9}$", message=_("Enter Valid Phone Number.")), ]
+                                        regex=r"^\d{1,5}[4-9]\d{9}$", message=_("Enter Valid Phone Number.")), ],
+                                    help_text=_("Enter Your Number without <b>country code.</b>")
                                     )
-    country = models.ForeignKey(Countrie, on_delete=models.CASCADE, null=True, blank=True)
-    state = models.ForeignKey(State, on_delete=models.CASCADE, null=True, blank=True)
-    city = models.ForeignKey(City, on_delete=models.CASCADE, null=True, blank=True)
+    country = models.CharField(max_length=25, null=True, blank=True)
+    state = models.CharField(max_length=50, null=True, blank=True)
+    city = models.CharField(max_length=50, null=True, blank=True)
     pincode = models.CharField(verbose_name=_("Pincode"), max_length=6,
                                null=True,blank=True
                                )
@@ -64,6 +52,11 @@ class AbstractUser(BaseAbstractUser):
                                        "Select valid Cover Image.")
                                ), utils.profile_size
                                ],)
+
+    def image_tag(self):
+        return mark_safe('<img src="{}" width="200px" />'.format(escape(self.profile.url)))
+    image_tag.short_description = 'USER IMAGE'
+    image_tag.allow_tags = True
    
     class Meta(BaseAbstractUser.Meta):
         verbose_name = _('user')

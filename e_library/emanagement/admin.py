@@ -14,7 +14,7 @@ class BookAdmin(admin.ModelAdmin):
     search_fields = ('name',)
     readonly_fields = ('today_stock', 'id', 'date', 'in_stock', 'update_date')
     ordering = ('name',)
-    list_filter = ('in_stock', 'edition', 'language', 'date')
+    list_filter = ('in_stock', 'date')
 
 admin.site.register(models.BookAuthor)
 admin.site.register(models.BookPublish)

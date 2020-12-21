@@ -1,37 +1,26 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin, Group
-from .models import User, City, Countrie, State
+from .models import User
 from django.utils.translation import gettext, gettext_lazy as _
 
 admin.site.unregister(Group)
 
-@admin.register(City)
-class CityAdmins(admin.ModelAdmin):
-    pass
-
-@admin.register(Countrie)
-class CountrieAdmins(admin.ModelAdmin):
-    pass
-
-@admin.register(State)
-class StateAdmins(admin.ModelAdmin):
-    pass
 
 
 @admin.register(User)
 class UserAdmins(UserAdmin):
-    # readonly_fields = ('image_tag', 'id')
-    list_display = ('username', 'email', 'first_name', 'last_name', 'email')
+    readonly_fields = ('image_tag', 'id')
+    list_display = ('username', 'email', 'first_name', 'last_name', 'is_defaulter')
     list_filter = ('is_defaulter', 'is_superuser', 'is_active', 'country')
     fieldsets = (
-        (None, {'fields': ('username', 'password')}),
+        (None, {'fields': (('image_tag', 'profile'), 'username', 'password')}),
         (_('Personal info'), {
             'classes': ('collapse',),
             'fields': ('first_name', 'middle_name', 'last_name', 'email', 'date_of_birth')
         }),
         (_('More info'), {
             'classes': ('collapse',),
-            'fields': ('phone_number', 'country', 'state', 'city', 'pincode', 'full_address', 'profile')
+            'fields': ('phone_number', 'country', 'state', 'city', 'pincode', 'full_address',)
         }),
         (_('Permissions'), {
             'classes': ('collapse',),
