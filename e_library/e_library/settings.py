@@ -145,7 +145,7 @@ LANGUAGE_COOKIE_NAME = 'library_language'
 LOCALE_PATH = (
     BASE_DIR / 'locale',
 )
-AUTH_USER_MODEL = 'e_library.User'
+AUTH_USER_MODEL = 'emanagement.User'
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'api-root'
 LOGOUT_REDIRECT_URL = 'api-root'

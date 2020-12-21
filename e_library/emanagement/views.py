@@ -47,7 +47,7 @@ class GenreAPI(viewsets.ModelViewSet):
     - name : Name of genre  
     """
     queryset = models.Genre.objects.all()
-    permission_classes = [permissions.IsAdminUser|utils.ReadOnly]
+    permission_classes = [utils.ReadOnly]
     serializer_class = serializers.GenreSerializers
 
 class IssueAPI(viewsets.ModelViewSet):

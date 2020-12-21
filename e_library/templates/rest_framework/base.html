@@ -17,10 +17,11 @@
   
   {% block style %}
   {% block bootstrap_theme %}
-  <script>
-    window.addEventListener('load', function () {
+  <script type="module">
+    window.onload = () => {
       if (localStorage.getItem("elibrary-theme") === "true"){
         document.getElementById('theme').setAttribute("href", "{% static 'bootstrap-darkly.min.css' %}");
+        document.getElementById('githubMark').style.filter = 'invert(1)';
         document.getElementById('el-dark').setAttribute("class", "disabled");
       }else{
         if ((localStorage.getItem("elibrary-theme") === undefined)){
@@ -28,7 +29,7 @@
         }
         document.getElementById('el-light').setAttribute("class", "disabled");
       }
-    }, false);
+    }
     
   </script>
   
@@ -50,7 +51,7 @@
 <body class="{% block bodyclass %}{% endblock %}">
 
   <!-- github Mark SVG -->
-  <a href="//github.com/shyamkumaryadav/e-library-management-system-api" target="_blank" style="z-index: 2;position: fixed;right: 5%;bottom: 5%;" title="View source on GitHub">
+  <a id="githubMark" href="//github.com/shyamkumaryadav/e-library-management-system-api" target="_blank" style="z-index: 2;position: fixed;right: 5%;bottom: 5%;" title="View source on GitHub">
     <img src="{% static 'GitHub-Mark.svg' %}" alt="Github Logo" width="40px">
   </a>
   </style>
@@ -249,7 +250,7 @@
             <div class="request-info" style="clear: both" aria-label="{% trans 'request info' %}">
               <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
             </div>
-            
+            <br>
             <!-- HTTP ok -->
             <div class="response-info" aria-label="{% trans 'response info' %}">
               <pre class="prettyprint"><span class="meta nocode"><b>HTTP {{ response.status_code }} {{ response.status_text }}</b>{% for key, val in response_headers|items %}
@@ -387,7 +388,7 @@
       
     </style>
     <nav class="navbar navbar-fixied-bottom" style="margin-top: 20px;">
-      <div style="cursor: auto;" class="text-center">
+      <div style="cursor: auto;" class="row text-center">
         made with <a href="//www.djangoproject.com/" target="_blank" data-toggle="tooltip" data-placement="top" title="Django Project &hearts;">Django</a><div style="color: red;font-size: 35px;animation: heartbeat 1s infinite;">&hearts;</div><a href="//github.com/shyamkumaryadav" target="_blank" data-toggle="tooltip" data-placement="top" title="Shyamkumar's GitHub">Shyamkumar Yadav</a>
       </div>
     </nav>

@@ -9,7 +9,7 @@ def validate_rating(value):
         raise ValidationError(f'Ensure that {value} in 0 to 10.')
 
 def pic_upload(instance, filename):
-    return f"{instance._meta.model_name}/{instance._meta.app_label}_{instance.id}_{instance.__str__()}.{filename.split('.')[-1]}"
+    return f"{instance._meta.app_label}/{instance._meta.model_name}_{instance.id}_{instance.__str__()}.{filename.split('.')[-1]}"
 
 def age(value):
     today = timezone.now().date()

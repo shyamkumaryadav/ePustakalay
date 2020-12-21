@@ -9,25 +9,24 @@ from django.contrib.staticfiles.storage import staticfiles_storage
 from django.views.generic.base import RedirectView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 from rest_framework import routers
-from e_library.views import UserAPI
 from django.utils.translation import gettext as _, gettext_lazy
 
 
 # Text to put at the end of each page's <title>.
-admin.AdminSite.site_title = gettext_lazy('site title')
+admin.AdminSite.site_title = gettext_lazy('shyamkumar')
 
 # Text to put in each page's <h1>.
 admin.AdminSite.site_header = gettext_lazy('E-library Management System')
 
 # Text to put at the top of the admin index page.
-admin.AdminSite.index_title = gettext_lazy('Models List')
+admin.AdminSite.index_title = gettext_lazy('App List')
 
 # URL for the "View site" link at the top of each admin page.
 admin.AdminSite.site_url = '/' # 'https://elibrarymanagementsystem.herokuapp.com/'
 
 admin.AdminSite.enable_nav_sidebar = False
 
-admin.AdminSite.empty_value_display = '-'
+admin.AdminSite.empty_value_display = '<i>undefined</i>'
 
 
 # Root Url Of DRF
@@ -51,7 +50,6 @@ router.register('book-issue', man_views.IssueAPI, basename="issue")
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('user/', UserAPI.as_view()),
     path('admin/', admin.site.urls),
     path('auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('auth/token/', TokenObtainPairView.as_view()),
