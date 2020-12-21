@@ -25,9 +25,11 @@ mysqlclient = "*"
 python_version = "3.8"
 
 [scripts]
+cmd="python e_library/manage.py"
 collect = "python e_library/manage.py collectstatic --noinput"
-make = "python e_library/manage.py makemigrations"
+make = "python e_library/manage.py makemigrations e_library emanagement"
 shell = "python e_library/manage.py shell"
 migrate = "python e_library/manage.py migrate"
 start = "python e_library/manage.py runserver 0.0.0.0:8000"
 test = "python e_library/manage.py test"
+clean = "rm -r e_library/db.sqlite3 e_library/emanagement/migrations e_library/e_library/migrations"

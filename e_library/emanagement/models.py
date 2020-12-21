@@ -141,7 +141,7 @@ class Book(models.Model):
     class Meta:
         ordering = ['name']
         unique_together = ('name', 'author',)
-        permissions = [('is_defaulter', 'User in defaulter list')]
+        
 
     def __str__(self):
         return f"{self.name}"
@@ -154,12 +154,12 @@ class Issue(models.Model):
     fields = ['id', 'user', 'book', 'date', 'due_date']
     '''
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.ForeignKey(UserModel, on_delete=models.CASCADE, limit_choices_to={'is_active': True})
+    user = models.ForeignKey(UserModel, on_delete=models.CASCADE, limit_choices_to={'is_active': True, })
     book = models.ForeignKey(Book, on_delete=models.CASCADE, limit_choices_to={'in_stock': True})
-    date = models.DateField(auto_now_add=True, editable=False,
+    date = models.DateTimeField(auto_now_add=True, editable=False,
         help_text=_("The date book is issue by user."),
     )
-    due_date = models.DateField(
+    due_date = models.DateTimeField(
         default=timezone.now() + timezone.timedelta(days=7),
         help_text=_("By defualt date is 7 days"),
     )
@@ -170,8 +170,11 @@ class Issue(models.Model):
     def __str__(self):
         return f"{self.user} take {self.book}"
     
-    @property
-    def due_date_end(self):
-        return self.due_date < timezone.now().date()
+    def _due_date_end(self):
+        return self.due_date <= timezone.now()
+
+    _due_date_end.boolean = True
+    due_date_end = property(_due_date_end)
+
 
 

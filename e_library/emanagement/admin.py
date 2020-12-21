@@ -4,7 +4,7 @@ from emanagement import models
 
 @admin.register(models.Book)
 class BookAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'author', 'publish', 'stock', 'today_stock', 'in_stock')
+    list_display = ('__str__', 'author', 'publish', 'in_stock', 'cost',)
     fieldsets = (
         (None, {'fields': ('id', 'name', 'author')}),
         ('Information', {
@@ -26,5 +26,6 @@ class GenreAdmin(admin.ModelAdmin):
 
 @admin.register(models.Issue)
 class IssueAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'user', 'book')
-    readonly_fields = ('date',)
+    list_display = ('__str__', 'user', 'book', '_due_date_end',)
+    list_filter = ('date',)
+    readonly_fields = ('date','_due_date_end')

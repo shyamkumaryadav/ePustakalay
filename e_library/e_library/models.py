@@ -10,7 +10,7 @@ from emanagement import utils
 class Countrie(models.Model):
     name = models.CharField(max_length=30)
     sortname = models.CharField(max_length=3)
-    phone_code = models.IntegerField(max_length=6)
+    phone_code = models.IntegerField()
 
 class State(models.Model):
     name = models.CharField(max_length=20)
@@ -24,56 +24,40 @@ class City(models.Model):
 
 class AbstractUser(BaseAbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    first_name = models.CharField(
-        verbose_name=_("First Name"),
-        max_length=20,
-        validators=[
-            validators.RegexValidator(regex=r"^[A-Za-z ]+$", message=_("Enter Valid First Name."))],
-        null=True,
-    )
+    
     middle_name = models.CharField(
         verbose_name=_("Middle Name"),
         max_length=20,
         validators=[
             validators.RegexValidator(regex=r"^[A-Za-z ]+$", message=_("Enter Valid Middle Name."))],
-        null=True,
+        null=True,blank=True,
     )
-    last_name = models.CharField(
-        verbose_name=_("Last Name"),
-        max_length=20,
-        validators=[
-            validators.RegexValidator(regex=r"^[A-Za-z]+$", message=_("Enter Valid Last Name."))],
-        null=True,
-    )
-
-    email = models.EmailField(
-        verbose_name=_('email'),
-        max_length=30,
-        unique=True,
-    )
+    
     date_of_birth = models.DateField(
         verbose_name=_("Data of Birth"),
-        null=True,
+        null=True,blank=True,
         validators=[utils.age]
     )
     phone_number = models.CharField(verbose_name=_("Phone Number"),
                                     max_length=13,
-                                    null=True,
+                                    null=True,blank=True,
                                     validators=[validators.RegexValidator(
                                         regex=r"^[4-9]\d{9}$", message=_("Enter Valid Phone Number.")), ]
                                     )
-    country = models.ForeignKey(Countrie, on_delete=models.CASCADE)
-    state = models.ForeignKey(State, on_delete=models.CASCADE)
-    city = models.ForeignKey(City, on_delete=models.CASCADE)
+    country = models.ForeignKey(Countrie, on_delete=models.CASCADE, null=True, blank=True)
+    state = models.ForeignKey(State, on_delete=models.CASCADE, null=True, blank=True)
+    city = models.ForeignKey(City, on_delete=models.CASCADE, null=True, blank=True)
     pincode = models.CharField(verbose_name=_("Pincode"), max_length=6,
-                               null=True,
+                               null=True,blank=True
                                )
     full_address = models.TextField(verbose_name=_("Full Address"),
                                     null=True,
+                                    blank=True,
                                     max_length=50,
                                     )
+    is_defaulter = models.BooleanField(default=False, help_text=_('User in defaulter list'))
     profile = models.FileField(upload_to=utils.pic_upload,
-                               default='user.jpg', blank=True,
+                               default='user.jpg', blank=True,null=True,
                                validators=[validators.FileExtensionValidator(
                                    allowed_extensions=validators.get_available_image_extensions(),
                                    message=_(

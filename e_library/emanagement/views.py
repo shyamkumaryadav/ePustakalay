@@ -56,7 +56,7 @@ class IssueAPI(viewsets.ModelViewSet):
     """
     # queryset = models.Issue.objects.filter(user=request.user)
     serializer_class = serializers.IssueSerializers
-    permission_classes = [permissions.IsAdminUser|utils.ReadOnly]
+    permission_classes = [permissions.IsAdminUser|utils.ReadOnly&utils.IsDefaulter]
 
 
     def get_queryset(self):

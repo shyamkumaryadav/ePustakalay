@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "corsheaders",
 
     # app for All E-library Funcation
+    'e_library',
     'emanagement', # User E-Management models, views
     'django_cleanup', # To cleanup the storage
 
@@ -144,7 +145,7 @@ LANGUAGE_COOKIE_NAME = 'library_language'
 LOCALE_PATH = (
     BASE_DIR / 'locale',
 )
-
+AUTH_USER_MODEL = 'e_library.User'
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'api-root'
 LOGOUT_REDIRECT_URL = 'api-root'
@@ -159,6 +160,10 @@ STATICFILES_DIRS = (BASE_DIR / "static",)
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+DATE_INPUT_FORMATS = ['%m/%d/%Y',]
+USE_THOUSAND_SEPARATOR = True
+NUMBER_GROUPING = 3
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
