@@ -167,7 +167,25 @@ class Book(models.Model):
     '''
     E-Management `BookAuthor` Model
 
-    fields = ['id', 'name', 'genre', 'author', 'publish', 'publish_date', 'date', 'language', 'edition', 'cost', 'page', 'description', 'stock', 'today_stock', 'rating', 'profile']
+    fields = [
+        'id',
+        'name',
+        'genre',
+        'author',
+        'publish',
+        'update_date',
+        'date',
+        'language',
+        'edition',
+        'cost',
+        'page',
+        'description',
+        'stock',
+        'in_stock',
+        'today_stock',
+        'rating',
+        'profile'
+    ]
     '''
     id = models.UUIDField(verbose_name="Book ID",
                           primary_key=True, default=uuid.uuid4, editable=False)

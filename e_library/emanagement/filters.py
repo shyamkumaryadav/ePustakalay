@@ -12,9 +12,13 @@ class BookFilter(filters.FilterSet):
             'name': ['contains'],
             'cost': ['range'],
             'rating': ['range'],
-            'genre__name': ['contains'],
+            'language': ['exact'],
+            'in_stock': ['exact'],
+            'genre': ['contains'],
             'author__first_name': ['contains'],
+            'author': ['exact'],
             'publish__company_name': ['contains'],
+            'publish': ['exact'],
         }
 
 
