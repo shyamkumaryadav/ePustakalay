@@ -12,7 +12,7 @@ from emanagement import serializers, models, filters, utils
 @csrf_exempt
 def update(request):
     if request.method == "POST":
-        repo = git.Repo("elibrarymanagementsystemapi.pythonanywhere.com/") 
+        repo = git.Repo(".") 
         origin = repo.remotes.origin
         origin.pull()
         return HttpResponse("Updated code on PythonAnywhere")
