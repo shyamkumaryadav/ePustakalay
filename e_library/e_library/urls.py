@@ -55,7 +55,6 @@ urlpatterns = [
     path('auth/token/', TokenObtainPairView.as_view()),
     path('auth/token/refresh/', TokenRefreshView.as_view()),
     path('auth/token/verify/', TokenVerifyView.as_view()),
-    path('update/', man_views.update),
     path('favicon.ico', RedirectView.as_view(
         url=staticfiles_storage.url('favicon.ico')))
 
