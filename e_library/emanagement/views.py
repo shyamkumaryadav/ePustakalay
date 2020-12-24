@@ -9,17 +9,35 @@ from django.conf import settings
 from rest_framework import viewsets, versioning, permissions
 from emanagement import serializers, models, filters, utils
 import hmac
+import json
 import hashlib
+
+def is_valid_signature(x_hub_signature, data, private_key):
+    # x_hub_signature and data are from the webhook payload
+    # private key is your webhook secret
+    hash_algorithm, github_signature = x_hub_signature.split('=', 1)
+    algorithm = hashlib.__dict__.get(hash_algorithm)
+    encoded_key = bytes(private_key, 'latin-1')
+    mac = hmac.new(encoded_key, msg=data, digestmod=algorithm)
+    return hmac.compare_digest(mac.hexdigest(), github_signature)
+
 
 @csrf_exempt
 def update(request):
+    a = ""
     if request.method == "POST":
-        if request.headers.get('X-Hub-Signature'):
-            repo = git.Repo(os.path.dirname(settings.BASE_DIR))
-            o = repo.remotes.origin
-            o.pull()
-            return HttpResponse(str(request.body))
-    return HttpResponseRedirect('/')
+        x_hub_signature = request.headers.get('X-Hub-Signature')
+        try:
+            a = request.body.decode("utf-8")
+            data = json.loads(a.replace("'",'"'))
+            if not is_valid_signature(x_hub_signature, data, os.getenv('GIT_PULL')):
+                repo = git.Repo(os.path.dirname(settings.BASE_DIR))
+                o = repo.remotes.origin
+                o.pull()
+                return HttpResponse(str(a))
+        except:
+            pass
+    return HttpResponse(a)
 
 def handler404(request, exception):
     return HttpResponse(f"<h1>Not Found</h1><br><p>The requested resource was not found on this server.</p><hr>")
