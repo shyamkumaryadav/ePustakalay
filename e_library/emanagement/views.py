@@ -19,6 +19,12 @@ def update(request):
     else:
         return HttpResponse("Couldn't update the code on PythonAnywhere")
 
+def handler404(request, exception):
+    return HttpResponse(f"<h1>Not Found</h1><br><p>The requested resource was not found on this server.</p><hr>")
+
+def handler500(request):
+    return HttpResponse(f"500 error handler!")
+
 class BookAPI(viewsets.ModelViewSet):
     """
     E-Management `Book` ViewSet
