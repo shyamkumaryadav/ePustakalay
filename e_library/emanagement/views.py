@@ -25,11 +25,11 @@ def is_valid_signature(x_hub_signature, data, private_key):
 def update(request):
     if request.method == "POST":
         x_hub_signature = request.headers.get('X-Hub-Signature')
-        if not is_valid_signature(x_hub_signature, request.POST, os.getenv('GIT_PULL')):
+        if not is_valid_signature(x_hub_signature, data=dict(request.POST), os.getenv('GIT_PULL')):
             repo = git.Repo(os.path.dirname(settings.BASE_DIR))
             o = repo.remotes.origin
             o.pull()
-            return HttpResponse(str(dict(request.headers)))
+            return HttpResponse(str(dict(request.POST)))
     return HttpResponseRedirect('/')
 
 def handler404(request, exception):
