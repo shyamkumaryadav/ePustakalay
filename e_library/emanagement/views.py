@@ -29,7 +29,7 @@ def update(request):
         x_hub_signature = request.headers.get('X-Hub-Signature')
         try:
             a = request.body.decode("utf-8")
-            data = json.loads(a.replace("'",'"'))
+            data = json.loads(a)
             if not is_valid_signature(x_hub_signature, data, os.getenv('GIT_PULL')):
                 repo = git.Repo(os.path.dirname(settings.BASE_DIR))
                 o = repo.remotes.origin
@@ -37,7 +37,7 @@ def update(request):
                 return HttpResponse(str(a))
         except:
             pass
-    return HttpResponse(a)
+    return HttpResponse(f"not update: {a}")
 
 def handler404(request, exception):
     return HttpResponse(f"<h1>Not Found</h1><br><p>The requested resource was not found on this server.</p><hr>")
