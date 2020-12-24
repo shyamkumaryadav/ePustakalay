@@ -3,7 +3,7 @@ views for management apps.
 """
 import git
 import os
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 from rest_framework import viewsets, versioning, permissions
@@ -17,7 +17,7 @@ def update(request):
         o = repo.remotes.origin
         o.pull()
         return HttpResponse(str(dict(request.POST)))
-    return HttpResponse("Couldn't update!!!")
+    return HttpResponseRedirect('/')
 
 def handler404(request, exception):
     return HttpResponse(f"<h1>Not Found</h1><br><p>The requested resource was not found on this server.</p><hr>")
