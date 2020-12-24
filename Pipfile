@@ -20,6 +20,7 @@ django-cleanup = "*"
 django-filter = "*"
 pillow = "*"
 mysqlclient = "*"
+gitpython = "*"
 
 [requires]
 python_version = "3.8"

@@ -1,11 +1,23 @@
 """
 views for management apps.
 """
+import git
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets, versioning, permissions
 from emanagement import serializers, models, filters, utils
 
 
 
+@csrf_exempt
+def update(request):
+    if request.method == "POST":
+        repo = git.Repo("elibrarymanagementsystemapi.pythonanywhere.com/") 
+        origin = repo.remotes.origin
+        origin.pull()
+        return HttpResponse("Updated code on PythonAnywhere")
+    else:
+        return HttpResponse("Couldn't update the code on PythonAnywhere")
 
 class BookAPI(viewsets.ModelViewSet):
     """
