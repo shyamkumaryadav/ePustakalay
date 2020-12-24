@@ -13,18 +13,12 @@ import json
 
 @csrf_exempt
 def update(request):
-    a = ""
     if request.method == "POST":
-        try:
-            a = request.body.decode("utf-8")
-            if json.loads(a)['sender']['node_id'] == os.getenv('GIT_PULL'):
-                repo = git.Repo(os.path.dirname(settings.BASE_DIR))
-                o = repo.remotes.origin
-                o.pull()
-                return HttpResponse(str(a))
-        except:
-            pass
-    return HttpResponse(f" Not workin update: {a}")
+        repo = git.Repo(os.path.dirname(settings.BASE_DIR))
+        o = repo.remotes.origin
+        o.pull()
+        return HttpResponse("Update Origin Done!")
+    return HttpResponseRedirect("/")
 
 def handler404(request, exception):
     return HttpResponse(f"<h1>Not Found</h1><br><p>The requested resource was not found on this server.</p><hr>")
