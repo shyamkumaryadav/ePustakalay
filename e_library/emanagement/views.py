@@ -1,12 +1,21 @@
 """
 views for management apps.
 """
-from git import Repo
+import git
+import os
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.conf import settings
 from rest_framework import viewsets, versioning, permissions
 from emanagement import serializers, models, filters, utils
 
+
+@csrf_exempt
+def update(request):
+    repo = git.Repo(os.path.join(settings.BASE_DIR, '..'))
+    o = repo.remotes.origin
+    o.pull()
+    return HttpResponse("Update is done bro")
 
 def handler404(request, exception):
     return HttpResponse(f"<h1>Not Found</h1><br><p>The requested resource was not found on this server.</p><hr>")
