@@ -8,37 +8,22 @@ from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 from rest_framework import viewsets, versioning, permissions
 from emanagement import serializers, models, filters, utils
-import hmac
 import json
-import hashlib
-
-def is_valid_signature(x_hub_signature, data, private_key):
-    # x_hub_signature and data are from the webhook payload
-    # private key is your webhook secret
-    hash_algorithm, github_signature = x_hub_signature.split('=', 1)
-    algorithm = hashlib.__dict__.get(hash_algorithm)
-    encoded_key = bytes(private_key, 'latin-1')
-    mac = hmac.new(encoded_key, msg=data, digestmod=algorithm)
-    return hmac.compare_digest(mac.hexdigest(), github_signature)
 
 
 @csrf_exempt
 def update(request):
     a = ""
     if request.method == "POST":
-        x_hub_signature = request.headers.get('X-Hub-Signature')
         try:
             a = request.body.decode("utf-8")
-            # data = json.loads(a)
-            if not is_valid_signature(x_hub_signature, a, os.getenv('GIT_PULL')):
+            if json.loads(a)['sender']['node_id'] == os.getenv('GIT_PULL'):
                 repo = git.Repo(os.path.dirname(settings.BASE_DIR))
                 o = repo.remotes.origin
                 o.pull()
                 return HttpResponse(str(a))
         except:
-            repo = git.Repo(os.path.dirname(settings.BASE_DIR))
-            o = repo.remotes.origin
-            o.pull()
+            pass
     return HttpResponse(f" but update: {a}")
 
 def handler404(request, exception):
