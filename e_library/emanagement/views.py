@@ -24,7 +24,7 @@ def update(request):
                 return HttpResponse(str(a))
         except:
             pass
-    return HttpResponse(f" but update: {a}")
+    return HttpResponse(f" Not workin update: {a}")
 
 def handler404(request, exception):
     return HttpResponse(f"<h1>Not Found</h1><br><p>The requested resource was not found on this server.</p><hr>")
