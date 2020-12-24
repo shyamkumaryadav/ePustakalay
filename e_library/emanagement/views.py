@@ -12,10 +12,12 @@ from emanagement import serializers, models, filters, utils
 
 @csrf_exempt
 def update(request):
-    repo = git.Repo(os.path.join(settings.BASE_DIR, '..'))
-    o = repo.remotes.origin
-    o.pull()
-    return HttpResponse("Update is done bro")
+    if request.method == "POST":
+        repo = git.Repo(os.path.dirname(settings.BASE_DIR))
+        o = repo.remotes.origin
+        o.pull()
+        return HttpResponse(str(dict(request.POST)))
+    return HttpResponse("Couldn't update!!!")
 
 def handler404(request, exception):
     return HttpResponse(f"<h1>Not Found</h1><br><p>The requested resource was not found on this server.</p><hr>")
