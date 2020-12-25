@@ -7,7 +7,9 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from django.conf import settings
-from rest_framework import viewsets, versioning, permissions
+from django.urls import reverse
+from django.contrib.auth import get_user_model
+from rest_framework import viewsets, versioning, permissions, mixins, decorators
 from emanagement import serializers, models, filters, utils
 import json
 
@@ -30,6 +32,34 @@ def handler404(request, exception):
 
 def handler500(request):
     return HttpResponse(f"<h1 style='text-align: center;'>500 error handler! contect admin <a href='mailto:shyamkumaryadav2003@gmail.com'>shyamkumaryadav2003@gmail.com</a></h1>")
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    serializer_class = serializers.UserCreateSerializers
+    permission_classes = [permissions.IsAuthenticated&utils.IsAuthor]
+    queryset = get_user_model().objects.all()
+
+    def list(self, request, *args, **kwargs):
+        if request.user.is_staff:
+            return super(UserViewSet, self).list(request, *args, **kwargs)
+        else:
+            return HttpResponseRedirect(reverse('user-detail', kwargs={'pk': self.request.user.id}))
+
+    def get_queryset(self):
+        if self.request.user.is_staff:
+            return super(UserViewSet, self).get_queryset()
+        return get_user_model().objects.filter(username=self.request.user.username)
+    
+    @decorators.action(detail=True, methods=['post'], serializer_class=serializers.UserPasswordSerializer)
+    def set_password(self, request, pk=None):
+        print("*"*10, "password chabgeing", "*"*10)
+        user = self.get_object()
+        serializer = self.get_serializer(user, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return self.response(serializer.data)
+        return self.response(serializer.errors, status=404)
+
 
 class BookAPI(viewsets.ModelViewSet):
     """
@@ -80,7 +110,7 @@ class IssueAPI(viewsets.ModelViewSet):
     """
     # queryset = models.Issue.objects.filter(user=request.user)
     serializer_class = serializers.IssueSerializers
-    permission_classes = [permissions.IsAdminUser|utils.ReadOnly&utils.IsDefaulter]
+    permission_classes = [permissions.IsAdminUser|utils.ReadOnly]
 
 
     def get_queryset(self):

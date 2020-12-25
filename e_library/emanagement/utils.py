@@ -25,6 +25,9 @@ def profile_size(value):
 class ReadOnly(permissions.BasePermission):
     def has_permission(self, request, view):
         return request.method in permissions.SAFE_METHODS
+    
+    def has_object_permission(self, request, view, obj):
+        return request.method in permissions.SAFE_METHODS
 
 class IsDefaulter(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
@@ -32,3 +35,10 @@ class IsDefaulter(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:
             return True
         return obj == request.user
+
+class IsAuthor(permissions.BasePermission):
+    def has_permission(self, request, view):
+        return request.user.is_staff or request.user.is_authenticated or request.method in permissions.SAFE_METHODS
+    
+    def has_object_permission(self, request, view, obj):
+        return request.method in permissions.SAFE_METHODS or request.user.is_staff or request.user == obj
