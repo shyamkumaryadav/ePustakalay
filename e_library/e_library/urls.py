@@ -33,7 +33,7 @@ admin.AdminSite.empty_value_display = '<i>undefined</i>'
 router = routers.DefaultRouter()
 router.APIRootView.__doc__ = """
 ```python
-print("Hello world") update Test
+print("Hello world")
 
 from emanagement import views
 ```
