@@ -13,10 +13,10 @@ from django.utils.translation import gettext as _, gettext_lazy
 
 
 # Text to put at the end of each page's <title>.
-admin.AdminSite.site_title = gettext_lazy('shyamkumar')
+admin.AdminSite.site_title = gettext_lazy('Shyamkumar Yadav')
 
 # Text to put in each page's <h1>.
-admin.AdminSite.site_header = gettext_lazy('E-library Management System')
+admin.AdminSite.site_header = gettext_lazy('E-library Management System API')
 
 # Text to put at the top of the admin index page.
 admin.AdminSite.index_title = gettext_lazy('App List')
