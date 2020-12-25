@@ -15,7 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'zx6n)1_o^4*&6ypp-*@h37wd%s+g02(j-g&%p(yzyajl9uu&tg'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.getenv('DEBUG') == 'True'
 
 ALLOWED_HOSTS = ['*']
 
@@ -148,10 +148,6 @@ STATICFILES_DIRS = (BASE_DIR / "static",)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-DATE_INPUT_FORMATS = ['%m/%d/%Y',]
-USE_THOUSAND_SEPARATOR = True
-NUMBER_GROUPING = 3
-
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 
@@ -160,7 +156,7 @@ NUMBER_GROUPING = 3
 # Simple JWT
 SIMPLE_JWT = {
     'UPDATE_LAST_LOGIN': True,
-    'AUTH_HEADER_TYPES': ('Bearer','elibrary'),
+    'AUTH_HEADER_TYPES': ('Bearer','elibrary', 'sky',),
 }
 
 REST_FRAMEWORK = {

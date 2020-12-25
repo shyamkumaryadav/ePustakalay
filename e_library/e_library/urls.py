@@ -52,9 +52,9 @@ urlpatterns = [
     path('', include(router.urls)),
     path('admin/', admin.site.urls),
     path('auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('auth/token/', TokenObtainPairView.as_view()),
-    path('auth/token/refresh/', TokenRefreshView.as_view()),
-    path('auth/token/verify/', TokenVerifyView.as_view()),
+    path('auth/token/', TokenObtainPairView.as_view(), name="gettoken"),
+    path('auth/token/refresh/', TokenRefreshView.as_view(), name="reftoken"),
+    path('auth/token/verify/', TokenVerifyView.as_view(), name="vertoken"),
     path('updatexfcBQRdMgeNr/', man_views.update),
     path('favicon.ico', RedirectView.as_view(
         url=staticfiles_storage.url('favicon.ico')))
