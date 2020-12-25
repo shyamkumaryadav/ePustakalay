@@ -3,22 +3,26 @@ views for management apps.
 """
 import git
 import os
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
 from django.conf import settings
 from rest_framework import viewsets, versioning, permissions
 from emanagement import serializers, models, filters, utils
 import json
 
-
+@require_http_methods(['POST'])
 @csrf_exempt
 def update(request):
-    if request.method == "POST":
+    _ = request.headers.get('X-Hub-Signature')
+    if _:
         repo = git.Repo(os.path.dirname(settings.BASE_DIR))
         o = repo.remotes.origin
         o.pull()
-        return HttpResponse("Update Origin Done!")
-    return HttpResponseRedirect("/")
+        os.system("touch /var/www/elibrarymanagementsystemapi_pythonanywhere_com_wsgi.py")
+        return HttpResponse("Update on Pythonanywhere is Done!")
+    else:
+        raise Http404
 
 def handler404(request, exception):
     return HttpResponse(f"<h1>Not Found</h1><br><p>The requested resource was not found on this server.</p><hr>")
