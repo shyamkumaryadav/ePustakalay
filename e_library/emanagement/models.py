@@ -22,7 +22,7 @@ from django.utils.translation import gettext_lazy as _
 
 class AbstractUser(BaseAbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    email = models.EmailField(_('email address'), null=True)
+    email = models.EmailField(_('email address'))
     middle_name = models.CharField(
         verbose_name=_("Middle Name"),
         max_length=20,

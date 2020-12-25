@@ -4,6 +4,7 @@ views for management apps.
 import git
 import os
 from django.http import HttpResponse, HttpResponseRedirect, Http404
+from rest_framework.response import Response
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from django.conf import settings
@@ -35,30 +36,53 @@ def handler500(request):
 
 
 class UserViewSet(viewsets.ModelViewSet):
-    serializer_class = serializers.UserCreateSerializers
-    permission_classes = [permissions.IsAuthenticated&utils.IsAuthor]
+    serializer_class = serializers.UserSerializer
+    permission_classes = [permissions.AllowAny&utils.IsAuthor]
     queryset = get_user_model().objects.all()
 
     def list(self, request, *args, **kwargs):
-        if request.user.is_staff:
-            return super(UserViewSet, self).list(request, *args, **kwargs)
-        else:
+        if request.user.is_authenticated and not request.user.is_staff:
             return HttpResponseRedirect(reverse('user-detail', kwargs={'pk': self.request.user.id}))
+        queryset = self.filter_queryset(self.get_queryset())
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
+        headers = ''
+        useris = self.get_serializer(request.user)
+        if useris:
+            headers = self.get_success_headers(useris.data)
+        return Response(serializer.data, headers=headers)
+       
 
     def get_queryset(self):
         if self.request.user.is_staff:
             return super(UserViewSet, self).get_queryset()
         return get_user_model().objects.filter(username=self.request.user.username)
     
+    @decorators.action(detail=False, methods=['post'], serializer_class=serializers.UserCreateSerializers)
+    def create_user(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=201, headers=headers)
+        # serializer = self.get_serializer(data=request.data)
+        # if serializer.is_valid():
+        #     serializer.save()
+        #     return Response(serializer.data)
+        # return Response(serializer.errors, status=404)
+    
     @decorators.action(detail=True, methods=['post'], serializer_class=serializers.UserPasswordSerializer)
     def set_password(self, request, pk=None):
-        print("*"*10, "password chabgeing", "*"*10)
         user = self.get_object()
         serializer = self.get_serializer(user, data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return self.response(serializer.data)
-        return self.response(serializer.errors, status=404)
+            return Response(serializer.data)
+        return Response(serializer.errors, status=404)
 
 
 class BookAPI(viewsets.ModelViewSet):

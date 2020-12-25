@@ -156,7 +156,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Simple JWT
 SIMPLE_JWT = {
     'UPDATE_LAST_LOGIN': True,
-    'AUTH_HEADER_TYPES': ('Bearer','elibrary', 'sky',),
+    'AUTH_HEADER_TYPES': ('shyamkumar','Bearer', 'sky',),
 }
 
 REST_FRAMEWORK = {

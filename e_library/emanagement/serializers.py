@@ -45,23 +45,23 @@ class UserSerializer(serializers.ModelSerializer):
 
 class UserCreateSerializers(serializers.ModelSerializer):
     confirm_password = serializers.CharField(style={'input_type': 'password'}, write_only=True, required=True)
-    url = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-detail")
+    # url = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-detail")
 
-    class Meta(UserSerializer.Meta):
-        'this come from UserSerialiser'
-        # extra_kwargs['email'] = {'required':True}
-        # model = get_user_model()
+    class Meta:
+        model = get_user_model()
+        fields = ['username', 'email', 'password', 'confirm_password']
         # exclude = ['user_permissions','groups',]
-        # read_only_fields = ['last_login', 'is_superuser', 'is_active', 'is_staff', 'date_joined',]
-        # extra_kwargs = {
-        #     'password': {
-        #         'write_only': True,
-        #         'required': True,
-        #         'style': {
-        #             'input_type': 'password'
-        #         },
-        #     },
-        # }
+        # read_only_fields = ['last_login', 'is_superuser', 'is_active', 'is_staff', 'date_joined','is_defaulter', 'last_name', 'first_name', 'middle_name', 'date_of_birth', 'phone_number', 'country', 'state', 'city', 'pincode', 'full_address',]
+        extra_kwargs = {
+            'password': {
+                'write_only': True,
+                'required': True,
+                'style': {
+                    'input_type': 'password'
+                },
+            },
+        }
+
     def validate_password(self, value):
         validate_password(value)
         return value
