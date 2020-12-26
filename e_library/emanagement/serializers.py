@@ -6,52 +6,26 @@ All Serializers For Book Management
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
+from django.http import Http404
 from emanagement import models
 
 
 class UserSerializer(serializers.ModelSerializer):
-    confirm_password = serializers.CharField(style={'input_type': 'password'}, write_only=True, required=True)
     url = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-detail")
+    update = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-update-user")
+    setpassword = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-set-password")
     
     class Meta:
         model = get_user_model()
-        exclude = ['user_permissions','groups',]
-        read_only_fields = ['last_login', 'is_superuser', 'is_active', 'is_staff', 'date_joined','is_defaulter', 'last_name', 'first_name', 'middle_name', 'date_of_birth', 'phone_number', 'country', 'state', 'city', 'pincode', 'full_address',]
-        extra_kwargs = {
-            'password': {
-                'write_only': True,
-                'required': True,
-                'style': {
-                    'input_type': 'password'
-                },
-            },
-        }
-    
-    def validate(self, data):
-        if data['password'] != data.pop('confirm_password'):
-            raise serializers.ValidationError({"confirm_password": "Password not mathc!"})
-        return data
-    
-    def validate_password(self, value):
-        validate_password(value)
-        return value
-    
-    def create(self, validated_data):
-        pass
-
-    def update(self, instance, validated_data):
-        validated_data.pop('password')
-        return super(UserSerializer, self).update(instance, validated_data)
+        fields = ['url', 'id', 'username', 'first_name', 'middle_name', 'last_name', 'email', 'phone_number', 'date_of_birth', 'country', 'state', 'city', 'pincode', 'full_address', 'is_defaulter', 'profile', 'groups', 'user_permissions','is_superuser', 'last_login', 'is_superuser', 'is_active', 'is_staff', 'date_joined', 'update', 'setpassword', ]
 
 class UserCreateSerializers(serializers.ModelSerializer):
     confirm_password = serializers.CharField(style={'input_type': 'password'}, write_only=True, required=True)
-    # url = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-detail")
+    url = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-detail")
 
-    class Meta:
-        model = get_user_model()
-        fields = ['username', 'email', 'password', 'confirm_password']
-        # exclude = ['user_permissions','groups',]
-        # read_only_fields = ['last_login', 'is_superuser', 'is_active', 'is_staff', 'date_joined','is_defaulter', 'last_name', 'first_name', 'middle_name', 'date_of_birth', 'phone_number', 'country', 'state', 'city', 'pincode', 'full_address',]
+    class Meta(UserSerializer.Meta):
+        fields = ['url', 'username', 'email', 'password', 'confirm_password', 'is_superuser', 'profile', 'last_login', 'date_joined',]
+        read_only_fields = ['is_superuser', 'last_login', 'date_joined',]
         extra_kwargs = {
             'password': {
                 'write_only': True,
@@ -75,18 +49,21 @@ class UserCreateSerializers(serializers.ModelSerializer):
     def create(self, validated_data):
         return self.Meta.model.objects.create_user(**validated_data)
 
+class UserUpdateSerializer(serializers.ModelSerializer):
+    url = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-detail")
+    update = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-update-user")
+    setpassword = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-set-password")
+
+    class Meta(UserSerializer.Meta):
+        read_only_fields = ['last_login', 'is_superuser', 'is_active', 'is_staff', 'date_joined', 'username', 'is_defaulter', 'user_permissions', 'groups', 'password', ]
 
 class UserPasswordSerializer(serializers.ModelSerializer):
-    'change the password'
     confirm_password = serializers.CharField(style={'input_type': 'password'}, write_only=True, required=True)
     old_password = serializers.CharField(style={'input_type': 'password'}, write_only=True, required=True)
     url = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-detail")
 
-    class Meta:
-        model = get_user_model()
-        fields = ['old_password', 'password', 'confirm_password','url',]
-        # exclude = ['user_permissions','groups',]
-        # read_only_fields = ['last_login', 'is_superuser', 'is_active', 'is_staff', 'date_joined',]
+    class Meta(UserSerializer.Meta):
+        fields = ['url', 'old_password', 'password', 'confirm_password',]
         extra_kwargs = {
             'password': {
                 'write_only': True,

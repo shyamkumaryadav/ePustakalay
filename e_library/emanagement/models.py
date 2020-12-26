@@ -22,7 +22,7 @@ from django.utils.translation import gettext_lazy as _
 
 class AbstractUser(BaseAbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    email = models.EmailField(_('email address'))
+    email = models.EmailField(_('email address'), unique=True)
     middle_name = models.CharField(
         verbose_name=_("Middle Name"),
         max_length=20,
@@ -40,7 +40,7 @@ class AbstractUser(BaseAbstractUser):
                                     max_length=13,
                                     null=True,blank=True,
                                     validators=[validators.RegexValidator(
-                                        regex=r"^\d{1,5}[4-9]\d{9}$", message=_("Enter Valid Phone Number.")), ],
+                                        regex=r"^[4-9]\d{9}$", message=_("Enter Valid Phone Number.")), ],
                                     help_text=_("Enter Your Number without <b>country code.</b>")
                                     )
     country = models.CharField(max_length=25, null=True, blank=True)

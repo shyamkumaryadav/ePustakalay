@@ -12,9 +12,8 @@ def pic_upload(instance, filename):
     return f"{instance._meta.app_label}/{instance._meta.model_name}_{instance.id}_{instance.__str__()}.{filename.split('.')[-1]}"
 
 def age(value):
-    today = timezone.now().date()
-    dob = value.date()
-    year = today.year - dob.year - ((today.month, today.day) < (dob.month, dob.day))
+    today = timezone.now()
+    year = today.year - value.year - ((today.month, today.day) < (value.month, value.day))
     if year < 18:
         raise ValidationError(f"Your age not 18+, youcredentials: you are {year} year old.")
 

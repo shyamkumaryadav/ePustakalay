@@ -36,25 +36,23 @@ def handler500(request):
 
 
 class UserViewSet(viewsets.ModelViewSet):
+    allowed_methods = ['GET', 'HEAD', 'OPTIONS']
     serializer_class = serializers.UserSerializer
-    permission_classes = [permissions.AllowAny&utils.IsAuthor]
+    permission_classes = [permissions.AllowAny]
     queryset = get_user_model().objects.all()
 
     def list(self, request, *args, **kwargs):
+        headers = None
         if request.user.is_authenticated and not request.user.is_staff:
             return HttpResponseRedirect(reverse('user-detail', kwargs={'pk': self.request.user.id}))
-        queryset = self.filter_queryset(self.get_queryset())
-        page = self.paginate_queryset(queryset)
-        if page is not None:
-            serializer = self.get_serializer(page, many=True)
-            return self.get_paginated_response(serializer.data)
-
-        serializer = self.get_serializer(queryset, many=True)
-        headers = ''
-        useris = self.get_serializer(request.user)
-        if useris:
-            headers = self.get_success_headers(useris.data)
-        return Response(serializer.data, headers=headers)
+        elif request.user.is_staff:
+            serializer = self.get_serializer(request.user)
+            headers = self.get_success_headers(serializer.data)['Location']
+            res = super(UserViewSet, self).list(request, *args, **kwargs)
+            res['Location'] = headers
+            return res
+        else:
+            return HttpResponseRedirect(reverse('user-create-user'))
        
 
     def get_queryset(self):
@@ -62,21 +60,31 @@ class UserViewSet(viewsets.ModelViewSet):
             return super(UserViewSet, self).get_queryset()
         return get_user_model().objects.filter(username=self.request.user.username)
     
-    @decorators.action(detail=False, methods=['post'], serializer_class=serializers.UserCreateSerializers)
+    @decorators.action(detail=False, url_path='create-user', methods=['POST'], serializer_class=serializers.UserCreateSerializers, allowed_methods=['POST'], permission_classes=[permissions.AllowAny])
     def create_user(self, request):
+        '''
+        A form that creates a user, with no privileges, from the given username, email and password.
+        '''
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=201, headers=headers)
-        # serializer = self.get_serializer(data=request.data)
-        # if serializer.is_valid():
-        #     serializer.save()
-        #     return Response(serializer.data)
-        # return Response(serializer.errors, status=404)
     
-    @decorators.action(detail=True, methods=['post'], serializer_class=serializers.UserPasswordSerializer)
+    @decorators.action(detail=True, url_path='update-user', methods=['GET', 'POST', 'PUT'], serializer_class=serializers.UserUpdateSerializer, allowed_methods=['GET', 'PUT', 'HEAD', 'OPTIONS'])
+    def update_user(self, request, *args, **kwargs):
+        '''
+        A form that Update a user.
+        '''
+        if request.method == 'PUT':
+            return self.update(request, *args, **kwargs)
+        return self.retrieve(request, *args, **kwargs)
+    
+    @decorators.action(detail=True, url_path='set-password', methods=['POST'], serializer_class=serializers.UserPasswordSerializer, allowed_methods=['POST'])
     def set_password(self, request, pk=None):
+        '''
+        A form that lets a user change their password by entering their old password.
+        '''
         user = self.get_object()
         serializer = self.get_serializer(user, data=request.data)
         if serializer.is_valid():
