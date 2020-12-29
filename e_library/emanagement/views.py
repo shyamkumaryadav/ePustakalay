@@ -29,7 +29,7 @@ def update(request):
         os.system("touch /var/www/elibrarymanagementsystemapi_pythonanywhere_com_wsgi.py")
         return HttpResponse("Update on Pythonanywhere is Done!")
     else:
-        raise Http404
+        return HttpResponse("urlencoded is Fix!")
 
 def handler404(request, exception):
     return HttpResponse(f"<h1 style='text-align: center;'>404 <a style='text-decoration: none;' title='Send me Email' href='mailto:shyamkumaryadav2003@gmail.com'>Send me an email</a><br><a style='text-decoration: none;' href='/' title='API Home Page' style='color:red;'>Go back</a></h1><br><p style='text-align: center;'>The requested resource was not found on this server.</p><hr>")
