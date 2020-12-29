@@ -35,4 +35,3 @@ migrate = "python e_library/manage.py migrate"
 start = "python e_library/manage.py runserver 0.0.0.0:8000"
 test = "python e_library/manage.py test"
 clean = "rm -r e_library/db.sqlite3 e_library/emanagement/migrations"
-makefile = 'pipenv lock -r > requirements.txt'
