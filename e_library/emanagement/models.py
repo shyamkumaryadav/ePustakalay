@@ -136,7 +136,7 @@ class BookAuthor(models.Model):
     # @property
     # def get_update_url(self):
     #     return reverse_lazy('system:authormanagementupdate', kwargs={
-    #         'pk': self.pk
+    #         'pk': self.pk lol xd
     #     })
 
 
