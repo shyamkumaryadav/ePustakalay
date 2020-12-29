@@ -159,6 +159,7 @@ class BookPublish(models.Model):
         Genre, verbose_name="Genre", help_text='Hold down “Control”, or “Command” on a Mac, to select more than one.')
 
     class Meta:
+        unique_together = ('company_name', 'website',)
         ordering = ['company_name']
 
     def __str__(self):
