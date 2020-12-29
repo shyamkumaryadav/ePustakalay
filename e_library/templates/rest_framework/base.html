@@ -1,6 +1,7 @@
 {% load static %}
 {% load i18n %}
 {% load rest_framework %}
+{% load emanagement %}
 
 <!DOCTYPE html>
 <html>
@@ -22,12 +23,14 @@
       if (localStorage.getItem("elibrary-theme") === "true"){
         document.getElementById('theme').setAttribute("href", "{% static 'bootstrap-darkly.min.css' %}");
         document.getElementById('githubMark').style.filter = 'invert(1)';
-        document.getElementById('el-dark').setAttribute("class", "disabled");
+        document.getElementById('el-dark').setAttribute("class", "disabled")
+        document.getElementById('el-dark').setAttribute('onclick', '');
       }else{
         if ((localStorage.getItem("elibrary-theme") === undefined)){
           localStorage.setItem("elibrary-theme", false);
         }
-        document.getElementById('el-light').setAttribute("class", "disabled");
+        document.getElementById('el-light').setAttribute("class", "disabled")
+        document.getElementById('el-light').setAttribute('onclick', '');
       }
     }
     
@@ -81,21 +84,7 @@
           </ul>
           {% endif %}
           <ul class="nav navbar-nav navbar-left">
-            
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                Routers
-                <b class="caret"></b>
-              </a>
-              <ul class="dropdown-menu">
-                <li class="dropdown-header">Emanagement</li>
-                <li><a style="cursor: pointer;" href="{% url 'book-list' %}">Books</a></li>
-                <li><a style="cursor: pointer;" href="{% url 'bookauthor-list' %}" >Book Author</a></li>
-                <li><a style="cursor: pointer;" href="{% url 'bookpublish-list' %}" >Book Publisher</a></li>
-                <li><a style="cursor: pointer;" href="{% url 'genre-list' %}" >Book Genre</a></li>
-                <li><a style="cursor: pointer;" href="{% url 'issue-list' %}" >Book Issue</a></li>
-              </ul>
-            </li>
+            {% all_router request %}
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 JWT
@@ -114,14 +103,14 @@
                 <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
-                <li id="el-light"><a style="cursor: pointer;" onclick="localStorage.setItem('elibrary-theme', false);location.reload();">Default</a></li>
-                <li id="el-dark"><a style="cursor: pointer;" onclick="localStorage.setItem('elibrary-theme', true);location.reload();" >Darkly</a></li>
+                <li id="el-light" onclick="localStorage.setItem('elibrary-theme', false);location.reload();"><a>Default</a></li>
+                <li id="el-dark" onclick="localStorage.setItem('elibrary-theme', true);location.reload();"><a>Darkly</a></li>
               </ul>
             </li>
             <li class="divider"></li>
             {% block userlinks %}
             {% if user.is_authenticated %}
-            {% optional_logout request user %}
+            {% optional_info request user %}
             {% else %}
             {% optional_login request %}
             {% endif %}
@@ -267,12 +256,13 @@
             <div class="response-info" aria-label="{% trans 'response info' %}">
               <pre class="prettyprint"><span class="meta nocode"><b>HTTP {{ response.status_code }} {{ response.status_text }}</b>{% for key, val in response_headers|items %}
                 <b>{{ key }}:</b> <span class="lit">{{ val|break_long_headers|urlize }}</span>{% endfor %}
-                
               </span>{{ content|urlize }}</pre>
             </div>
           </div>
         </div>
         
+
+        <!-- HTML form / Raw data -->
         {% if display_edit_forms %}
         {% if post_form or raw_data_post_form %}
         <div {% if post_form %}class="tabbable"{% endif %}>

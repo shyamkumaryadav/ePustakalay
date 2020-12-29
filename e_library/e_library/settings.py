@@ -36,6 +36,8 @@ INSTALLED_APPS = [
 
     # corsheaders
     "corsheaders",
+    # django extensions
+    "django_extensions",
 
     # app for All E-library Funcation
     'emanagement', # User E-Management models, views

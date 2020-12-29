@@ -23,6 +23,8 @@ def update(request):
         o = repo.remotes.origin
         o.pull()
         os.system("/home/elibrarymanagementsystemapi/.virtualenvs/e-library-management-system-api-W9LeGc9Z/bin/python /home/elibrarymanagementsystemapi/e-library-management-system-api/e_library/manage.py collectstatic --noinput")
+        os.system("/home/elibrarymanagementsystemapi/.virtualenvs/e-library-management-system-api-W9LeGc9Z/bin/python /home/elibrarymanagementsystemapi/e-library-management-system-api/e_library/manage.py makemigrate emanagement")
+        os.system("/home/elibrarymanagementsystemapi/.virtualenvs/e-library-management-system-api-W9LeGc9Z/bin/python /home/elibrarymanagementsystemapi/e-library-management-system-api/e_library/manage.py migrate")
         os.system("touch /var/www/elibrarymanagementsystemapi_pythonanywhere_com_wsgi.py")
         return HttpResponse("Update on Pythonanywhere is Done!")
     else:
@@ -36,20 +38,25 @@ def handler500(request):
 
 
 class UserViewSet(viewsets.ModelViewSet):
+    '''
+    User View
+    '''
     allowed_methods = ['GET', 'HEAD', 'OPTIONS']
     serializer_class = serializers.UserSerializer
     permission_classes = [permissions.AllowAny]
     queryset = get_user_model().objects.all()
 
     def list(self, request, *args, **kwargs):
-        headers = None
-        if request.user.is_authenticated and not request.user.is_staff:
+        headers = {}
+        if request.user.is_authenticated:
+            serializer = self.get_serializer(request.user)
+            headers = {'URL':str(serializer.data['url']), 'UPDATE':str(serializer.data['update']), "SETPASSWORD":str(serializer.data['setpassword'])}
+        if not request.user.is_staff:
             return HttpResponseRedirect(reverse('user-detail', kwargs={'pk': self.request.user.id}))
         elif request.user.is_staff:
-            serializer = self.get_serializer(request.user)
-            headers = self.get_success_headers(serializer.data)['Location']
             res = super(UserViewSet, self).list(request, *args, **kwargs)
-            res['Location'] = headers
+            for key in headers:
+                res[key] = headers[key]
             return res
         else:
             return HttpResponseRedirect(reverse('user-create-user'))
@@ -60,7 +67,7 @@ class UserViewSet(viewsets.ModelViewSet):
             return super(UserViewSet, self).get_queryset()
         return get_user_model().objects.filter(username=self.request.user.username)
     
-    @decorators.action(detail=False, url_path='create-user', methods=['POST'], serializer_class=serializers.UserCreateSerializers, allowed_methods=['POST'], permission_classes=[permissions.AllowAny])
+    @decorators.action(detail=False, url_path='create-user', methods=['POST'], serializer_class=serializers.UserCreateSerializers, allowed_methods=['POST','HEAD', 'OPTIONS'], permission_classes=[permissions.AllowAny])
     def create_user(self, request):
         '''
         A form that creates a user, with no privileges, from the given username, email and password.
@@ -80,7 +87,7 @@ class UserViewSet(viewsets.ModelViewSet):
             return self.update(request, *args, **kwargs)
         return self.retrieve(request, *args, **kwargs)
     
-    @decorators.action(detail=True, url_path='set-password', methods=['POST'], serializer_class=serializers.UserPasswordSerializer, allowed_methods=['POST'])
+    @decorators.action(detail=True, url_path='set-password', methods=['POST'], serializer_class=serializers.UserPasswordSerializer, allowed_methods=['POST', 'HEAD', 'OPTIONS'])
     def set_password(self, request, pk=None):
         '''
         A form that lets a user change their password by entering their old password.

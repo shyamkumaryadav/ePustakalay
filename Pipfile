@@ -21,6 +21,7 @@ django-filter = "*"
 pillow = "*"
 mysqlclient = "*"
 gitpython = "*"
+django-extensions = "*"
 
 [requires]
 python_version = "3.8"

@@ -14,6 +14,7 @@ from django.conf import global_settings
 from emanagement import utils
 from django.core import validators
 from django.contrib.auth.models import AbstractUser as BaseAbstractUser
+from django_extensions.db.fields import AutoSlugField
 from django.utils.html import mark_safe, escape
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -184,7 +185,8 @@ class Book(models.Model):
         'in_stock',
         'today_stock',
         'rating',
-        'profile'
+        'profile',
+        'slug',
     ]
     '''
     id = models.UUIDField(verbose_name="Book ID",
@@ -220,6 +222,7 @@ class Book(models.Model):
                 message="Select valid Cover Image."), utils.profile_size
         ],
     )
+    slug = AutoSlugField(populate_from=['name', 'author'])
 
     class Meta:
         ordering = ['name']

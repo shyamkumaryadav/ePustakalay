@@ -8,7 +8,7 @@ admin.site.unregister(Group)
 @admin.register(models.User)
 class UserAdmins(UserAdmin):
     readonly_fields = ('image_tag', 'id', 'last_login', 'date_joined')
-    list_display = ('username', 'email', 'first_name', 'last_name', 'is_defaulter')
+    list_display = ('username', 'email', 'first_name', 'last_name', 'is_defaulter', 'is_staff',)
     list_filter = ('is_defaulter', 'is_superuser', 'is_active', 'country')
     fieldsets = (
         (None, {'fields': (('image_tag', 'profile'), 'username', 'password')}),
@@ -42,13 +42,13 @@ class UserAdmins(UserAdmin):
 class BookAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'author', 'publish', 'in_stock', 'cost',)
     fieldsets = (
-        (None, {'fields': (('image_tag', 'profile'), 'name', 'author')}),
+        (None, {'fields': ('slug', ('image_tag', 'profile'), 'name', 'author')}),
         ('Information', {
             'classes': ('wide','extrapretty',),
             'fields': ('in_stock', 'date', 'update_date', 'today_stock', 'genre', 'publish', 'language', 'edition', 'cost', 'page', 'description', 'stock', 'rating')}),
     )
     search_fields = ('name',)
-    readonly_fields = ('today_stock', 'id', 'date', 'in_stock', 'update_date', 'image_tag')
+    readonly_fields = ('today_stock', 'id', 'date', 'in_stock', 'update_date', 'image_tag', 'slug')
     ordering = ('name',)
     list_filter = ('in_stock', 'date')
 
