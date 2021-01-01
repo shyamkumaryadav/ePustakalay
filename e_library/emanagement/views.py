@@ -52,7 +52,7 @@ class UserViewSet(viewsets.ModelViewSet):
         if request.user.is_authenticated:
             serializer = self.get_serializer(request.user)
             headers = {'URL':str(serializer.data['url']), 'UPDATE':str(serializer.data['update']), "SETPASSWORD":str(serializer.data['setpassword'])}
-        if not request.user.is_staff:
+        if request.user.is_authenticated and not request.user.is_staff:
             return HttpResponseRedirect(reverse('user-detail', kwargs={'pk': self.request.user.id}))
         elif request.user.is_staff:
             res = super(UserViewSet, self).list(request, *args, **kwargs)
@@ -60,13 +60,16 @@ class UserViewSet(viewsets.ModelViewSet):
                 res[key] = headers[key]
             return res
         else:
-            return HttpResponseRedirect(reverse('user-create-user'))
+            return Response({'key':'value'}, status=404)
        
 
     def get_queryset(self):
         if self.request.user.is_staff:
             return super(UserViewSet, self).get_queryset()
         return get_user_model().objects.filter(username=self.request.user.username)
+    
+    def create(self, request, *args, **kwargs):
+        return Response({'key': 'value user'}, status=404)
     
     @decorators.action(detail=False, url_path='create-user', methods=['POST'], serializer_class=serializers.UserCreateSerializers, allowed_methods=['POST','HEAD', 'OPTIONS'], permission_classes=[permissions.AllowAny])
     def create_user(self, request):

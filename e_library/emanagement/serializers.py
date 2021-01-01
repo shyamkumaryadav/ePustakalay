@@ -9,22 +9,35 @@ from django.contrib.auth.password_validation import validate_password
 from django.http import Http404
 from emanagement import models
 
+class  IssueSetSerializers(serializers.ModelSerializer):
+    book_name = serializers.SlugRelatedField(source="book", many= False, read_only=True, slug_field="name")
+    is_return = serializers.SerializerMethodField()
+
+
+    class Meta:
+        model = models.Issue
+        fields = ['book_name', 'is_return', 'date', 'due_date',]
+    
+    def get_is_return(self, obj):
+        return obj.due_date_end
 
 class UserSerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-detail")
     update = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-update-user")
     setpassword = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-set-password")
+    issue_set = IssueSetSerializers( many=True, read_only=True)
     
     class Meta:
         model = get_user_model()
-        fields = ['url', 'id', 'username', 'first_name', 'middle_name', 'last_name', 'email', 'phone_number', 'date_of_birth', 'country', 'state', 'city', 'pincode', 'full_address', 'is_defaulter', 'profile', 'groups', 'user_permissions','is_superuser', 'last_login', 'is_superuser', 'is_active', 'is_staff', 'date_joined', 'update', 'setpassword', ]
+        fields = ['url', 'id', 'username', 'first_name', 'middle_name', 'last_name', 'email', 'phone_number', 'date_of_birth', 'country', 'state', 'city', 'pincode', 'full_address', 'is_defaulter', 'profile', 'groups', 'user_permissions','is_superuser', 'last_login', 'is_superuser', 'is_active', 'is_staff', 'date_joined', 'update', 'setpassword', 'issue_set']
 
 class UserCreateSerializers(serializers.ModelSerializer):
-    confirm_password = serializers.CharField(style={'input_type': 'password'}, write_only=True, required=True)
+    confirm_password = serializers.CharField(style={'input_type': 'password'}, write_only=True, required=True, validators=[validate_password])
     url = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-detail")
+    issue_set = IssueSetSerializers( many=True, read_only=True)
 
     class Meta(UserSerializer.Meta):
-        fields = ['url', 'username', 'email', 'password', 'confirm_password', 'is_superuser', 'profile', 'last_login', 'date_joined',]
+        fields = ['url', 'username', 'email', 'password', 'confirm_password', 'is_superuser', 'profile', 'last_login', 'date_joined', 'issue_set', ]
         read_only_fields = ['is_superuser', 'last_login', 'date_joined',]
         extra_kwargs = {
             'password': {
@@ -33,18 +46,19 @@ class UserCreateSerializers(serializers.ModelSerializer):
                 'style': {
                     'input_type': 'password'
                 },
+                'validators': [validate_password]
             },
         }
 
-    def validate_password(self, value):
-        validate_password(value)
-        return value
+    # def validate_password(self, value):
+    #     validate_password(value)
+    #     return value
     
-    def validate(self, data):
-        if data['password'] != data.pop('confirm_password'):
-            raise serializers.ValidationError({"confirm_password": "Password not mathc!"})
-        else:
-            return data
+    # def validate(self, data):
+    #     if data['password'] != data.pop('confirm_password'):
+    #         raise serializers.ValidationError({"confirm_password": "Password not mathc!"})
+    #     else:
+    #         return data
     
     def create(self, validated_data):
         return self.Meta.model.objects.create_user(**validated_data)
@@ -53,9 +67,10 @@ class UserUpdateSerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-detail")
     update = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-update-user")
     setpassword = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-set-password")
+    issue_set = IssueSetSerializers( many=True, read_only=True)
 
     class Meta(UserSerializer.Meta):
-        read_only_fields = ['last_login', 'is_superuser', 'is_active', 'is_staff', 'date_joined', 'username', 'is_defaulter', 'user_permissions', 'groups', 'password', ]
+        read_only_fields = ['last_login', 'is_superuser', 'is_active', 'is_staff', 'date_joined', 'username', 'is_defaulter', 'user_permissions', 'groups', 'password', 'issue_set',]
 
 class UserPasswordSerializer(serializers.ModelSerializer):
     confirm_password = serializers.CharField(style={'input_type': 'password'}, write_only=True, required=True)
@@ -152,8 +167,7 @@ class BookSerializers(serializers.HyperlinkedModelSerializer):
             'publish': {'write_only': True},
         }
         # depth = 1
-   
-    
+
 class IssueSerializers(serializers.HyperlinkedModelSerializer):
     '''
     The Serializer of `emanagement.models.Issue`
@@ -161,7 +175,7 @@ class IssueSerializers(serializers.HyperlinkedModelSerializer):
     bookname = serializers.SlugRelatedField(source="book", many= False, read_only=True, slug_field="name")
     username = serializers.SlugRelatedField(source="user", many= False, read_only=True, slug_field="username")
     user = serializers.SlugRelatedField(many= False, queryset=models.User.objects.filter(is_defaulter=False), write_only=True, slug_field="username")
-    _return = serializers.SerializerMethodField()
+    is_return = serializers.SerializerMethodField()
 
     class Meta:
         model = models.Issue
@@ -171,5 +185,8 @@ class IssueSerializers(serializers.HyperlinkedModelSerializer):
         #     'book': {'lookup_field': 'author'},
         # }
 
-    def get__return(self, obj):
+    def get_is_return(self, obj):
         return obj.due_date_end
+
+   
+    

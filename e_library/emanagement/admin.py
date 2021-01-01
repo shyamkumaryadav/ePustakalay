@@ -55,13 +55,13 @@ class BookAdmin(admin.ModelAdmin):
 admin.site.register(models.BookAuthor)
 admin.site.register(models.BookPublish)
 
-@admin.register(models.Genre)
-class GenreAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'id')
-    readonly_fields = ('name',)
-
 @admin.register(models.Issue)
 class IssueAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'user', 'book', '_due_date_end',)
     list_filter = ('date',)
     readonly_fields = ('date','_due_date_end')
+
+@admin.register(models.Genre)
+class GenreAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'id')
+    readonly_fields = ('name',)

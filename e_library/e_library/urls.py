@@ -28,6 +28,37 @@ admin.AdminSite.enable_nav_sidebar = False
 
 admin.AdminSite.empty_value_display = '<i>undefined</i>'
 
+class SimpleRouterEx(routers.SimpleRouter):
+    include_root_view = True
+    include_format_suffixes = True
+    root_view_name = 'api-root'
+    default_schema_renderers = None
+    # APIRootView = APIRootView
+    # APISchemaView = SchemaView
+    # SchemaGenerator = SchemaGenerator
+    
+    routes = [
+        routers.Route(
+            url=r'^{prefix}$',
+            mapping={'get': 'list'},
+            name='{basename}-list',
+            detail=False,
+            initkwargs={'suffix': 'List'}
+        ),
+        routers.Route(
+            url=r'^{prefix}/{lookup}$',
+            mapping={'get': 'retrieve'},
+            name='{basename}-detail',
+            detail=True,
+            initkwargs={'suffix': 'Detail'}
+        ),
+        routers.DynamicRoute(
+            url=r'^{prefix}/{lookup}/{url_path}$',
+            name='{basename}-{url_name}',
+            detail=True,
+            initkwargs={}
+        )
+    ]
 
 # Root Url Of DRF
 router = routers.DefaultRouter()
@@ -41,7 +72,9 @@ from emanagement import views
 
 # All management Views
 from emanagement import views as man_views
-router.register('user', man_views.UserViewSet, basename="user")
+user = SimpleRouterEx()
+user.register('user', man_views.UserViewSet)
+# router.register('user', man_views.UserViewSet, basename="user")
 router.register('books', man_views.BookAPI)
 router.register('book-authors', man_views.BookAuthorAPI)
 router.register('book-publish', man_views.BookPublishAPI)
@@ -60,7 +93,7 @@ urlpatterns = [
     path('favicon.ico', RedirectView.as_view(
         url=staticfiles_storage.url('favicon.ico')))
 
-]
+] + user.urls
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL,
