@@ -3,8 +3,8 @@
 
 
 
-> ## install [Git](https://git-scm.com/) or Download From Github  
-> ## Install [python 3](https://www.python.org/)  
+> ## install [Git](https://git-scm.com/ "git Site") or Download From Github  
+> ## Install [python 3](https://www.python.org/ "Python Org.")  
 
 ---  
 ## First Clone The repo  
