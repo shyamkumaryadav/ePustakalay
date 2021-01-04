@@ -60,7 +60,7 @@ class UserViewSet(viewsets.ModelViewSet):
                 res[key] = headers[key]
             return res
         else:
-            return Response({'key':'value'}, status=404)
+            return Response({"detail": "Not found."}, status=404)
        
 
     def get_queryset(self):
@@ -69,7 +69,7 @@ class UserViewSet(viewsets.ModelViewSet):
         return get_user_model().objects.filter(username=self.request.user.username)
     
     def create(self, request, *args, **kwargs):
-        return Response({'key': 'value user'}, status=404)
+        return Response({"detail": "Not found."}, status=404)
     
     @decorators.action(detail=False, url_path='create-user', methods=['POST'], serializer_class=serializers.UserCreateSerializers, allowed_methods=['POST','HEAD', 'OPTIONS'], permission_classes=[permissions.AllowAny])
     def create_user(self, request):
