@@ -1,12 +1,12 @@
 """
 URLPATTERNS for e_library project.
 """
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib.staticfiles.storage import staticfiles_storage
-from django.views.generic.base import RedirectView
+from django.views.generic.base import RedirectView, TemplateView
 from django.utils.translation import gettext as _, gettext_lazy
 
 # `Django Admin`
@@ -32,8 +32,9 @@ urlpatterns = [
     path('api/', include('emanagement.urls')),
     path('admin/', admin.site.urls),
     path('favicon.ico', RedirectView.as_view(
-        url=staticfiles_storage.url('favicon.ico')))
-
+        url=staticfiles_storage.url('favicon.ico'))),
+    path('', TemplateView.as_view(template_name="emanagement/index.html")),
+    re_path(r'.*', TemplateView.as_view(template_name="emanagement/index.html")),
 ]
 
 if settings.DEBUG:
