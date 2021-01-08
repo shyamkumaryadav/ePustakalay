@@ -16,6 +16,6 @@ locales/*.mo
 db.sqlite3
 staticfiles
 media
-!media/default.png
+!media/user.png
 system/migrations/0*
 emanagement/migrations/0*
