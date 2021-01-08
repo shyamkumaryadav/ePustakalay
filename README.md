@@ -1,4 +1,4 @@
-# [E-library Managment System](https://elibrarymanagementsystemapi.pythonanywhere.com/)
+# [E-Pustakalay](https://epustakalay.pythonanywhere.com/)
 [![last-commit](https://img.shields.io/github/last-commit/shyamkumaryadav/e-library-management-system?style=for-the-badge)](../../commits/main "History") [![Github Follwers](https://img.shields.io/github/followers/shyamkumaryadav?label=followers&style=for-the-badge)](//github.com/shyamkumaryadav "Shyamkumar's Github") [![Fork](https://img.shields.io/github/forks/shyamkumaryadav/e-library-management-system?style=for-the-badge)](# "Forks Me")  [![Watchers](https://img.shields.io/github/watchers/shyamkumaryadav/e-library-management-system?style=for-the-badge)](# 'total watchers') [![Star](https://img.shields.io/github/stars/shyamkumaryadav/e-library-management-system?style=for-the-badge)](# 'I am Happy') 
 
 

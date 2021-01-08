@@ -14,7 +14,7 @@ from django.utils.translation import gettext as _, gettext_lazy
 admin.AdminSite.site_title = gettext_lazy('Shyamkumar Yadav')
 
 # Text to put in each page's <h1>.
-admin.AdminSite.site_header = gettext_lazy('E-library Management System API')
+admin.AdminSite.site_header = gettext_lazy('E-Pustakalay Management System API')
 
 # Text to put at the top of the admin index page.
 admin.AdminSite.index_title = gettext_lazy('App List')
@@ -34,7 +34,6 @@ urlpatterns = [
     path('favicon.ico', RedirectView.as_view(
         url=staticfiles_storage.url('favicon.ico'))),
     path('', TemplateView.as_view(template_name="emanagement/index.html")),
-    re_path(r'.*', TemplateView.as_view(template_name="emanagement/index.html")),
 ]
 
 if settings.DEBUG:
@@ -43,6 +42,7 @@ if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)
 
+urlpatterns += [re_path(r'^(?:.*)/?$', TemplateView.as_view(template_name="emanagement/index.html"))] 
 
 handler404 = 'emanagement.views.handler404'
 handler500 = 'emanagement.views.handler500'

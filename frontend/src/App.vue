@@ -8,6 +8,20 @@
   </div>
 </template>
 
+<script>
+export default {
+  name: "App",
+  created(){
+    document.title = "App"
+  },
+  date(){
+    return ({
+      // data of app
+    })
+  }
+}
+</script>
+
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

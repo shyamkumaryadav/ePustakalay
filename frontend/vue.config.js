@@ -7,5 +7,13 @@ module.exports = {
   "indexPath": "templates/emanagement/index.html",
   "transpileDependencies": [
     "vuetify"
-  ]
+  ],
+  "chainWebpack": config => {
+    config
+      .plugin('html')
+      .tap(args => {
+        args[0].title = "Welcome on ePustakalay Site"
+        return args
+      })
+  }
 }
