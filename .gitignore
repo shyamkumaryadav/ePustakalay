@@ -4,18 +4,18 @@
 *.pyc
 .env
 __pycache__/
-e_library/system/__pycache__/
-e_library/emanagement/__pycache__/
-e_library/e_library/__pycache__/
-e_library/__pycache__/
+backend/system/__pycache__/
+backend/emanagement/__pycache__/
+backend/e_library/__pycache__/
+backend/__pycache__/
 
 # Translations
-e_library/locales/*.mo
+backend/locales/*.mo
 
 # Django stuff:
-e_library/db.sqlite3
-e_library/staticfiles
-e_library/media
-!e_library/media/default.png
-e_library/system/migrations/0*
-e_library/emanagement/migrations/0*
+backend/db.sqlite3
+backend/staticfiles
+backend/media
+!backend/media/default.png
+backend/system/migrations/0*
+backend/emanagement/migrations/0*
