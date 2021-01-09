@@ -14,7 +14,7 @@
   <meta name="robots" content="NONE,NOARCHIVE" />
   {% endblock %}
   
-  <title>{% block title %}{% if name %}{{ name }} | {% endif %}E-library{% endblock %}</title>
+  <title>{% block title %}{% if name %}{{ name }} | {% endif %}ePustakalay{% endblock %}</title>
   
   {% block style %}
   {% block bootstrap_theme %}
@@ -54,7 +54,7 @@
 <body class="{% block bodyclass %}{% endblock %}">
 
   <!-- github Mark SVG -->
-  <a id="githubMark" href="//github.com/shyamkumaryadav/e-library-management-system-api" target="_blank" style="z-index: 2;position: fixed;right: 5%;bottom: 5%;" title="View source on GitHub">
+  <a id="githubMark" href="//github.com/shyamkumaryadav/ePustakalay" target="_blank" style="z-index: 2;position: fixed;right: 5%;bottom: 5%;" title="Fork me on GitHub">
     <img src="{% static 'GitHub-Mark.svg' %}" alt="Github Logo" width="40px">
   </a>
   </style>
@@ -71,8 +71,8 @@
             <span class="icon-bar"></span>
           </button>
           {% block branding %}
-          <p class='navbar-brand'><a href='//elibrarymanagementsystem.herokuapp.com/' target="_blank">E-library </a><a href="{% url 'api-root' %}">
-            Management System
+          <p class='navbar-brand'><a href='//elibrarymanagementsystem.herokuapp.com/' target="_blank">ePustakalay </a><a href="{% url 'api-root' %}">
+            API
           </a></p>
           {% endblock branding %}
         </div>

@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from django.conf import settings
+from django.http import Http404
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 from rest_framework import viewsets, versioning, permissions, mixins, decorators
@@ -49,18 +50,17 @@ class UserViewSet(viewsets.ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         headers = {}
-        if request.user.is_authenticated:
-            serializer = self.get_serializer(request.user)
-            headers = {'URL':str(serializer.data['url']), 'UPDATE':str(serializer.data['update']), "SETPASSWORD":str(serializer.data['setpassword'])}
         if request.user.is_authenticated and not request.user.is_staff:
             return HttpResponseRedirect(reverse('user-detail', kwargs={'pk': self.request.user.id}))
         elif request.user.is_staff:
+            serializer = self.get_serializer(request.user)
+            headers = {'URL':str(serializer.data['url']), 'UPDATE':str(serializer.data['update']), "SETPASSWORD":str(serializer.data['setpassword'])}
             res = super(UserViewSet, self).list(request, *args, **kwargs)
             for key in headers:
                 res[key] = headers[key]
             return res
         else:
-            return Response({"detail": "Not found."}, status=404)
+            raise Http404
        
 
     def get_queryset(self):
@@ -102,6 +102,12 @@ class UserViewSet(viewsets.ModelViewSet):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=404)
+    
+    @decorators.action(detail=False, url_path='forget-password', methods=['POST'], serializer_class=serializers.PasswordResetSerializer, allowed_methods=['POST', 'HEAD', 'OPTIONS'])
+    def password_forget(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        return Response({'working': 123}, status=201)
 
 
 class BookAPI(viewsets.ModelViewSet):

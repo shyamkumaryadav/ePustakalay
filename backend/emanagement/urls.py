@@ -7,44 +7,8 @@ from rest_framework import routers
 from django.utils.translation import gettext as _, gettext_lazy
 
 
-class SimpleRouterEx(routers.SimpleRouter):
-    include_root_view = True
-    include_format_suffixes = True
-    default_schema_renderers = None
-    
-    routes = [
-        # routers.Route(
-        #     url=r'^{prefix}$',
-        #     mapping={'get': 'list'},
-        #     name='{basename}-list',
-        #     detail=False,
-        #     initkwargs={'suffix': 'List'}
-        # ),
-        routers.Route(
-            url=r'^{prefix}/{lookup}$',
-            mapping={'get': 'retrieve'},
-            name='{basename}-detail',
-            detail=True,
-            initkwargs={'suffix': 'Detail'}
-        ),
-        routers.DynamicRoute(
-            url=r'^{prefix}/{lookup}/{url_path}$',
-            name='{basename}-{url_name}',
-            detail=True,
-            initkwargs={}
-        ),
-        routers.DynamicRoute(
-            url=r'^{prefix}/{url_path}/{lookup}$',
-            name='{basename}-{url_name}',
-            detail=False,
-            initkwargs={}
-        )
-    ]
-
 # Root Url Of DRF
 router = routers.DefaultRouter()
-# router.APIRootView = APIRootView
-router.APIRootView.api_root_dict = {'ref':'reftoken'}
 router.APIRootView.__doc__ =''' ```python
 print("Hello world")
 from emanagement import views

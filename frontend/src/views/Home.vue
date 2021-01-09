@@ -41,21 +41,11 @@
       </v-col>
     </v-row>
 
-    <v-row>
-      <v-img contain :src="$vuetify.theme.dark ? require('@/assets/ibg.png') : require('@/assets/bg.png')">
-        <template v-slot:placeholder>
-          <v-skeleton-loader
-          type="image"
-          class="fill-height ma-0"
-          ></v-skeleton-loader>
-      </template>
-      </v-img>
-    </v-row>
-
+    
     <v-row justify="center">
       <v-col cols="12" class="text-center text--secondary">
-        <h2>Our Process</h2>
-        <p><b>We have a Simple 3 Step Process</b></p>
+        <h2>Our Features</h2>
+        <p><b>We have a Simple Features</b></p>
       </v-col>
     </v-row>
 
@@ -93,41 +83,41 @@ export default {
       Features: [
         {
           id:1,
-          img: require("@/assets/Images/maintainable.svg"),
-          title: 'Digital Book Inventory',
-          body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+          img: require("@/assets/Images/responsive.svg"),
+          title: 'Simple & Easy to Use',
+          body: "The ePustakalay is simple, user-friendly, and can be easily integrated with your existing system. The ePustakalay benefits provide online and offline storage, automated backups, and easy upgrades to simplify and enhance the learning process."
         },
         {
           id:2,
           img: require("@/assets/Images/page_find.svg"),
           title: 'Search Books',
-          body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+          body: "The ePustakalay provides mobile access to search the library catalog, schedules, books and resources from anywhere, at any given time via smartphones and tablets etc."
         },
         {
           id:3,
-          img: require("@/assets/Images/time.svg"),
-          title: 'Defaulter List',
-          body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+          img: require("@/assets/Images/map.svg"),
+          title: 'Cost-effective',
+          body: "Embracing sophisticated technologies is cost-effective and a viable choice for education institutions. Using cloud, mobile and digital libraries eliminates paper-based processes and maintenance overheads, improves productivity, reduces operation costs and saves time."
         }
       ],
       Process:[
         {
           id:1,
           img: require("@/assets/Images/privacy.svg"),
-          title: 'Sign Up',
-          body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+          title: 'Record Maintenance',
+          body: "All records related to the book issued and return deadline can managed by the authorised personnel. The system also allows to record the fine received from the student in the same platform, which eases the work of reporting for the Library department."
         },
         {
           id:2,
           img: require("@/assets/Images/secure_server.svg"),
-          title: 'Secure Server',
-          body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+          title: 'Secure and Reliable',
+          body: "The paper based process might incur data loss, however in case of Library Management System, it is much secure and reliable. Only the authorised personnel can login to the system and use it."
         },
         {
           id:3,
-          img: require("@/assets/Images/store.svg"),
-          title: 'Visit Us',
-          body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+          img: require("@/assets/Images/maintainable.svg"),
+          title: 'Fully Customizable',
+          body: "The ePustakalay automation system is fully customizable and adaptable to the needs of educational institutions to provide fast, reliable data."
         }
       ]
     }
