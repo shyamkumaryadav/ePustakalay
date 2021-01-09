@@ -6,6 +6,8 @@
 __pycache__/
 system/__pycache__/
 emanagement/__pycache__/
+emanagement/static/emanagement/
+emanagement/templates/emanagement/
 e_library/__pycache__/
 __pycache__/
 

@@ -11,6 +11,7 @@ function safe_c() {
 }
 
 trap safe_c SIGINT
-
+trap safe_c EXIT
 python backend/manage.py runserver 0.0.0.0:8000 &
 cd frontend && npm start
+
