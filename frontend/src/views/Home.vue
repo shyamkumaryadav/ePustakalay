@@ -2,7 +2,7 @@
   <v-container fluid>
 
     <v-row>
-      <v-img contain src="https://raw.githubusercontent.com/shyamkumaryadav/E_library/master/src/system/static/system/images/imgs/in-homepage-banner.jpg">
+      <v-img contain :src="$vuetify.theme.dark ? require('@/assets/ibg.png') : require('@/assets/bg.png')">
         <template v-slot:placeholder>
           <v-skeleton-loader
           type="image"
@@ -25,7 +25,7 @@
       <v-col cols="12" md="4" v-for="i in Features" :key="i.id" align="center">
           <v-img
             width="125px"
-            :src="`https://raw.githubusercontent.com/shyamkumaryadav/E_library/master/src/system/static/system/images/imgs/${i.img}`"
+            :src="i.img"
           >
             <template v-slot:placeholder>
               <v-skeleton-loader
@@ -42,7 +42,7 @@
     </v-row>
 
     <v-row>
-      <v-img contain src="https://raw.githubusercontent.com/shyamkumaryadav/E_library/master/src/system/static/system/images/imgs/in-homepage-banner.jpg">
+      <v-img contain :src="$vuetify.theme.dark ? require('@/assets/ibg.png') : require('@/assets/bg.png')">
         <template v-slot:placeholder>
           <v-skeleton-loader
           type="image"
@@ -63,7 +63,7 @@
       <v-col cols="12" md="4" v-for="i in Process" :key="i.id" align="center">
           <v-img
             width="125px"
-            :src="`https://raw.githubusercontent.com/shyamkumaryadav/E_library/master/src/system/static/system/images/imgs/${i.img}`"
+            :src="i.img"
           >
             <template v-slot:placeholder>
               <v-skeleton-loader
@@ -93,19 +93,19 @@ export default {
       Features: [
         {
           id:1,
-          img: 'digital-inventory.png',
+          img: require("@/assets/Images/maintainable.svg"),
           title: 'Digital Book Inventory',
           body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
         },
         {
           id:2,
-          img: 'search-online.png',
+          img: require("@/assets/Images/page_find.svg"),
           title: 'Search Books',
           body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
         },
         {
           id:3,
-          img: 'defaulters-list.png',
+          img: require("@/assets/Images/time.svg"),
           title: 'Defaulter List',
           body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
         }
@@ -113,19 +113,19 @@ export default {
       Process:[
         {
           id:1,
-          img: 'sign-up.png',
+          img: require("@/assets/Images/privacy.svg"),
           title: 'Sign Up',
           body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
         },
         {
           id:2,
-          img: 'search-online.png',
-          title: 'Search Books',
+          img: require("@/assets/Images/secure_server.svg"),
+          title: 'Secure Server',
           body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
         },
         {
           id:3,
-          img: 'library.png',
+          img: require("@/assets/Images/store.svg"),
           title: 'Visit Us',
           body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
         }

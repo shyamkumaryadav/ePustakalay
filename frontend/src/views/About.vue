@@ -17,8 +17,7 @@ export default {
     fetch('/api/books/')
       .then(res => res.json())
       .then(data => {
-        console.log(data)
-        console.assert(data.results.length > 0, "No Book Avalable")
+        data.results.length > 0 ?  console.log("book ") : console.error("No Book Avalable")
         this.books = data
       })
       .catch(error => console.error(error))

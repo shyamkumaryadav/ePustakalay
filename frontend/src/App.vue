@@ -12,7 +12,7 @@
         @click="drawer = !drawer"
       ></v-app-bar-nav-icon>
 
-      <v-toolbar-title>E library</v-toolbar-title>
+      <v-toolbar-title @click="() => $router.name != 'Home' || $router.go({name: 'Home'})" style="cursor: pointer;">E Pustakalay</v-toolbar-title>
       <v-spacer></v-spacer>
 
       <v-btn
