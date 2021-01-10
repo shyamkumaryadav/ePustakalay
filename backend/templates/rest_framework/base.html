@@ -26,9 +26,7 @@
         document.getElementById('el-dark').setAttribute("class", "disabled")
         document.getElementById('el-dark').setAttribute('onclick', '');
       }else{
-        if ((localStorage.getItem("elibrary-theme") === undefined)){
-          localStorage.setItem("elibrary-theme", false);
-        }
+        localStorage.setItem("elibrary-theme", false);
         document.getElementById('el-light').setAttribute("class", "disabled")
         document.getElementById('el-light').setAttribute('onclick', '');
       }

@@ -271,10 +271,7 @@ class IssueSerializers(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Issue
         fields = '__all__'
-        # read_only_fields = ['due_date', 'book', 'user']
-        # extra_kwargs = {
-        #     'book': {'lookup_field': 'author'},
-        # }
+        
 
     def get_is_return(self, obj):
         return obj.due_date_end
