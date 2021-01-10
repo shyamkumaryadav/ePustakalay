@@ -13,6 +13,7 @@ from django.urls import reverse
 from django.contrib.auth import get_user_model
 from rest_framework import viewsets, versioning, permissions, mixins, decorators
 from emanagement import serializers, models, filters, utils
+from django.utils.translation import ugettext_lazy as _
 import json
 
 @require_http_methods(['POST'])
@@ -71,8 +72,8 @@ class UserViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         return Response({"detail": "Not found."}, status=404)
     
-    @decorators.action(detail=False, url_path='create-user', methods=['POST'], serializer_class=serializers.UserCreateSerializers, allowed_methods=['POST','HEAD', 'OPTIONS'], permission_classes=[permissions.AllowAny])
-    def create_user(self, request):
+    @decorators.action(detail=False, methods=['POST'], serializer_class=serializers.UserCreateSerializers, allowed_methods=['POST','HEAD', 'OPTIONS'], permission_classes=[permissions.AllowAny])
+    def create_user(self, request, *args, **kwargs):
         '''
         A form that creates a user, with no privileges, from the given username, email and password.
         '''
@@ -82,7 +83,7 @@ class UserViewSet(viewsets.ModelViewSet):
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=201, headers=headers)
     
-    @decorators.action(detail=True, url_path='update-user', methods=['GET', 'POST', 'PUT'], serializer_class=serializers.UserUpdateSerializer, allowed_methods=['GET', 'PUT', 'HEAD', 'OPTIONS'])
+    @decorators.action(detail=True, methods=['GET', 'POST', 'PUT'], serializer_class=serializers.UserUpdateSerializer, allowed_methods=['GET', 'PUT', 'HEAD', 'OPTIONS'])
     def update_user(self, request, *args, **kwargs):
         '''
         A form that Update a user.
@@ -91,10 +92,11 @@ class UserViewSet(viewsets.ModelViewSet):
             return self.update(request, *args, **kwargs)
         return self.retrieve(request, *args, **kwargs)
     
-    @decorators.action(detail=True, url_path='set-password', methods=['POST'], serializer_class=serializers.UserPasswordSerializer, allowed_methods=['POST', 'HEAD', 'OPTIONS'])
-    def set_password(self, request, pk=None):
+    @decorators.action(detail=True, methods=['POST'], serializer_class=serializers.PasswordChangeSerializer, allowed_methods=['POST', 'HEAD', 'OPTIONS'])
+    def change_password(self, request, pk=None):
         '''
-        A form that lets a user change their password by entering their old password.
+        Accepts the following POST parameters: old_password, new_password1, new_password2  
+        Returns the success/fail message.
         '''
         user = self.get_object()
         serializer = self.get_serializer(user, data=request.data)
@@ -103,13 +105,33 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response(serializer.data)
         return Response(serializer.errors, status=404)
     
-    @decorators.action(detail=False, url_path='forget-password', methods=['POST'], serializer_class=serializers.PasswordResetSerializer, allowed_methods=['POST', 'HEAD', 'OPTIONS'])
-    def password_forget(self, request, *args, **kwargs):
+    @decorators.action(detail=False, methods=['POST'], serializer_class=serializers.PasswordResetSerializer, allowed_methods=['POST', 'HEAD', 'OPTIONS'])
+    def reset_password(self, request, pk=None):
+        '''
+        Accepts the following POST parameters: email
+        Returns the success/fail message.
+        '''
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        return Response({'working': 123}, status=201)
 
+        serializer.save()
+        # Return the success message with OK HTTP status
+        return Response(
+            {"detail": _("Password reset e-mail has been sent.")},
+            status=200
+        )
 
+    @decorators.action(detail=False, methods=['POST'], serializer_class=serializers.PasswordResetConfirmSerializer, allowed_methods=['POST', 'HEAD', 'OPTIONS'])
+    def password_reset_confirm(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(
+            {"detail": _("Password has been reset with the new password.")}
+        )
+    
+    
+    
 class BookAPI(viewsets.ModelViewSet):
     """
     E-Management `Book` ViewSet

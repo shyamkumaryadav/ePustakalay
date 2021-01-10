@@ -171,3 +171,16 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
     ),
 }
+
+OLD_PASSWORD_FIELD_ENABLED = True
+
+# EMAIL On Console
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' 
+
+# Email
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 
+# EMAIT_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 
+# EMAIL_HOST_PASSWORD = 
