@@ -2,7 +2,7 @@
   <v-container fluid>
 
     <v-row>
-      <v-img contain :src="$vuetify.theme.dark ? require('@/assets/ibg.png') : require('@/assets/bg.png')">
+      <v-img contain :src="require('@/assets/bg.png')" :style="{'filter': $vuetify.theme.dark ? 'invert(1)': 'invert(0)'}">
         <template v-slot:placeholder>
           <v-skeleton-loader
           type="image"

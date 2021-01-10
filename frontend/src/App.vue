@@ -21,9 +21,7 @@
       >
         <v-icon>mdi-theme-light-dark</v-icon>
       </v-btn>
-      <v-btn icon>
-        <v-icon>mdi-book-variant-multiple</v-icon>
-      </v-btn>
+      
 
       <v-menu left bottom>
         <template v-slot:activator="{ on, attrs }">
@@ -34,12 +32,12 @@
 
         <v-list>
           <v-list-item
-            v-for="n in 5"
+            v-for="n in 1"
             :key="n"
             @click="() => {}"
           >
             <v-list-item-title
-              >github2 {{ n }}</v-list-item-title
+              >View Books</v-list-item-title
             >
           </v-list-item>
         </v-list>
@@ -130,10 +128,8 @@ export default {
   },
   methods:{
     changeTheme(){
-      console.log('click')
       localStorage.setItem('elibrary-theme', !this.$vuetify.theme.dark)
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark
-      console.log('click end', this.$vuetify.theme.dark)
     }
   },
   computed:{
