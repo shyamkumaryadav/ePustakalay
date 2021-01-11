@@ -17,7 +17,7 @@ def optional_info(request, user):
     try:
         logout_url = reverse('rest_framework:logout')
         update = reverse('user-update-user', kwargs={'pk': user.id})
-        setpassword = reverse('user-set-password', kwargs={'pk': user.id})
+        setpassword = reverse('user-change-password', kwargs={'pk': user.id})
     except NoReverseMatch:
         snippet = format_html('<li class="navbar-text">{user}</li>', user=escape(user))
         return mark_safe(snippet)
@@ -37,7 +37,6 @@ def optional_info(request, user):
 
     return mark_safe(snippet)
 
-
 def a_tag(request, path, title):
     'return li el'
     return f'<li class="disabled"><a>{title}</a></li>' if request.path == path else f"<li><a href={path}>{title}</a></li>"
@@ -49,17 +48,17 @@ def all_router(request):
     '''
     try:
         user = reverse('user-list')
-        userTitle = user[1:-1].replace('-', ' ').title()
+        userTitle = user[5:-1].replace('-', ' ').title()
         issue_list = reverse('issue-list')
-        issue_listTitle = issue_list[1:-1].replace('-', ' ').title()
+        issue_listTitle = issue_list[5:-1].replace('-', ' ').title()
         bookpublish_list = reverse('bookpublish-list')
-        bookpublish_listTitle = bookpublish_list[1:-1].replace('-', ' ').title()
+        bookpublish_listTitle = bookpublish_list[5:-1].replace('-', ' ').title()
         genre_list = reverse('genre-list')
-        genre_listTitle = genre_list[1:-1].replace('-', ' ').title()
+        genre_listTitle = genre_list[5:-1].replace('-', ' ').title()
         bookauthor_list = reverse('bookauthor-list')
-        bookauthor_listTitle = bookauthor_list[1:-1].replace('-', ' ').title()
+        bookauthor_listTitle = bookauthor_list[5:-1].replace('-', ' ').title()
         book_list = reverse('book-list')
-        book_listTitle = book_list[1:-1].replace('-', ' ').title()
+        book_listTitle = book_list[5:-1].replace('-', ' ').title()
 
         snippet = """<li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -90,7 +89,7 @@ def all_router(request):
 @register.simple_tag
 def create_user():
     try:
-        snippet = '<label>Already have an account <a href={user_create}  data-toggle="tooltip" data-placement="top" title="Sign In">Sign in</a></label>'.format(user_create=reverse('user-create'))
+        snippet = '<label>Already have an account <a href={user_create}  data-toggle="tooltip" data-placement="top" title="Sign In">Sign in</a></label>'.format(user_create=reverse('user-create-user'))
     except:
         snippet = ''
     
