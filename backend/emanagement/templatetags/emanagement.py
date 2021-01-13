@@ -42,6 +42,23 @@ def a_tag(request, path, title):
     return f'<li class="disabled"><a>{title}</a></li>' if request.path == path else f"<li><a href={path}>{title}</a></li>"
 
 @register.simple_tag
+def optional_login(request):
+    '''
+    Displays Logout URL.
+    '''
+    if request.path in [reverse('gettoken'), reverse('reftoken'), reverse('vertoken')]:
+        return ''
+    try:
+        login = reverse('rest_framework:login')
+    except NoReverseMatch:
+        return ''
+    
+    snippet = "<li><a href='{login}'>Log In</a></li>".format(login=login)
+    return mark_safe(snippet)
+
+
+
+@register.simple_tag
 def all_router(request):
     '''
     Displays all of the url routes for the project.

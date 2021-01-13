@@ -4,22 +4,25 @@
 
 class AuthService {
     login(user) {
-      return fetch('/api/auth/', {
+      console.log(user)
+      return fetch('/api/auth/token/', {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json'  
+            'Content-Type': 'application/json',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
           },
+          redirect: 'follow',
           credentials: "same-origin",
           body: JSON.stringify(user)
         })
         .then(response => response.json())
         .then(data => {
-          if (data.access && data.refresh) {
-            localStorage.setItem('user', JSON.stringify(data));
-          }
-  
-          return data;
-        });
+          if (data.refresh && data.access) {
+            localStorage.setItem('userid', JSON.stringify(data));
+            return data
+          }else throw new Error(`${data.detail}`)
+        })
+        .catch(error => console.error(error));
     }
   
     logout() {
@@ -30,7 +33,7 @@ class AuthService {
       return fetch('/api/user/', {
         method: 'POST',
         headers: {
-        'Content-Type': 'application/json'  
+        'Content-Type': 'application/json',  
         },
         credentials: "same-origin",
         body: JSON.stringify(user)

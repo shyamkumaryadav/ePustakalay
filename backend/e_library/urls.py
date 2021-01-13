@@ -33,7 +33,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('favicon.ico', RedirectView.as_view(
         url=staticfiles_storage.url('favicon.ico'))),
-    path('', TemplateView.as_view(template_name="emanagement/index.html")),
+    path('', TemplateView.as_view(template_name="emanagement/index.html"), name='home'),
 ]
 
 if settings.DEBUG:
@@ -42,7 +42,8 @@ if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)
 
-urlpatterns += [re_path(r'^(?:.*)/?$', TemplateView.as_view(template_name="emanagement/index.html"))] 
+urlpatterns += [re_path(r'^(?:.*)/?$', TemplateView.as_view(template_name="emanagement/index.html"), name='home')] 
 
 handler404 = 'emanagement.views.handler404'
 handler500 = 'emanagement.views.handler500'
+

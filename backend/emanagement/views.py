@@ -39,6 +39,9 @@ def handler404(request, exception):
 def handler500(request):
     return HttpResponse(f"<h1 style='text-align: center;'>500 error handler! contect admin <a href='mailto:shyamkumaryadav2003@gmail.com'>shyamkumaryadav2003@gmail.com</a></h1>")
 
+def csrf(request, reason):
+    return HttpResponse(f'CSRF error: {reason}')
+
 
 class UserViewSet(viewsets.ModelViewSet):
     '''

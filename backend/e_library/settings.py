@@ -5,18 +5,10 @@ from pathlib import Path
 import os
 import re
 
-# e-library-management-system/e_library.
+# backend/e_library.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'zx6n)1_o^4*&6ypp-*@h37wd%s+g02(j-g&%p(yzyajl9uu&tg'
-
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(os.getenv('DEBUG'))
-
 ALLOWED_HOSTS = ['*']
 
 
@@ -184,3 +176,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_USE_TLS = True
 # EMAIL_HOST_USER = 
 # EMAIL_HOST_PASSWORD = 
+
+CSRF_FAILURE_VIEW = 'emanagement.views.csrf'

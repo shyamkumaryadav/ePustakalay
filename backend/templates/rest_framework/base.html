@@ -126,6 +126,7 @@
       {% block breadcrumbs %}
       {% if breadcrumblist %}
       <ul class="breadcrumb">
+        <li><a href="{% url 'home' %}">Home</a></li>
         {% for breadcrumb_name, breadcrumb_url in breadcrumblist %}
         {% if forloop.last %}
         <li style="cursor: pointer;" class="active" onclick="location.href = '{{ breadcrumb_url }}'">{{ breadcrumb_name }}</li>
