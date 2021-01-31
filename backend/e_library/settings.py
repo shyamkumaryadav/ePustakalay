@@ -150,13 +150,13 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Simple JWT
 SIMPLE_JWT = {
     'UPDATE_LAST_LOGIN': True,
-    'AUTH_HEADER_TYPES': ('shyamkumar','Bearer', 'sky',),
+    'AUTH_HEADER_TYPES': ('Bearer', 'shyamkumaryadav', 'sky', 'shyamkumar', 'shyam'),
 }
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
-    'PAGE_SIZE': 20,
+    'PAGE_SIZE': 10,
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',

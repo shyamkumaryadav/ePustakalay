@@ -51,11 +51,12 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.UserSerializer
     permission_classes = [permissions.AllowAny]
     queryset = get_user_model().objects.all()
+    lookup_field = 'username'
 
     def list(self, request, *args, **kwargs):
         headers = {}
         if request.user.is_authenticated and not request.user.is_staff:
-            return HttpResponseRedirect(reverse('user-detail', kwargs={'pk': self.request.user.id}))
+            return HttpResponseRedirect(reverse('user-detail', kwargs={'username': self.request.user.username}))
         elif request.user.is_staff:
             return super(UserViewSet, self).list(request, *args, **kwargs)
         else:
@@ -110,7 +111,7 @@ class UserViewSet(viewsets.ModelViewSet):
         serializer.save()
         # Return the success message with OK HTTP status
         return Response(
-            {"detail": _("Password reset e-mail has been sent.")},
+            {"detail": _("Password reset e-mail has been sent."), 'url' : request.build_absolute_uri(reverse('user-password-reset-confirm'))},
             status=200
         )
 
@@ -174,8 +175,10 @@ class IssueAPI(viewsets.ModelViewSet):
     """
     # queryset = models.Issue.objects.filter(user=request.user)
     serializer_class = serializers.IssueSerializers
-    permission_classes = [permissions.IsAdminUser|utils.ReadOnly]
+    permission_classes = [permissions.IsAuthenticated]
 
 
     def get_queryset(self):
         return self.request.user.issue_set.all()
+        # except:
+            # raise Http404

@@ -85,13 +85,13 @@ export default {
           id:1,
           img: require("@/assets/Images/responsive.svg"),
           title: 'Simple & Easy to Use',
-          body: "The ePustakalay is simple, user-friendly, and can be easily integrated with your existing system. The ePustakalay benefits provide online and offline storage, automated backups, and easy upgrades to simplify and enhance the learning process."
+          body: "ePustakalay is simple, user-friendly, and can be easily integrated with your existing system. The ePustakalay benefits provide online and offline storage, automated backups, and easy upgrades to simplify and enhance the learning process."
         },
         {
           id:2,
           img: require("@/assets/Images/page_find.svg"),
           title: 'Search Books',
-          body: "The ePustakalay provides mobile access to search the library catalog, schedules, books and resources from anywhere, at any given time via smartphones and tablets etc."
+          body: "ePustakalay provides mobile access to search the library catalog, schedules, books and resources from anywhere, at any given time via smartphones and tablets etc."
         },
         {
           id:3,
@@ -117,7 +117,7 @@ export default {
           id:3,
           img: require("@/assets/Images/maintainable.svg"),
           title: 'Fully Customizable',
-          body: "The ePustakalay automation system is fully customizable and adaptable to the needs of educational institutions to provide fast, reliable data."
+          body: "ePustakalay automation system is fully customizable and adaptable to the needs of educational institutions to provide fast, reliable data."
         }
       ]
     }

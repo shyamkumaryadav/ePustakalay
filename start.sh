@@ -2,6 +2,7 @@
 
 printf "$(tput bold)hy, $(tput setaf 6)$USERNAME$(tput sgr0)"
 function safe_c() {
+    cd Projects/ePustakalay
     if pgrep python; 
     then 
         pkill python

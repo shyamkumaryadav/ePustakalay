@@ -15,11 +15,11 @@ def age(value):
     today = timezone.now()
     year = today.year - value.year - ((today.month, today.day) < (value.month, value.day))
     if year < 18:
-        raise ValidationError(f"Your age not 18+, youcredentials: you are {year} year old.")
+        raise ValidationError(f"Your age not 18+, as i think you are {year} year old.")
 
 def profile_size(value):
     if value.size > 1024 * 1024 * 0.5:
-        raise ValidationError(f"Image size is {filesizeformat(value.size)} required {filesizeformat(1024 * 1024 * 0.5)}")
+        raise ValidationError(f"Image size is {filesizeformat(value.size)} required size {filesizeformat(1024 * 1024 * 0.5)}")
 
 class ReadOnly(permissions.BasePermission):
     def has_permission(self, request, view):

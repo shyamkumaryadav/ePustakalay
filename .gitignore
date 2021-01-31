@@ -3,6 +3,7 @@
 *.pot
 *.pyc
 .env
+.venv
 __pycache__/
 backend/system/__pycache__/
 backend/emanagement/__pycache__/

@@ -30,9 +30,9 @@ class  IssueSetSerializers(serializers.ModelSerializer):
         return obj.due_date_end
 
 class UserSerializer(serializers.ModelSerializer):
-    url = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-detail")
-    update = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-update-user")
-    setpassword = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-change-password")
+    url = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-detail", lookup_field='username')
+    update = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-update-user", lookup_field='username')
+    setpassword = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-change-password", lookup_field='username')
     issue_set = IssueSetSerializers( many=True, read_only=True)
     
     class Meta:
@@ -40,8 +40,8 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['url', 'id', 'username', 'first_name', 'middle_name', 'last_name', 'email', 'phone_number', 'date_of_birth', 'country', 'state', 'city', 'pincode', 'full_address', 'is_defaulter', 'profile', 'groups', 'user_permissions','is_superuser', 'last_login', 'is_superuser', 'is_active', 'is_staff', 'date_joined', 'update', 'setpassword', 'issue_set']
 
 class UserCreateSerializers(serializers.ModelSerializer):
-    confirm_password = serializers.CharField(style={'input_type': 'password'}, write_only=True, required=True,) # validators=[validate_password])
-    url = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-detail")
+    confirm_password = serializers.CharField(style={'input_type': 'password', 'autocomplete': 'new-password'}, write_only=True, required=True,) # validators=[validate_password])
+    url = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-detail", lookup_field='username')
     issue_set = IssueSetSerializers( many=True, read_only=True)
 
     class Meta(UserSerializer.Meta):
@@ -52,7 +52,8 @@ class UserCreateSerializers(serializers.ModelSerializer):
                 'write_only': True,
                 'required': True,
                 'style': {
-                    'input_type': 'password'
+                    'input_type': 'password',
+                    'autocomplete': 'new-password'
                 },
                 'validators': [validate_password]
             },
@@ -67,9 +68,9 @@ class UserCreateSerializers(serializers.ModelSerializer):
         return self.Meta.model.objects.create_user(**validated_data)
     
 class UserUpdateSerializer(serializers.ModelSerializer):
-    url = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-detail")
-    update = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-update-user")
-    setpassword = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-change-password")
+    url = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-detail", lookup_field='username')
+    update = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-update-user", lookup_field='username')
+    setpassword = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-change-password", lookup_field='username')
     issue_set = IssueSetSerializers( many=True, read_only=True)
 
     class Meta(UserSerializer.Meta):
@@ -83,7 +84,7 @@ class PasswordResetSerializer(serializers.Serializer):
     """
     Serializer for requesting a password reset e-mail.
     """
-    email = serializers.EmailField()
+    email = serializers.EmailField(style={'autocomplete': 'email'})
 
     password_reset_form_class = PasswordResetForm
 
@@ -116,8 +117,8 @@ class PasswordResetConfirmSerializer(serializers.Serializer):
     """
     Serializer for requesting a password reset e-mail.
     """
-    new_password1 = serializers.CharField(max_length=128, style={'input_type': 'password'}, label="password")
-    new_password2 = serializers.CharField(max_length=128, style={'input_type': 'password'}, label="confirm password")
+    new_password1 = serializers.CharField(max_length=128, style={'input_type': 'password', 'autocomplete': 'new-password'}, label="password")
+    new_password2 = serializers.CharField(max_length=128, style={'input_type': 'password', 'autocomplete': 'new-password'}, label="confirm password")
     uid = serializers.CharField()
     token = serializers.CharField()
 
@@ -153,9 +154,9 @@ class PasswordResetConfirmSerializer(serializers.Serializer):
 
 
 class PasswordChangeSerializer(serializers.Serializer):
-    old_password = serializers.CharField(max_length=128, style={'input_type': 'password'})
-    new_password1 = serializers.CharField(max_length=128, style={'input_type': 'password'}, label="New password")
-    new_password2 = serializers.CharField(max_length=128, style={'input_type': 'password'}, label="Confirm password")
+    old_password = serializers.CharField(max_length=128, style={'input_type': 'password', 'autocomplete' : 'current-password'})
+    new_password1 = serializers.CharField(max_length=128, style={'input_type': 'password', 'autocomplete': 'new-password'}, label="New password")
+    new_password2 = serializers.CharField(max_length=128, style={'input_type': 'password', 'autocomplete': 'new-password'}, label="Confirm password")
 
     set_password_form_class = SetPasswordForm
 
