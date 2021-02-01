@@ -11,13 +11,16 @@
 
 ```bash
 $ pip install pipenv # to use script install or update pipenv with latest version
-$ mkdir ~/E_library
-$ cd ~/E_library
-$ git clone git@github.com:shyamkumaryadav/e-library-management-system.git .
+$ git clone git@github.com:shyamkumaryadav/ePustakalay.git
+# or Use Https
+# $ git clone https://github.com/shyamkumaryadav/ePustakalay.git
+# or Use github CLI
+# $ gh repo clone shyamkumaryadav/ePustakalay
+```
 
 ### Django runserver
-$ cd ~/E_library
-$ pipenv shell
+```bash
+$ cd ePustakalay
 $ pipenv install
 # uncomment if you forget to do
 # $ pipenv run make # for makemigrations
@@ -25,8 +28,8 @@ $ pipenv run migrate
 # $ pipenv run collect
 $ pipenv run start
 # Starting development server at http://0.0.0.0:8000/
-
 ```  
+> for more info abour pipenv script [visit](https://pipenv.pypa.io/en/latest/advanced/#custom-script-shortcuts)
 
 ## Home Page Image
 ![./docs/Image/LightDarkHome.png](./docs/Image/LightDarkHome.png)
