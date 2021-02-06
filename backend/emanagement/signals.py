@@ -5,6 +5,7 @@ from django.contrib.auth.signals import user_logged_in, user_logged_out, user_lo
 from django.core.mail import EmailMultiAlternatives
 from emanagement.models import Book, Issue
 
+
 def create_genre(sender, *args, **kwargs):
     is_create = False
     for i in data_list.BOOK_GENRE:

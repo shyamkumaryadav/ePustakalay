@@ -38,11 +38,11 @@ class AbstractUser(BaseAbstractUser):
         validators=[utils.age]
     )
     phone_number = models.CharField(verbose_name=_("Phone Number"),
-                                    max_length=13,
+                                    max_length=25,
                                     null=True,blank=True,
                                     validators=[validators.RegexValidator(
-                                        regex=r"^[4-9]\d{9}$", message=_("Enter Valid Phone Number.")), ],
-                                    help_text=_("Enter Your Number without <b>country code.</b>")
+                                        regex=r"\+91\d{10}", message=_("Enter Valid Phone Number.")), ],
+                                    help_text=_("Enter Your Number with <b>country code.</b>")
                                     )
     country = models.CharField(max_length=25, null=True, blank=True)
     state = models.CharField(max_length=50, null=True, blank=True)
@@ -73,6 +73,7 @@ class AbstractUser(BaseAbstractUser):
     class Meta(BaseAbstractUser.Meta):
         verbose_name = _('user')
         verbose_name_plural = _('users')
+        ordering = ['first_name']
         abstract = True
 
 
@@ -92,8 +93,7 @@ class Genre(models.Model):
 
     fields = ['id', 'name']
     '''
-    name = models.CharField(max_length=50, unique=True, editable=False, choices=[
-                               (None, "Select Genre")] + data_list.BOOK_GENRE)
+    name = models.CharField(max_length=50, unique=True, editable=False, choices=data_list.BOOK_GENRE)
 
     class Meta:
         ordering = ['name']
@@ -201,10 +201,8 @@ class Book(models.Model):
                                 verbose_name="Publisher Name")
     update_date = models.DateTimeField(auto_now=True, verbose_name="Last Update")
     date = models.DateTimeField(auto_now_add=True, verbose_name="Date")
-    language = models.CharField(max_length=12, verbose_name="Language", choices=[
-                                (None, "Select Language")] + global_settings.LANGUAGES)
-    edition = models.IntegerField(verbose_name="Edition", choices=[
-                                  (None, "Select Edition")] + data_list.BOOK_EDITION)
+    language = models.CharField(max_length=12, verbose_name="Language", choices=global_settings.LANGUAGES)
+    edition = models.IntegerField(verbose_name="Edition", choices=data_list.BOOK_EDITION)
     cost = models.DecimalField(
         max_digits=8, decimal_places=2, verbose_name="Book Cost(per unit)")
     page = models.PositiveIntegerField(verbose_name="Total Page")

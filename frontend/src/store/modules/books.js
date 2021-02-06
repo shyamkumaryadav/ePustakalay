@@ -1,8 +1,7 @@
 export default {
     namespaced: true,
     state: {
-        id: "",
-        
+      id: ''
     },
     getters: {},
     actions: {},

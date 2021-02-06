@@ -41,8 +41,8 @@ if settings.DEBUG:
                           document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)
-
-urlpatterns += [re_path(r'^(?:.*)/?$', TemplateView.as_view(template_name="emanagement/index.html"), name='home')] 
+else:
+    urlpatterns += [re_path(r'^(?:.*)/?$', TemplateView.as_view(template_name="emanagement/index.html"), name='home')] 
 
 handler404 = 'emanagement.views.handler404'
 handler500 = 'emanagement.views.handler500'

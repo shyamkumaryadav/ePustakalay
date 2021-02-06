@@ -3,6 +3,7 @@ URLPATTERNS for e_library project.
 """
 from django.urls import path, include
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
+
 from rest_framework import routers
 from django.utils.translation import gettext as _, gettext_lazy
 

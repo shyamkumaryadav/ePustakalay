@@ -1,6 +1,10 @@
 export default {
     namespaced: true,
-    state: {},
+    state: {
+        user: {},
+        
+        
+    },
     getters: {},
     actions: {},
     mutations: {}

@@ -136,6 +136,8 @@
         {% empty %}
         {% block breadcrumbs_empty %}&nbsp;{% endblock breadcrumbs_empty %}
         {% endfor %}
+        {% if post_form %}<div class="pull-right"><a href="#post-object-form">Form:POST</a></div>{% endif %}
+        {% if put_form %}<div class="pull-right"><a href="#put-object-form">Form:PUT</a></div>{% endif %}
       </ul>
       {% endif %}
       {% endblock breadcrumbs %}
@@ -280,7 +282,7 @@
             {% if post_form %}
             <div class="tab-pane" id="post-object-form">
               {% with form=post_form %}
-              <form action="{{ request.get_full_path }}" method="POST" enctype="multipart/form-data" class="form-horizontal" novalidate>
+              <form action="{{ request.get_full_path }}" method="POST" enctype="multipart/form-data" class="form-horizontal">
                 <fieldset>
                   {% csrf_token %}
                   {{ post_form }}

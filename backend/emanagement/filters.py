@@ -14,11 +14,11 @@ class BookFilter(filters.FilterSet):
             'rating': ['range'],
             'language': ['exact'],
             'in_stock': ['exact'],
-            'genre': ['contains'],
+            'edition': ['exact'],
+            'genre__name': ['contains'],
+            'description': ['contains'],
             'author__first_name': ['contains'],
-            'author': ['exact'],
             'publish__company_name': ['contains'],
-            'publish': ['exact'],
         }
 
 
@@ -45,4 +45,16 @@ class BookAuthorFilter(filters.FilterSet):
         fields = {
             'first_name': ['contains'],
             'genre__name': ['contains'],
+        }
+        
+class GenreFilter(filters.FilterSet):
+    '''
+    FilterSet of emanagement.models.Genre
+    '''
+
+    class Meta:
+        model = models.Genre
+        fields = {
+            'name': ['contains'],
+            'id': ['exact'],
         }

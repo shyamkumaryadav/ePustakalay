@@ -15,6 +15,7 @@ from django.http import Http404
 from emanagement import models
 from django.utils.translation import ugettext_lazy as _
 
+
 UserModel = get_user_model()
 
 class  IssueSetSerializers(serializers.ModelSerializer):
@@ -209,7 +210,7 @@ class GenreSerializers(serializers.HyperlinkedModelSerializer):
     '''
     class Meta:
         model = models.Genre
-        fields = '__all__'
+        fields = [ 'url', 'id', 'name',]
 
 class BookAuthorSerializers(serializers.HyperlinkedModelSerializer):
     '''
@@ -244,38 +245,42 @@ class BookSerializers(serializers.HyperlinkedModelSerializer):
     The Serializer of `emanagement.models.Book`
     '''
     genre_list = serializers.StringRelatedField(source="genre", many=True, read_only=True)
-    # author = serializers.StringRelatedField(many=False, read_only=True)
     author_name = serializers.StringRelatedField(source='author', many=False, read_only=True)
-    # publish = serializers.StringRelatedField(many=False, read_only=True)
     publish_by = serializers.StringRelatedField(source='publish', many=False, read_only=True)
 
     class Meta:
         model = models.Book
-        fields = '__all__'
-        # exclude = ['genre', 'language']
+        fields = ['id', 'slug', 'name', 'genre', 'author', 'publish', 'update_date', 'genre_list', 'author_name', 'publish_by', 'date', 'language', 'edition', 'cost', 'page', 'description', 'stock', 'in_stock', 'today_stock', 'rating', 'profile']
         extra_kwargs = {
             'genre': {'write_only': True},
             'author': {'write_only': True},
             'publish': {'write_only': True},
         }
-        # depth = 1
+
 
 class IssueSerializers(serializers.HyperlinkedModelSerializer):
     '''
     The Serializer of `emanagement.models.Issue`
     '''
-    bookname = serializers.SlugRelatedField(source="book", many= False, read_only=True, slug_field="name")
-    username = serializers.SlugRelatedField(source="user", many= False, read_only=True, slug_field="username")
-    user = serializers.SlugRelatedField(many= False, queryset=models.User.objects.filter(is_defaulter=False), write_only=True, slug_field="username")
+    book_info = BookSerializers(source="book", many= False, read_only=True)
+    # username = serializers.SlugRelatedField(source="user", many= False, read_only=True, slug_field="username")
+    user = serializers.SlugRelatedField(many= False, read_only=True, slug_field="username")
     is_return = serializers.SerializerMethodField()
 
     class Meta:
         model = models.Issue
-        fields = '__all__'
+        fields = ['url', 'book', 'user', 'is_return', 'book', 'date', 'due_date', 'book_info']
+        extra_kwargs = {'book': {'write_only': True}}
         
 
     def get_is_return(self, obj):
         return obj.due_date_end
+    
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    def perform_update(self, serializer):
+        serializer.save(user=self.request.user)
 
    
     

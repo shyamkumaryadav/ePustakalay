@@ -16,6 +16,7 @@ from emanagement import serializers, models, filters, utils
 from django.utils.translation import ugettext_lazy as _
 import json
 
+
 @require_http_methods(['POST'])
 @csrf_exempt
 def update(request):
@@ -54,11 +55,14 @@ class UserViewSet(viewsets.ModelViewSet):
     lookup_field = 'username'
 
     def list(self, request, *args, **kwargs):
-        headers = {}
         if request.user.is_authenticated and not request.user.is_staff:
             return HttpResponseRedirect(reverse('user-detail', kwargs={'username': self.request.user.username}))
         elif request.user.is_staff:
-            return super(UserViewSet, self).list(request, *args, **kwargs)
+            res = super(UserViewSet, self).list(request, *args, **kwargs)
+            for i in range(len(res.data['results'])):
+                if res.data['results'][i]["username"] == request.user.username:
+                    res.data.update(res.data['results'][i])
+            return res
         else:
             raise Http404
        
@@ -69,7 +73,7 @@ class UserViewSet(viewsets.ModelViewSet):
     @decorators.action(detail=False, methods=['POST'], serializer_class=serializers.UserCreateSerializers, allowed_methods=['POST','HEAD', 'OPTIONS'], permission_classes=[permissions.AllowAny])
     def create_user(self, request, *args, **kwargs):
         '''
-        A form that creates a user, with no privileges, from the given username, email and password.
+        # A form that creates a user, with no privileges, from the given username, email and password.
         '''
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -103,7 +107,7 @@ class UserViewSet(viewsets.ModelViewSet):
     def reset_password(self, request, pk=None):
         '''
         Accepts the following POST parameters: email
-        Returns the success/fail message.
+        Returns the success and visit url.
         '''
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -111,7 +115,7 @@ class UserViewSet(viewsets.ModelViewSet):
         serializer.save()
         # Return the success message with OK HTTP status
         return Response(
-            {"detail": _("Password reset e-mail has been sent."), 'url' : request.build_absolute_uri(reverse('user-password-reset-confirm'))},
+            {"detail": "Password reset e-mail has been sent.", 'visit' : request.build_absolute_uri(reverse('user-password-reset-confirm'))},
             status=200
         )
 
@@ -121,20 +125,19 @@ class UserViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(
-            {"detail": _("Password has been reset with the new password.")}
+            {"detail": "Password has been reset with the new password."}
         )
     
     
     
 class BookAPI(viewsets.ModelViewSet):
     """
-    E-Management `Book` ViewSet
+    E-Management `Book` ViewSet  
+    # i am work with this ***view***
     """
     queryset = models.Book.objects.all()
     permission_classes = [permissions.IsAdminUser|utils.ReadOnly]
     serializer_class = serializers.BookSerializers
-    # filter_backends = (filters.DjangoFilterBackend,)
-    # filterset_fields = ('name', 'author', 'publish')
     filterset_class = filters.BookFilter
     
 class BookAuthorAPI(viewsets.ModelViewSet):
@@ -168,6 +171,7 @@ class GenreAPI(viewsets.ModelViewSet):
     queryset = models.Genre.objects.all()
     permission_classes = [utils.ReadOnly]
     serializer_class = serializers.GenreSerializers
+    filterset_class = filters.GenreFilter
 
 class IssueAPI(viewsets.ModelViewSet):
     """

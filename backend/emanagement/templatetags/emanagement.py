@@ -16,8 +16,8 @@ def optional_info(request, user):
     """
     try:
         logout_url = reverse('rest_framework:logout')
-        update = reverse('user-update-user', kwargs={'pk': user.id})
-        setpassword = reverse('user-change-password', kwargs={'pk': user.id})
+        update = reverse('user-update-user', kwargs={'username': user.username})
+        setpassword = reverse('user-change-password', kwargs={'username': user.username})
     except NoReverseMatch:
         snippet = format_html('<li class="navbar-text">{user}</li>', user=escape(user))
         return mark_safe(snippet)

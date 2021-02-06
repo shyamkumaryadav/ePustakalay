@@ -6,12 +6,11 @@ class UserService {
 //     return axios.get(API_URL + 'all');
 //   }
 
-  getUser() {
-    return fetch('/api/user/', {
-        headers: authHeader()
+  getUser(username) {
+    return fetch(`/api/user/${username}/`, {
     })
     .then(response => response.json())
-    .then(data => data)
+    .then(data => console.log(data))
   }
  
 }

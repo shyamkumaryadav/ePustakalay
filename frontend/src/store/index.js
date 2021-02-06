@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import user from '@/store/modules/user.js'
+import users from '@/store/modules/users.js'
+import books from '@/store/modules/books.js'
 
 Vue.use(Vuex)
 
@@ -14,6 +15,7 @@ export default new Vuex.Store({
   actions: {
   },
   modules: {
-    user
+    users,
+    books
   }
 })
