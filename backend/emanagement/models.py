@@ -20,44 +20,24 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 
-
 class AbstractUser(BaseAbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(_('email address'), unique=True)
-    middle_name = models.CharField(
-        verbose_name=_("Middle Name"),
-        max_length=20,
-        validators=[
-            validators.RegexValidator(regex=r"^[A-Za-z ]+$", message=_("Enter Valid Middle Name."))],
-        null=True,blank=True,
-    )
-    
-    date_of_birth = models.DateField(
-        verbose_name=_("Data of Birth"),
-        null=True,blank=True,
-        validators=[utils.age]
-    )
-    phone_number = models.CharField(verbose_name=_("Phone Number"),
-                                    max_length=25,
-                                    null=True,blank=True,
+    middle_name = models.CharField(_("Middle Name"), max_length=150, blank=True)    
+    date_of_birth = models.DateField(_("Data of Birth"), blank=True, validators=[utils.age])
+    phone_number = models.CharField(_("Phone Number"),max_length=25, blank=True,
                                     validators=[validators.RegexValidator(
                                         regex=r"\+91\d{10}", message=_("Enter Valid Phone Number.")), ],
                                     help_text=_("Enter Your Number with <b>country code.</b>")
-                                    )
-    country = models.CharField(max_length=25, null=True, blank=True)
-    state = models.CharField(max_length=50, null=True, blank=True)
-    city = models.CharField(max_length=50, null=True, blank=True)
-    pincode = models.CharField(verbose_name=_("Pincode"), max_length=6,
-                               null=True,blank=True
-                               )
-    full_address = models.TextField(verbose_name=_("Full Address"),
-                                    null=True,
-                                    blank=True,
-                                    max_length=50,
-                                    )
+    )
+    country = models.CharField(_("Country Name"), max_length=25, blank=True)
+    state = models.CharField(_("State Name"), max_length=50, blank=True)
+    city = models.CharField(_("City Name"), max_length=50, blank=True)
+    pincode = models.CharField(_("Pincode"), max_length=6, blank=True)
+    full_address = models.TextField(_("Full Address"), blank=True, max_length=50)
     is_defaulter = models.BooleanField(default=False, help_text=_('User in defaulter list'))
     profile = models.FileField(upload_to=utils.pic_upload,
-                               default='user.jpg', blank=True,null=True,
+                               default='user.jpg', blank=True,
                                validators=[validators.FileExtensionValidator(
                                    allowed_extensions=validators.get_available_image_extensions(),
                                    message=_(
@@ -76,7 +56,6 @@ class AbstractUser(BaseAbstractUser):
         ordering = ['first_name']
         abstract = True
 
-
 class User(AbstractUser):
     """
     Users within the Django authentication system are represented by this
@@ -85,7 +64,6 @@ class User(AbstractUser):
     """
     class Meta(AbstractUser.Meta):
         swappable = 'AUTH_USER_MODEL'
-
 
 class Genre(models.Model):
     '''
@@ -100,7 +78,6 @@ class Genre(models.Model):
 
     def __str__(self):
         return self.name
-
 
 class BookAuthor(models.Model):
     '''
@@ -138,9 +115,6 @@ class BookAuthor(models.Model):
     #     return reverse_lazy('system:authormanagementupdate', kwargs={
     #         'pk': self.pk lol xd
     #     })
-
-
-
 
 class BookPublish(models.Model):
     """
@@ -235,7 +209,6 @@ class Book(models.Model):
         return mark_safe('<img src="{}" width="200px" />'.format(escape(self.profile.url)))
     image_tag.short_description = 'BOOK COVER'
     image_tag.allow_tags = True
-    
 
 class Issue(models.Model):
     '''
@@ -265,6 +238,3 @@ class Issue(models.Model):
 
     _due_date_end.boolean = True
     due_date_end = property(_due_date_end)
-
-
-

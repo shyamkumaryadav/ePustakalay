@@ -18,7 +18,7 @@ from django.utils.translation import ugettext_lazy as _
 
 UserModel = get_user_model()
 
-class  IssueSetSerializers(serializers.ModelSerializer):
+class IssueSetSerializers(serializers.ModelSerializer):
     book_name = serializers.SlugRelatedField(source="book", many= False, read_only=True, slug_field="name")
     is_return = serializers.SerializerMethodField()
 
@@ -76,11 +76,16 @@ class UserUpdateSerializer(serializers.ModelSerializer):
 
     class Meta(UserSerializer.Meta):
         read_only_fields = ['last_login', 'is_superuser', 'is_active', 'is_staff', 'date_joined', 'username', 'is_defaulter', 'user_permissions', 'groups', 'password', 'issue_set',]
+        extra_kwargs = {
+            'first_name': {'required': True, 'allow_blank': False},
+            'middle_name': {'required': True, 'allow_blank': False},
+            'last_name': {'required': True, 'allow_blank': False},
+            'phone_number': {'required': True, 'allow_blank': False},
+            'date_of_birth': {'required': True,},
+        }
 
 
-
-# https://github.com/Tivix/django-rest-auth 
-
+# https://github.com/Tivix/django-rest-auth
 class PasswordResetSerializer(serializers.Serializer):
     """
     Serializer for requesting a password reset e-mail.
@@ -112,7 +117,6 @@ class PasswordResetSerializer(serializers.Serializer):
 
         opts.update(self.get_email_options())
         self.reset_form.save(**opts)
-
 
 class PasswordResetConfirmSerializer(serializers.Serializer):
     """
@@ -152,7 +156,6 @@ class PasswordResetConfirmSerializer(serializers.Serializer):
 
     def save(self):
         return self.set_password_form.save()
-
 
 class PasswordChangeSerializer(serializers.Serializer):
     old_password = serializers.CharField(max_length=128, style={'input_type': 'password', 'autocomplete' : 'current-password'})
@@ -203,7 +206,6 @@ class PasswordChangeSerializer(serializers.Serializer):
             from django.contrib.auth import update_session_auth_hash
             update_session_auth_hash(self.request, self.user)
 
-
 class GenreSerializers(serializers.HyperlinkedModelSerializer):
     '''
     The Serializer of `emanagement.models.Genre`
@@ -236,10 +238,6 @@ class BookPublishSerializers(serializers.HyperlinkedModelSerializer):
         fields = ('url', 'company_name', 'website', 'genre_list', 'genre')
         extra_kwargs = {'genre': {'write_only': True}}
 
-
-
-
-
 class BookSerializers(serializers.HyperlinkedModelSerializer):
     '''
     The Serializer of `emanagement.models.Book`
@@ -256,7 +254,6 @@ class BookSerializers(serializers.HyperlinkedModelSerializer):
             'author': {'write_only': True},
             'publish': {'write_only': True},
         }
-
 
 class IssueSerializers(serializers.HyperlinkedModelSerializer):
     '''
@@ -281,6 +278,3 @@ class IssueSerializers(serializers.HyperlinkedModelSerializer):
 
     def perform_update(self, serializer):
         serializer.save(user=self.request.user)
-
-   
-    

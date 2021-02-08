@@ -11,7 +11,7 @@ from django.utils.translation import gettext as _, gettext_lazy
 
 # `Django Admin`
 # Text to put at the end of each page's <title>.
-admin.AdminSite.site_title = gettext_lazy('Shyamkumar Yadav')
+admin.AdminSite.site_title = gettext_lazy('E-Pustakalay')
 
 # Text to put in each page's <h1>.
 admin.AdminSite.site_header = gettext_lazy('E-Pustakalay Management System API')
