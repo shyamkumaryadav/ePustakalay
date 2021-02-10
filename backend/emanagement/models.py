@@ -22,22 +22,22 @@ from django.utils.translation import gettext_lazy as _
 
 class AbstractUser(BaseAbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    email = models.EmailField(_('email address'), unique=True)
-    middle_name = models.CharField(_("Middle Name"), max_length=150, blank=True)    
-    date_of_birth = models.DateField(_("Data of Birth"), blank=True, validators=[utils.age])
-    phone_number = models.CharField(_("Phone Number"),max_length=25, blank=True,
+    email = models.EmailField(_('Email Address'), unique=True)
+    middle_name = models.CharField(_("Middle Name"), max_length=150, null=True, blank=True)    
+    date_of_birth = models.DateField(_("Data of Birth"), null=True, blank=True, validators=[utils.age])
+    phone_number = models.CharField(_("Phone Number"),max_length=25, null=True, blank=True,
                                     validators=[validators.RegexValidator(
-                                        regex=r"\+91\d{10}", message=_("Enter Valid Phone Number.")), ],
-                                    help_text=_("Enter Your Number with <b>country code.</b>")
+                                        regex=r"^(\+91)(\d{10})$", message=_("Enter Valid Phone Number.")), ],
+                                    help_text=_("Include country prefix code. (E.g. +91 for IN)")
     )
-    country = models.CharField(_("Country Name"), max_length=25, blank=True)
-    state = models.CharField(_("State Name"), max_length=50, blank=True)
-    city = models.CharField(_("City Name"), max_length=50, blank=True)
-    pincode = models.CharField(_("Pincode"), max_length=6, blank=True)
-    full_address = models.TextField(_("Full Address"), blank=True, max_length=50)
+    country = models.CharField(_("Country Name"), max_length=25, null=True, blank=True)
+    state = models.CharField(_("State Name"), max_length=50, null=True, blank=True)
+    city = models.CharField(_("City Name"), max_length=50, null=True, blank=True)
+    pincode = models.CharField(_("Pincode"), max_length=6, null=True, blank=True)
+    full_address = models.TextField(_("Full Address"), null=True, blank=True, max_length=50)
     is_defaulter = models.BooleanField(default=False, help_text=_('User in defaulter list'))
     profile = models.FileField(upload_to=utils.pic_upload,
-                               default='user.jpg', blank=True,
+                               default='user.jpg', null=True, blank=True,
                                validators=[validators.FileExtensionValidator(
                                    allowed_extensions=validators.get_available_image_extensions(),
                                    message=_(

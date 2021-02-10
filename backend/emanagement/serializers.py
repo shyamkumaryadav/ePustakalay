@@ -43,12 +43,15 @@ class UserSerializer(serializers.ModelSerializer):
 class UserCreateSerializers(serializers.ModelSerializer):
     confirm_password = serializers.CharField(style={'input_type': 'password', 'autocomplete': 'new-password'}, write_only=True, required=True,) # validators=[validate_password])
     url = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-detail", lookup_field='username')
-    issue_set = IssueSetSerializers( many=True, read_only=True)
+    update = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-update-user", lookup_field='username')
+    setpassword = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-change-password", lookup_field='username')
 
     class Meta(UserSerializer.Meta):
-        fields = ['url', 'username', 'email', 'password', 'confirm_password', 'is_superuser', 'profile', 'last_login', 'date_joined', 'issue_set', ]
+        fields = ['url', 'username', 'email', 'password', 'confirm_password', 'profile', 'date_joined', 'is_active', 'update', 'setpassword']
         read_only_fields = ['is_superuser', 'last_login', 'date_joined',]
         extra_kwargs = {
+            'username': { 'style': {'autofocus': True}},
+            'is_active': {'read_only': True},
             'password': {
                 'write_only': True,
                 'required': True,
@@ -66,6 +69,7 @@ class UserCreateSerializers(serializers.ModelSerializer):
         raise serializers.ValidationError("The two password fields didn’t match.")
             
     def create(self, validated_data):
+        validated_data.pop('confirm_password')
         return self.Meta.model.objects.create_user(**validated_data)
     
 class UserUpdateSerializer(serializers.ModelSerializer):
@@ -80,10 +84,11 @@ class UserUpdateSerializer(serializers.ModelSerializer):
             'first_name': {'required': True, 'allow_blank': False},
             'middle_name': {'required': True, 'allow_blank': False},
             'last_name': {'required': True, 'allow_blank': False},
-            'phone_number': {'required': True, 'allow_blank': False},
+            'phone_number': {'required': True, 'style': {
+                'input_type': 'tel'
+            }},
             'date_of_birth': {'required': True,},
         }
-
 
 # https://github.com/Tivix/django-rest-auth
 class PasswordResetSerializer(serializers.Serializer):

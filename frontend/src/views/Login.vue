@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent="submitForm">
       <h1>Login Form</h1>
-      <p>csrf : {{scrf}}</p>
+      <p>csrf : {{'csrftoken'}}</p>
       <label for="username">Username:</label>
       <input type="text" name="username" v-model="username">
       <label for="password">password:</label>
@@ -12,7 +12,8 @@
 </template>
 
 <script>
-import AuthService from '@/services/auth.service';
+// import AuthService from '@/services/auth.service';
+import http from '@/services/http-common.js';
 
 export default {
     name: 'Login',
@@ -20,24 +21,19 @@ export default {
         return ({
             username: '',
             password: '',
-            scrf: document.querySelector('[name=csrfmiddlewaretoken]').value,
             info: ''
 
         })
     },
     methods:{
-        async submitForm(){
-            this.info = await AuthService.login({username:this.username, password:this.password})
+        submitForm(){
+            http.post('auth/token/', {
+                username: this.username, password: this.password
+            })
+            .then(data => this.info = data)
+            .catch(error => console.log(error))
         }
     },
-    watch:{
-        username(newvalue){
-            console.log('update username: ', newvalue)
-        },
-        password(newvalue){
-            console.log('update password: ', newvalue)
-        }
-    }
 }
 </script>
 

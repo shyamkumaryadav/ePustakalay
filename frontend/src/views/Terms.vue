@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import http from '@/services/http-common.js'
 
 export default {
     data(){
@@ -25,12 +25,12 @@ export default {
             this.listValue = ''
         },
         getUsers(){
-            axios('http://localhost:8000/api/user/')
+            http('/user/')
             .then(res => this.users = res.data)
             .catch(error => console.log(error))
         },
         getBlob(){
-            axios({
+            http({
                 method: 'GET',
                 url: 'http://localhost:8000/media/user.png',
                 responseType: 'blob'

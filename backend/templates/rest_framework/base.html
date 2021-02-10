@@ -69,7 +69,7 @@
             <span class="icon-bar"></span>
           </button>
           {% block branding %}
-          <p class='navbar-brand'><a href='/' target="_blank">ePustakalay </a><a href="{% url 'api-root' %}">
+          <p class='navbar-brand'><a href='{% url 'admin:index' %}' target="_blank">ePustakalay </a><a href="{% url 'api-root' %}">
             API
           </a></p>
           {% endblock branding %}

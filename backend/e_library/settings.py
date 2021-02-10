@@ -8,7 +8,7 @@ import re
 # backend/e_library.
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'zx6n)1_o^4*&6ypp-*@h37wd%s+g02(j-g&%p(yzyajl9uu&tg'
-DEBUG = int(os.getenv('DEBUG'))
+DEBUG = int(os.getenv('DEBUG', '1'))
 ALLOWED_HOSTS = ['*']
 
 
@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework_simplejwt.token_blacklist',
 
     # Django Rest Framework
     'rest_framework',
@@ -32,7 +33,7 @@ INSTALLED_APPS = [
     "django_extensions",
 
     # app for All E-library Funcation
-    'emanagement', # User E-Management models, views
+    'emanagement', # E-Management models, views
     'django_cleanup', # To cleanup the storage
 
 ]
@@ -52,7 +53,9 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
-CORS_ORIGIN_ALLOW_ALL = True
+SESSION_COOKIE_HTTPONLY = False
+CSRF_USE_SESSIONS = True
+# CORS_ORIGIN_ALLOW_ALL = True
 # CORS_ORIGIN_WHITELIST = (
 #     'http://localhost:8080',
 # )
@@ -77,6 +80,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'e_library.wsgi.application'
+
 
 
 # Database
@@ -148,9 +152,13 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStoraQueryParameterVersioningge'
 
 # Simple JWT
+from datetime import timedelta
+
+
 SIMPLE_JWT = {
-    'UPDATE_LAST_LOGIN': True,
-    'AUTH_HEADER_TYPES': ('Bearer', 'shyamkumaryadav', 'sky', 'shyamkumar', 'shyam'),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1),
+    'ROTATE_REFRESH_TOKENS': True,
+    'USER_AUTHENTICATION_RULE': 'emanagement.authentication.user_authentication_rule',
 }
 
 REST_FRAMEWORK = {
@@ -177,5 +185,3 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_USE_TLS = True
 # EMAIL_HOST_USER = 
 # EMAIL_HOST_PASSWORD = 
-
-CSRF_FAILURE_VIEW = 'emanagement.views.csrf'

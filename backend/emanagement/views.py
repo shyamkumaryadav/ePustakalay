@@ -40,9 +40,6 @@ def handler404(request, exception):
 def handler500(request):
     return HttpResponse(f"<h1 style='text-align: center;'>500 error handler! contect admin <a href='mailto:shyamkumaryadav2003@gmail.com'>shyamkumaryadav2003@gmail.com</a></h1>")
 
-def csrf(request, reason):
-    return HttpResponse(f'CSRF error: {reason}')
-
 
 class UserViewSet(viewsets.ModelViewSet):
     '''
@@ -50,7 +47,7 @@ class UserViewSet(viewsets.ModelViewSet):
     '''
     allowed_methods = ['GET', 'HEAD', 'OPTIONS']
     serializer_class = serializers.UserSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [utils.IsAuthor]
     queryset = get_user_model().objects.all()
     lookup_field = 'username'
 
@@ -91,7 +88,7 @@ class UserViewSet(viewsets.ModelViewSet):
         return self.retrieve(request, *args, **kwargs)
     
     @decorators.action(detail=True, methods=['POST'], serializer_class=serializers.PasswordChangeSerializer, allowed_methods=['POST', 'HEAD', 'OPTIONS'])
-    def change_password(self, request, pk=None):
+    def change_password(self, request, username=None):
         '''
         Accepts the following POST parameters: old_password, new_password1, new_password2  
         Returns the success/fail message.
@@ -104,7 +101,7 @@ class UserViewSet(viewsets.ModelViewSet):
         return Response(serializer.errors, status=404)
     
     @decorators.action(detail=False, methods=['POST'], serializer_class=serializers.PasswordResetSerializer, allowed_methods=['POST', 'HEAD', 'OPTIONS'])
-    def reset_password(self, request, pk=None):
+    def reset_password(self, request, username=None):
         '''
         Accepts the following POST parameters: email
         Returns the success and visit url.
@@ -126,9 +123,7 @@ class UserViewSet(viewsets.ModelViewSet):
         serializer.save()
         return Response(
             {"detail": "Password has been reset with the new password."}
-        )
-    
-    
+        )    
     
 class BookAPI(viewsets.ModelViewSet):
     """
