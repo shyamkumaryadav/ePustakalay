@@ -1,6 +1,7 @@
 <template>
   <form @submit.prevent="submitForm">
       <h1>Login Form</h1>
+      <a href="/api/">API</a>
       <p>csrf : {{'csrftoken'}}</p>
       <label for="username">Username:</label>
       <input type="text" name="username" v-model="username">

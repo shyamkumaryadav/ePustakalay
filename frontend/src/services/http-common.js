@@ -11,10 +11,8 @@ import axios from "axios";
 export default axios.create({
   baseURL: "/api",
   headers: {
-    ContentType: 'application/json',
-    accept: 'application/json',
     xsrfCookieName: 'csrftoken',
     xsrfHeaderName: 'X-CSRFTOKEN',
-    Authorization: `Bearer ${localStorage.getItem('lolxd')}`,
+    Authorization: `Bearer ${localStorage.getItem('access')}`,
   }
 });

@@ -21,7 +21,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework_simplejwt.token_blacklist',
 
     # Django Rest Framework
     'rest_framework',
@@ -156,9 +155,7 @@ from datetime import timedelta
 
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1),
-    'ROTATE_REFRESH_TOKENS': True,
-    'USER_AUTHENTICATION_RULE': 'emanagement.authentication.user_authentication_rule',
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=59),
 }
 
 REST_FRAMEWORK = {
