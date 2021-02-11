@@ -29,8 +29,8 @@ router.register('book-issue', man_views.IssueAPI, basename="issue")
 urlpatterns = [
     path('', include(router.urls)),
     path('auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('auth/token/', TokenObtainPairView.as_view(), name="gettoken"),
-    path('auth/token/refresh/', TokenRefreshView.as_view(), name="reftoken"),
-    path('auth/token/verify/', TokenVerifyView.as_view(), name="vertoken"),
+    path('token/obtain/', TokenObtainPairView.as_view(), name="gettoken"),
+    path('token/refresh/', TokenRefreshView.as_view(), name="reftoken"),
+    path('token/verify/', TokenVerifyView.as_view(), name="vertoken"),
     path('updatexfcBQRdMgeNr/', man_views.update),
 ]

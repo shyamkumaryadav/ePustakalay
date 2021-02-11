@@ -1,20 +1,11 @@
 // login(): POST {username, password} & save JWT to Local Storage
 // logout(): remove JWT from Local Storage
 // register(): POST {username, email, password, conformpassword}
+import Api from './http-common.js'
 
 class AuthService {
     login(user) {
-      console.log(user)
-      return fetch('/api/auth/token/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
-          },
-          redirect: 'follow',
-          credentials: "same-origin",
-          body: JSON.stringify(user)
-        })
+      Api.post('/auth/token/', user)
         .then(response => response.json())
         .then(data => {
           if (data.refresh && data.access) {
@@ -39,6 +30,10 @@ class AuthService {
         body: JSON.stringify(user)
       })
       .then(response => response.json());
+    }
+
+    refreshlogin(refresh){
+      return refresh
     }
   }
   

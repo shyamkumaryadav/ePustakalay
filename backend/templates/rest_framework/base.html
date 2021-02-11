@@ -40,6 +40,19 @@
   
   <link rel="stylesheet" type="text/css" href="{% static 'rest_framework/css/prettify.css' %}"/>
   <link rel="stylesheet" type="text/css" href="{% static 'rest_framework/css/default.css' %}"/>
+  <style>
+    
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+  </style>
   {% if code_style %}
   <style>{{ code_style }}</style>
   {% endif %}
@@ -53,11 +66,12 @@
 
   <!-- github Mark SVG -->
   <a id="githubMark" href="//github.com/shyamkumaryadav/ePustakalay" target="_blank" style="z-index: 2;position: fixed;right: 5%;bottom: 5%;" title="Fork me on GitHub">
-    <img src="{% static 'GitHub-Mark.svg' %}" alt="Github Logo" width="40px">
+    <img src="{% static 'GitHub-Mark.svg' %}" alt="Github Logo" width="40px" crossorigin="">
   </a>
   </style>
   
-  <div class="wrapper">
+  <!-- <div class="wrapper"> -->
+    <nav>
     {% block navbar %}
     <div class="navbar navbar-default" role="navigation" aria-label="{% trans 'navbar' %}">
       <div class="container-fluid">
@@ -118,9 +132,10 @@
       </div>
     </div>
     {% endblock navbar %}
+  </nav>
     
-    
-    <div class="container-fluid">
+  <main>
+    <div class="container">
       
   
       {% block breadcrumbs %}
@@ -362,40 +377,41 @@
         {% endblock content %}
       </div>
     </div>
+  </main>
     
-    <!-- heart  -->
-    <style>
-      @keyframes heartbeat {
-        0% {
-          transform: scale( .75);
+    <footer class="navbar-default"  style="padding: 20px 0;">
+      <!-- heart  -->
+      <style>
+        @keyframes heartbeat {
+          0% {
+            transform: scale( .75);
+          }
+          20% {
+            transform: scale( .85);
+          }
+          40% {
+            transform: scale( .75);
+          }
+          60% {
+            transform: scale( 1);
+          }
+          65% {
+            transform: scale( .65);
+          }
+          80% {
+            transform: scale( .75);
+          }
+          100% {
+            transform: scale( .75);
+          }
         }
-        20% {
-          transform: scale( .85);
-        }
-        40% {
-          transform: scale( .75);
-        }
-        60% {
-          transform: scale( 1);
-        }
-        65% {
-          transform: scale( .65);
-        }
-        80% {
-          transform: scale( .75);
-        }
-        100% {
-          transform: scale( .75);
-        }
-      }
-      
-    </style>
-    <nav class="navbar navbar-fixied-bottom" style="margin-top: 20px;">
-      <div style="cursor: auto;" class="row text-center">
-        made with <a href="//www.djangoproject.com/" target="_blank" data-toggle="tooltip" data-placement="top" title="Django Project &hearts;">Django</a><div style="color: red;font-size: 35px;animation: heartbeat 1s infinite;">&hearts;</div><a href="//github.com/shyamkumaryadav" target="_blank" data-toggle="tooltip" data-placement="top" title="Shyamkumar's GitHub">Shyamkumar Yadav</a>
+        
+      </style>
+      <div style="cursor: auto;" class="text-center">
+        made with <a href="//djangoproject.com/" target="_blank" data-toggle="tooltip" data-placement="top" title="Django Project &hearts;">Django</a>, <a href="//django-rest-framework.org/" target="_blank" data-toggle="tooltip" data-placement="top" title="Django REST Api Project &hearts;">DRF</a><div style="color: red;font-size: 35px;animation: heartbeat 1s infinite;">&hearts;</div><a href="//github.com/shyamkumaryadav" target="_blank" data-toggle="tooltip" data-placement="top" title="Shyamkumar's site">Shyamkumar Yadav</a>
       </div>
-    </nav>
-  </div><!-- ./wrapper -->
+    </footer>
+  <!-- </div>./wrapper -->
   
   {% if filter_form %}
   {{ filter_form }}

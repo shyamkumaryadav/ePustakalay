@@ -14,7 +14,7 @@
 
 <script>
 // import AuthService from '@/services/auth.service';
-import http from '@/services/http-common.js';
+import Api from '@/services/http-common.js';
 
 export default {
     name: 'Login',
@@ -28,7 +28,7 @@ export default {
     },
     methods:{
         submitForm(){
-            http.post('auth/token/', {
+            Api.post('auth/token/', {
                 username: this.username, password: this.password
             })
             .then(data => this.info = data)

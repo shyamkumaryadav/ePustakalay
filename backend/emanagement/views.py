@@ -17,6 +17,7 @@ from django.utils.translation import ugettext_lazy as _
 import json
 
 
+
 @require_http_methods(['POST'])
 @csrf_exempt
 def update(request):
@@ -47,7 +48,6 @@ class UserViewSet(viewsets.ModelViewSet):
     '''
     allowed_methods = ['GET', 'HEAD', 'OPTIONS']
     serializer_class = serializers.UserSerializer
-    permission_classes = [utils.IsAuthor]
     queryset = get_user_model().objects.all()
     lookup_field = 'username'
 
@@ -67,19 +67,8 @@ class UserViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         raise Http404
     
-    @decorators.action(detail=False, methods=['POST'], serializer_class=serializers.UserCreateSerializers, allowed_methods=['POST','HEAD', 'OPTIONS'], permission_classes=[permissions.AllowAny])
-    def create_user(self, request, *args, **kwargs):
-        '''
-        # A form that creates a user, with no privileges, from the given username, email, password and confirm_password.  
-        `profile not required`
-        '''
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=201, headers=headers)
-    
-    @decorators.action(detail=True, methods=['GET', 'POST', 'PUT'], serializer_class=serializers.UserUpdateSerializer, allowed_methods=['GET', 'PUT', 'HEAD', 'OPTIONS'])
+    # the detail is True
+    @decorators.action(detail=True, methods=['GET', 'PUT'], serializer_class=serializers.UserUpdateSerializer, allowed_methods=['GET', 'PUT', 'HEAD', 'OPTIONS'])
     def update_user(self, request, *args, **kwargs):
         '''
         A form that Update a user.
@@ -100,6 +89,20 @@ class UserViewSet(viewsets.ModelViewSet):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=404)
+    
+    # the detail is False and permission_classes AllowAny to call
+    @decorators.action(detail=False, methods=['POST'], serializer_class=serializers.UserCreateSerializers, allowed_methods=['POST','HEAD', 'OPTIONS'])
+    def create_user(self, request, *args, **kwargs):
+        '''
+        # A form that creates a user, with no privileges, from the given username, email, password and confirm_password.  
+        `profile not required`
+        '''
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=201, headers=headers)
+    
     
     @decorators.action(detail=False, methods=['POST'], serializer_class=serializers.PasswordResetSerializer, allowed_methods=['POST', 'HEAD', 'OPTIONS'])
     def reset_password(self, request, username=None):

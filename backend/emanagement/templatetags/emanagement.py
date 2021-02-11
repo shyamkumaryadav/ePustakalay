@@ -83,7 +83,9 @@ def all_router(request):
                 <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
+                <li class="dropdown-header">User management</li>
                 {user}
+                <li class="dropdown-header">Book management</li>
                 {book_list}
                 {bookpublish_list}
                 {genre_list}
