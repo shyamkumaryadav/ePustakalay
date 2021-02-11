@@ -1,6 +1,7 @@
 #!/usr/bin/bash
 
-printf "***************************$(tput bold)hy, $(tput setaf 6)$USERNAME$(tput sgr0)****************************"
+printf "***************************$(tput bold)hy, $(tput setaf 6)$USERNAME$(tput sgr0)****************************\n"
+printf "$(tput bold)$(tput setaf 2)Starting development server also on http://$(hostname -I)\b:8000/$(tput sgr0)\n"
 function safe_c() {
     cd ~/Projects/ePustakalay
     if pgrep python;

@@ -28,11 +28,11 @@ export default {
     },
     methods:{
         submitForm(){
-            Api.post('auth/token/', {
+            Api.post('token/obtain/', {
                 username: this.username, password: this.password
             })
             .then(data => this.info = data)
-            .catch(error => console.log(error))
+            .catch(error => this.info = error.response.data )
         }
     },
 }
