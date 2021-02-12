@@ -13,8 +13,7 @@
 </template>
 
 <script>
-// import AuthService from '@/services/auth.service';
-import Api from '@/services/http-common.js';
+import auth from '../services/auth.service'
 
 export default {
     name: 'Login',
@@ -28,11 +27,11 @@ export default {
     },
     methods:{
         submitForm(){
-            Api.post('token/obtain/', {
-                username: this.username, password: this.password
-            })
-            .then(data => this.info = data)
-            .catch(error => this.info = error.response.data )
+            console.log("lol ***************************************")
+            auth.login(this.username, this.password)
+            .then(res => console.log(res))
+            .catch(error => console.error(error.response.data))
+
         }
     },
 }

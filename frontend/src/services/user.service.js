@@ -1,11 +1,6 @@
-import authHeader from './auth-header';
 
 
 class UserService {
-//   getPublicContent() {
-//     return axios.get(API_URL + 'all');
-//   }
-
   getUser(username) {
     return fetch(`/api/user/${username}/`, {
     })

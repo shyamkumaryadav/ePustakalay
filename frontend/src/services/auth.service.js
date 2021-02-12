@@ -1,39 +1,21 @@
-// login(): POST {username, password} & save JWT to Local Storage
-// logout(): remove JWT from Local Storage
-// register(): POST {username, email, password, conformpassword}
-import Api from './http-common.js'
+import {LOGIN, LOGOUT, URL, API} from './http-common.js'
 
 class AuthService {
-    login(user) {
-      Api.post('/auth/token/', user)
-        .then(response => response.json())
-        .then(data => {
-          if (data.refresh && data.access) {
-            localStorage.setItem('userid', JSON.stringify(data));
-            return data
-          }else throw new Error(`${data.detail}`)
-        })
-        .catch(error => console.error(error));
-    }
-  
-    logout() {
-      localStorage.removeItem('user');
-    }
-  
-    register(user) {
-      return fetch('/api/user/', {
-        method: 'POST',
-        headers: {
-        'Content-Type': 'application/json',  
-        },
-        credentials: "same-origin",
-        body: JSON.stringify(user)
-      })
-      .then(response => response.json());
+    login(username, password) {
+      return LOGIN(username, password)
+        .then(response => Promise.resolve(response))
+        .catch(error => Promise.reject(error))
     }
 
-    refreshlogin(refresh){
-      return refresh
+    logout(){
+      return LOGOUT()
+    }
+
+    register(username, email, password, confirm_password) {
+      const registerData = {username, email, password, confirm_password}
+      return API.post(URL.userCreateUser, registerData)
+        .then(response => Promise.resolve(response.data))
+        .catch(error => Promise.reject(error))
     }
   }
   
