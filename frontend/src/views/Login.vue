@@ -3,11 +3,9 @@
       <h1>Login Form</h1>
       <a href="/api/">API</a>
       <p>csrf : {{'csrftoken'}}</p>
-      <label for="username">Username:</label>
-      <input type="text" name="username" v-model="username">
-      <label for="password">password:</label>
-      <input type="password" name="password" autocomplete="username" v-model="password">
-      <button type="submit" id="asas" name="login">Login</button>
+      <v-text-field :label="username.label" @input="username.errors = ''" filled type="text" name="username" v-model="username.value" required :error-messages="username.errors" ></v-text-field>
+      <v-text-field :label="password.label" @input="password.errors = ''" filled name="password" autocomplete="username" v-model="password.value" required :error-messages="password.errors" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :type="show1 ? 'text' : 'password'" @click:append="show1 = !show1" ></v-text-field>
+      <v-btn type="submit" id="asas" name="login">Login</v-btn>
       <p>{{ info }}</p>
   </form>
 </template>
@@ -19,8 +17,17 @@ export default {
     name: 'Login',
     data(){
         return ({
-            username: '',
-            password: '',
+            username: {
+                value: '',
+                label: "Username",
+                errors: []
+            },
+            password: {
+                value: '',
+                label: "Password",
+                errors: []
+            },
+            show1: false,
             info: ''
 
         })
@@ -29,8 +36,12 @@ export default {
         submitForm(){
             console.log("lol ***************************************")
             auth.login(this.username, this.password)
-            .then(res => console.log(res))
-            .catch(error => console.error(error.response.data))
+            .then(res => this.info = res)
+            .catch(error => {
+                console.error(error.response.data)
+                this.username.errors = error.response.data.username
+                this.password.errors = error.response.data.password
+            })
 
         }
     },

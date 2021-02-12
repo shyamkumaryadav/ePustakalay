@@ -26,8 +26,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
 
-    # corsheaders
-    "corsheaders",
     # django extensions
     "django_extensions",
 
@@ -40,8 +38,6 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    # CORS
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -54,10 +50,6 @@ MIDDLEWARE = [
 
 SESSION_COOKIE_HTTPONLY = False
 CSRF_USE_SESSIONS = True
-# CORS_ORIGIN_ALLOW_ALL = True
-# CORS_ORIGIN_WHITELIST = (
-#     'http://localhost:8080',
-# )
 
 ROOT_URLCONF = 'e_library.urls'
 
