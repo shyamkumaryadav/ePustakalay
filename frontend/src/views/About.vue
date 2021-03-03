@@ -7,7 +7,8 @@
     <div>
       <v-btn v-show="books.previous" @click="getBooks(books.previous)"><span>previous</span></v-btn>
       <v-btn disabled v-show="books.count" >{{books.count}}</v-btn>
-      <v-btn v-show="books.next" @click="getBooks(books.next)">-></v-btn>
+      <v-btn v-show="books.next" @click="getBooks(books.next)">Next</v-btn>
+      <v-btn>Button</v-btn>
     </div>
   </div>
 </template>

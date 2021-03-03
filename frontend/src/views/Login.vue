@@ -3,8 +3,8 @@
       <h1>Login Form</h1>
       <a href="/api/">API</a>
       <p>csrf : {{'csrftoken'}}</p>
-      <v-text-field :label="username.label" @input="username.errors = ''" filled type="text" name="username" v-model="username.value" required :error-messages="username.errors" ></v-text-field>
-      <v-text-field :label="password.label" @input="password.errors = ''" filled name="password" autocomplete="username" v-model="password.value" required :error-messages="password.errors" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :type="show1 ? 'text' : 'password'" @click:append="show1 = !show1" ></v-text-field>
+      <v-text-field :label="username.label" @input="username.errors = null" filled type="text" name="username" v-model="username.value" required :error-messages="username.errors" ></v-text-field>
+      <v-text-field :label="password.label" @input="password.errors = null" filled name="password" autocomplete="username" v-model="password.value" required :error-messages="password.errors" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :type="show1 ? 'text' : 'password'" @click:append="show1 = !show1" ></v-text-field>
       <v-btn type="submit" id="asas" name="login">Login</v-btn>
       <p>{{ info }}</p>
   </form>

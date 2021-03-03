@@ -46,14 +46,15 @@ class UserViewSet(viewsets.ModelViewSet):
     '''
     User View
     '''
-    allowed_methods = ['GET', 'HEAD', 'OPTIONS']
+    allowed_methods = ['GET', 'HEAD', 'OPTIONS', 'PUT']
+    permission_classes = [utils.IsAuthor]
     serializer_class = serializers.UserSerializer
     queryset = get_user_model().objects.all()
     lookup_field = 'username'
 
     def list(self, request, *args, **kwargs):
         if request.user.is_authenticated and not request.user.is_staff:
-            return HttpResponseRedirect(reverse('user-detail', kwargs={'username': self.request.user.username}))
+            return HttpResponseRedirect(reverse('user-detail', kwargs = {'username': self.request.user.username}))
         elif request.user.is_staff:
             res = super(UserViewSet, self).list(request, *args, **kwargs)
             for i in range(len(res.data['results'])):
@@ -68,30 +69,30 @@ class UserViewSet(viewsets.ModelViewSet):
         raise Http404
     
     # the detail is True
-    @decorators.action(detail=True, methods=['GET', 'PUT'], serializer_class=serializers.UserUpdateSerializer, allowed_methods=['GET', 'PUT', 'HEAD', 'OPTIONS'])
-    def update_user(self, request, *args, **kwargs):
-        '''
-        A form that Update a user.
-        '''
-        if request.method == 'PUT':
-            return self.update(request, *args, **kwargs)
-        return self.retrieve(request, *args, **kwargs)
+    # @decorators.action(detail = True, methods = ['PUT'], serializer_class=serializers.UserUpdateSerializer, permission_classes = [utils.IsAuthor], allowed_methods=['GET', 'PUT', 'HEAD', 'OPTIONS'])
+    # def update_user(self, request, *args, **kwargs):
+    #     '''
+    #     A form that Update a user.
+    #     '''
+    #     if request.method == 'PUT':
+    #         return self.update(request, *args, **kwargs)
+    #     return self.retrieve(request, *args, **kwargs)
     
-    @decorators.action(detail=True, methods=['POST'], serializer_class=serializers.PasswordChangeSerializer, allowed_methods=['POST', 'HEAD', 'OPTIONS'])
+    @decorators.action(detail=True, methods = ['POST'], serializer_class=serializers.PasswordChangeSerializer, permission_classes = [utils.IsAuthor], allowed_methods=['POST', 'HEAD', 'OPTIONS'])
     def change_password(self, request, username=None):
         '''
         Accepts the following POST parameters: old_password, new_password1, new_password2  
         Returns the success/fail message.
         '''
         user = self.get_object()
-        serializer = self.get_serializer(user, data=request.data)
+        serializer = self.get_serializer(user, data = request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=404)
     
     # the detail is False and permission_classes AllowAny to call
-    @decorators.action(detail=False, methods=['POST'], serializer_class=serializers.UserCreateSerializers, allowed_methods=['POST','HEAD', 'OPTIONS'])
+    @decorators.action(detail = False, methods = ['POST'], serializer_class=serializers.UserCreateSerializers, allowed_methods = ['POST','HEAD', 'OPTIONS'])
     def create_user(self, request, *args, **kwargs):
         '''
         # A form that creates a user, with no privileges, from the given username, email, password and confirm_password.  
@@ -132,7 +133,26 @@ class UserViewSet(viewsets.ModelViewSet):
 class BookAPI(viewsets.ModelViewSet):
     """
     E-Management `Book` ViewSet  
-    # i am work with this ***view***
+    fields = [
+        'id',
+        'name',
+        'genre_',
+        'author_',
+        'publish_',
+        'update_date+now',
+        'date+now_add',
+        'language',
+        'edition',
+        'cost',
+        'page',
+        'description',
+        'stock',
+        'in_stock',
+        'today_stock',
+        'rating',
+        'profile',
+        'slug',
+    ]
     """
     queryset = models.Book.objects.all()
     permission_classes = [permissions.IsAdminUser|utils.ReadOnly]
@@ -142,6 +162,7 @@ class BookAPI(viewsets.ModelViewSet):
 class BookAuthorAPI(viewsets.ModelViewSet):
     """
     E-Management `BookAuthor` ViewSet
+    fields = ['id', 'first_name', 'middle_name', 'last_name', 'date_of_birth', 'died', 'aboutAuthor', 'genre_']
     """
     queryset = models.BookAuthor.objects.all()
     permission_classes = [permissions.IsAdminUser|utils.ReadOnly]
@@ -150,7 +171,8 @@ class BookAuthorAPI(viewsets.ModelViewSet):
       
 class BookPublishAPI(viewsets.ModelViewSet):
     """
-    E-Management `BookPublish` ViewSet
+    E-Management `BookPublish` ViewSet  
+    fields = ['id', 'company_name', 'website', 'genre_']
     """
     # name = "Book Puasblish"
     queryset = models.BookPublish.objects.all()
@@ -174,7 +196,8 @@ class GenreAPI(viewsets.ModelViewSet):
 
 class IssueAPI(viewsets.ModelViewSet):
     """
-    E-Management `Issue` ViewSet
+    E-Management `Issue` ViewSet  
+    fields = ['id', 'user_', 'book_', 'date+now', 'due_date+7']
     """
     # queryset = models.Issue.objects.filter(user=request.user)
     serializer_class = serializers.IssueSerializers

@@ -8,7 +8,7 @@ import re
 # backend/e_library.
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'zx6n)1_o^4*&6ypp-*@h37wd%s+g02(j-g&%p(yzyajl9uu&tg'
-DEBUG = int(os.getenv('DEBUG', '1'))
+DEBUG = os.getenv('DEBUG', '1') == '1'
 ALLOWED_HOSTS = ['*']
 
 
@@ -149,21 +149,21 @@ from datetime import timedelta
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=14),
-    'USER_ID_FIELD': 'username',
-    'USER_ID_CLAIM': 'username',
 }
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'DEFAULT_METADATA_CLASS': 'rest_framework.metadata.SimpleMetadata',
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
-    'PAGE_SIZE': 10,
+    'PAGE_SIZE': 16,
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     ),
 }
+if not DEBUG:
+    REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = ['rest_framework.renderers.JSONRenderer',]
 
 OLD_PASSWORD_FIELD_ENABLED = True
 

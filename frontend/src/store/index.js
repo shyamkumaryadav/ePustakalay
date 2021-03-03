@@ -6,7 +6,7 @@ import books from '@/store/modules/books.js'
 Vue.use(Vuex)
 
 
-
+// https://vuex.vuejs.org/#what-is-a-state-management-pattern
 export default new Vuex.Store({
   state: {
   },

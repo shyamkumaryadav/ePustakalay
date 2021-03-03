@@ -49,7 +49,7 @@ const URL = {
 
 const API = axios.create({
   baseURL: BASE_URL,
-  timeout: 5000,
+  // timeout: 5000,
   headers: {
     xsrfCookieName,
     xsrfHeaderName,
@@ -58,7 +58,7 @@ const API = axios.create({
 
 const authApi = axios.create({
   baseURL: BASE_URL,
-  timeout: 5000,
+  // timeout: 5000,
   headers: {
     Authorization: `Bearer ${window.localStorage.getItem(ACCESS_TOKEN)}`,
     xsrfCookieName,
@@ -66,12 +66,13 @@ const authApi = axios.create({
   },
 });
 
-const isCorrectRefreshError = (status) => status === 401;
+const isCorrectRefreshError = (status) => status === 401; // Unauthorized
 
 const errorInterceptor = (error) => {
   const originalRequest = error.config;
   const { status } = error.response;
   if (isCorrectRefreshError(status)) {
+    // Try to Refresh the token if not just reject
     return refreshToken().then(() => {
       const headerAuthorization = `Bearer ${window.localStorage.getItem(ACCESS_TOKEN)}`;
       authApi.defaults.headers.Authorization = headerAuthorization;
@@ -116,13 +117,14 @@ const refreshToken = () => {
     }).catch((error) => Promise.reject(error));
 };
 
-API.interceptors.response.use(
+// if get error of Unauthorized
+authApi.interceptors.response.use(
   (response) => response, // this is for all successful requests.
   (error) => errorInterceptor(error), // handle the request
 ); 
   
   
-export {API as default, URL, authApi, ACCESS_TOKEN, REFRESH_TOKEN, login as LOGIN, logout as LOGOUT}
+export {API, URL, authApi as AUTHAPI, ACCESS_TOKEN, REFRESH_TOKEN, login as LOGIN, logout as LOGOUT}
 
 // const authApi = axios.create({
 //   baseURL: BASE_URL,

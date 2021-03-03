@@ -16,9 +16,9 @@ def optional_info(request, user):
     """
     try:
         logout_url = reverse('rest_framework:logout')
-        update = reverse('user-update-user', kwargs={'username': user.username})
+        seeProfile = reverse('user-detail', kwargs={'username': user.username})
         setpassword = reverse('user-change-password', kwargs={'username': user.username})
-    except NoReverseMatch:
+    except:
         snippet = format_html('<li class="navbar-text">{user}</li>', user=escape(user))
         return mark_safe(snippet)
 
@@ -28,12 +28,12 @@ def optional_info(request, user):
             <b class="caret"></b>
         </a>
         <ul class="dropdown-menu">
-            <li><a href='{update}'>Update</a></li>
+            <li><a href='{seeProfile}'>Profile</a></li>
             <li><a href='{setpassword}'>Change Password</a></li>
             <li><a href='{href}'>Log out</a></li>
         </ul>
     </li>"""
-    snippet = format_html(snippet, update=update, setpassword=setpassword, user=escape(user), href=logout_url)
+    snippet = format_html(snippet, seeProfile = seeProfile, setpassword = setpassword, user=escape(user), href=logout_url)
 
     return mark_safe(snippet)
 
