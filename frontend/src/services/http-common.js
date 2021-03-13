@@ -12,7 +12,7 @@ import axios from "axios";
  *        .then(response=>{
  *          // do something with successful request
  *        }).catch((error)=> {
- *          // handle any errors.
+ *          // handle any errors. if Unauthorized try refreshToken
  *        });
 */
 const BASE_URL = '/api';
@@ -21,6 +21,7 @@ const REFRESH_TOKEN = 'refresh_token';
 const xsrfCookieName = 'csrftoken';
 const xsrfHeaderName = 'X-CSRFTOKEN';
 
+// List of URL in My API
 const URL = {
   "apiRoot": "/",
   "apiLogin": "/auth/login/",
@@ -47,6 +48,7 @@ const URL = {
   "userResetPassword": "/user/reset_password/"
 }
 
+// call me any Time any place
 const API = axios.create({
   baseURL: BASE_URL,
   // timeout: 5000,
@@ -56,7 +58,8 @@ const API = axios.create({
   }
 });
 
-const authApi = axios.create({
+// Use Me If Auth required
+const AUTHAPI = axios.create({
   baseURL: BASE_URL,
   // timeout: 5000,
   headers: {
@@ -67,7 +70,7 @@ const authApi = axios.create({
 });
 
 const isCorrectRefreshError = (status) => status === 401; // Unauthorized
-
+//       /\ <-------> \/
 const errorInterceptor = (error) => {
   const originalRequest = error.config;
   const { status } = error.response;
@@ -75,9 +78,9 @@ const errorInterceptor = (error) => {
     // Try to Refresh the token if not just reject
     return refreshToken().then(() => {
       const headerAuthorization = `Bearer ${window.localStorage.getItem(ACCESS_TOKEN)}`;
-      authApi.defaults.headers.Authorization = headerAuthorization;
+      AUTHAPI.defaults.headers.Authorization = headerAuthorization;
       originalRequest.headers.Authorization = headerAuthorization;
-      return authApi(originalRequest);
+      return AUTHAPI(originalRequest);
     }).catch((tokenRefreshError) => {
       // if token refresh fails, logout the user to avoid potential security risks.
       logout();
@@ -86,26 +89,32 @@ const errorInterceptor = (error) => {
   }
   return Promise.reject(error);
 };
+// Promise
 
+
+// To Log The User
 const login = (username, password) => {
   const loginData = {username, password};
   return API.post(URL.gettoken, loginData)
   .then(response => {
-    window.localStorage.setItem(ACCESS_TOKEN, response.data.acces);
+    window.localStorage.setItem(ACCESS_TOKEN, response.data.access);
     window.localStorage.setItem(REFRESH_TOKEN, response.data.refresh);
     const headerAuthorization = `Bearer ${window.localStorage.getItem(ACCESS_TOKEN)}`;
-    authApi.defaults.headers.Authorization = headerAuthorization;
+    AUTHAPI.defaults.headers.Authorization = headerAuthorization;
     return Promise.resolve(response.data);
   })
   .catch(error => Promise.reject(error));
 }
+// Promise
 
+// To Log Out The User
 const logout = () => {
   window.localStorage.removeItem(ACCESS_TOKEN);
   window.localStorage.removeItem(REFRESH_TOKEN);
-  authApi.defaults.headers.Authorization = "";
+  AUTHAPI.defaults.headers.Authorization = "";
 }
 
+// Auto call if token expired
 const refreshToken = () => {
   const refreshData = { 
     refresh: window.localStorage.getItem(REFRESH_TOKEN)
@@ -116,59 +125,13 @@ const refreshToken = () => {
       return Promise.resolve(response.data);
     }).catch((error) => Promise.reject(error));
 };
+// Promise
 
 // if get error of Unauthorized
-authApi.interceptors.response.use(
+AUTHAPI.interceptors.response.use(
   (response) => response, // this is for all successful requests.
   (error) => errorInterceptor(error), // handle the request
 ); 
   
   
-export {API, URL, authApi as AUTHAPI, ACCESS_TOKEN, REFRESH_TOKEN, login as LOGIN, logout as LOGOUT}
-
-// const authApi = axios.create({
-//   baseURL: BASE_URL,
-//   timeout: 5000,
-//   headers: {
-//     Authorization: `Bearer ${window.localStorage.getItem(ACCESS_TOKEN)}`,
-//     xsrfCookieName,
-//     xsrfHeaderName,
-//   },
-// });
-
-// const logoutUser = () => {
-//   window.localStorage.removeItem(ACCESS_TOKEN);
-//   window.localStorage.removeItem(REFRESH_TOKEN);
-//   authApi.defaults.headers.Authorization = '';
-// };
-
-// const errorInterceptor = (error) => {
-//   const originalRequest = error.config;
-//   const { status } = error.response;
-//   if (isCorrectRefreshError(status)) {
-//     return refreshToken().then(() => {
-//       const headerAuthorization = `Bearer ${window.localStorage.getItem(ACCESS_TOKEN)}`;
-//       authApi.defaults.headers.Authorization = headerAuthorization;
-//       originalRequest.headers.Authorization = headerAuthorization;
-//       return authApi(originalRequest);
-//     }).catch((tokenRefreshError) => {
-//       // if token refresh fails, logout the user to avoid potential security risks.
-//       logoutUser();
-//       return Promise.reject(tokenRefreshError);
-//     });
-//   }
-//   return Promise.reject(error);
-// };
-
-// authApi.interceptors.response.use(
-//   (response) => response, // this is for all successful requests.
-//   (error) => errorInterceptor(error), // handle the request
-// );
-
-// export {
-//   Api as default,
-//   tokenRequest, loginUser, logoutUser, refreshToken, authApi,
-//   errorInterceptor, BASE_URL, ACCESS_TOKEN, REFRESH_TOKEN, authApi
-// };
-
-// export {Api as default}
+export {API, URL, AUTHAPI, login as LOGIN, logout as LOGOUT, ACCESS_TOKEN, REFRESH_TOKEN}

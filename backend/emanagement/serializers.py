@@ -31,9 +31,9 @@ class IssueSetSerializers(serializers.ModelSerializer):
         return obj.due_date_end
 
 class UserSerializer(serializers.ModelSerializer):
-    url = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-detail", lookup_field='username')
-    # update = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-update-user", lookup_field='username')
-    setpassword = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-change-password", lookup_field='username')
+    url = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-detail", lookup_field='pk')
+    # update = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-update-user", lookup_field='pk')
+    setpassword = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-change-password", lookup_field='pk')
     issue_set = IssueSetSerializers( many=True, read_only=True)
     
     class Meta:
@@ -43,13 +43,13 @@ class UserSerializer(serializers.ModelSerializer):
 
 class UserCreateSerializers(serializers.ModelSerializer):
     confirm_password = serializers.CharField(style={'input_type': 'password', 'autocomplete': 'new-password'}, write_only=True, required=True,) # validators=[validate_password])
-    url = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-detail", lookup_field='username')
-    # update = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-update-user", lookup_field='username')
-    setpassword = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-change-password", lookup_field='username')
+    url = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-detail", lookup_field='pk')
+    # update = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-update-user", lookup_field='pk')
+    setpassword = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-change-password", lookup_field='pk')
 
     class Meta(UserSerializer.Meta):
-        fields = ['url', 'username', 'email', 'password', 'confirm_password', 'profile', 'date_joined', 'is_active', 'setpassword']
-        read_only_fields = ['is_superuser', 'last_login', 'date_joined',]
+        fields = ['id', 'url', 'username', 'email', 'password', 'confirm_password', 'profile', 'date_joined', 'is_active', 'setpassword']
+        read_only_fields = ['id', 'is_superuser', 'last_login', 'date_joined',]
         extra_kwargs = {
             'username': { 'style': {'autofocus': True}},
             'is_active': {'read_only': True},
@@ -74,9 +74,9 @@ class UserCreateSerializers(serializers.ModelSerializer):
         return self.Meta.model.objects.create_user(**validated_data)
     
 # class UserUpdateSerializer(serializers.ModelSerializer):
-#     url = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-detail", lookup_field='username')
-#     # update = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-update-user", lookup_field='username')
-#     setpassword = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-change-password", lookup_field='username')
+#     url = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-detail", lookup_field='pk')
+#     # update = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-update-user", lookup_field='pk')
+#     setpassword = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-change-password", lookup_field='pk')
 #     issue_set = IssueSetSerializers( many=True, read_only=True)
 
 #     class Meta(UserSerializer.Meta):
@@ -225,38 +225,39 @@ class BookAuthorSerializers(serializers.HyperlinkedModelSerializer):
     The Serializer of `emanagement.models.BookAuthor`  
     '''
 
-    genre_list = serializers.StringRelatedField(source="genre", many=True, read_only=True)
+    genre = serializers.PrimaryKeyRelatedField(many=True, read_only=False, queryset=models.Genre.objects.all())
 
     class Meta:
         model = models.BookAuthor
-        fields = '__all__'
-        extra_kwargs = {'genre': {'write_only': True}}
+        fields = ('url', 'id', 'first_name', 'middle_name', 'last_name', 'date_of_birth', 'died', 'aboutAuthor', 'genre', 'profile')
+        # extra_kwargs = {'genre': {'write_only': True}}
 
 class BookPublishSerializers(serializers.HyperlinkedModelSerializer):
     '''
     The Serializer of `emanagement.models.BookPublish`
     '''
-
-    genre_list = serializers.StringRelatedField(source="genre", many=True, read_only=True)
+    
+    genre = serializers.PrimaryKeyRelatedField(many=True, read_only=False, queryset=models.Genre.objects.all())
 
     class Meta:
         model = models.BookPublish
-        fields = ('url', 'company_name', 'website', 'genre_list', 'genre')
-        extra_kwargs = {'genre': {'write_only': True}}
+        fields = ('url', 'id', 'company_name', 'website', 'genre')
 
 class BookSerializers(serializers.HyperlinkedModelSerializer):
     '''
     The Serializer of `emanagement.models.Book`
     '''
-    genre_list = serializers.StringRelatedField(source="genre", many=True, read_only=True)
+    genre = serializers.PrimaryKeyRelatedField(many=True, read_only=False, queryset=models.Genre.objects.all())
+    # serializers.PrimaryKeyRelatedField
+    author = serializers.PrimaryKeyRelatedField(many=False, read_only=False, queryset=models.BookAuthor.objects.all())
+    publish = serializers.PrimaryKeyRelatedField(many=False, read_only=False, queryset=models.BookPublish.objects.all())
     author_name = serializers.StringRelatedField(source='author', many=False, read_only=True)
     publish_by = serializers.StringRelatedField(source='publish', many=False, read_only=True)
 
     class Meta:
         model = models.Book
-        fields = ['id', 'slug', 'name', 'genre', 'author', 'publish', 'update_date', 'genre_list', 'author_name', 'publish_by', 'date', 'language', 'edition', 'cost', 'page', 'description', 'stock', 'in_stock', 'today_stock', 'rating', 'profile']
+        fields = ['url', 'id', 'slug', 'name', 'genre', 'author', 'publish', 'update_date', 'author_name', 'publish_by', 'date', 'language', 'edition', 'cost', 'page', 'description', 'stock', 'in_stock', 'today_stock', 'rating', 'profile']
         extra_kwargs = {
-            'genre': {'write_only': True},
             'author': {'write_only': True},
             'publish': {'write_only': True},
         }
@@ -265,15 +266,14 @@ class IssueSerializers(serializers.HyperlinkedModelSerializer):
     '''
     The Serializer of `emanagement.models.Issue`
     '''
-    book_info = BookSerializers(source="book", many= False, read_only=True)
-    # username = serializers.SlugRelatedField(source="user", many= False, read_only=True, slug_field="username")
-    user = serializers.SlugRelatedField(many= False, read_only=True, slug_field="username")
+    book = serializers.PrimaryKeyRelatedField(many= False, queryset=models.Book.objects.filter(in_stock=True))
+    user = serializers.PrimaryKeyRelatedField(many= False, queryset=models.User.objects.filter(is_defaulter=False))
     is_return = serializers.SerializerMethodField()
 
     class Meta:
         model = models.Issue
-        fields = ['url', 'book', 'user', 'is_return', 'book', 'date', 'due_date', 'book_info']
-        extra_kwargs = {'book': {'write_only': True}}
+        fields = ['url', 'id', 'book', 'user', 'is_return', 'date', 'due_date',]
+        
         
 
     def get_is_return(self, obj):

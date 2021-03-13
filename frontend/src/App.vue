@@ -79,6 +79,21 @@
     </v-navigation-drawer>
     <v-main>
       <router-view></router-view>
+       <v-alert :type='error.type' v-for="error in $store.state.errors" :key="error.text">
+      {{ error.text }}
+    </v-alert>
+    <v-snackbar
+      :type='error.type' v-for="error in $store.state.errors" :key="error.text"
+      :timeout="error.time"
+      :value="true"
+      absolute
+      bottom
+      color="success"
+      outlined
+      right
+    >
+      {{ error.text }}
+    </v-snackbar>
     </v-main>
 
     <v-footer absolute app>
@@ -92,6 +107,8 @@
 
         </v-row>
     </v-footer>
+
+   
     
   </v-app>
 </template>

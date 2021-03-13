@@ -46,15 +46,15 @@ class UserViewSet(viewsets.ModelViewSet):
     '''
     User View
     '''
-    allowed_methods = ['GET', 'HEAD', 'OPTIONS', 'PUT']
+    allowed_methods = ['GET', 'HEAD', 'OPTIONS', 'PUT', 'DELETE']
     permission_classes = [utils.IsAuthor]
     serializer_class = serializers.UserSerializer
     queryset = get_user_model().objects.all()
-    lookup_field = 'username'
+    # lookup_field = 'username'
 
     def list(self, request, *args, **kwargs):
         if request.user.is_authenticated and not request.user.is_staff:
-            return HttpResponseRedirect(reverse('user-detail', kwargs = {'username': self.request.user.username}))
+            return HttpResponseRedirect(reverse('user-detail', kwargs = {'pk': self.request.user.id}))
         elif request.user.is_staff:
             res = super(UserViewSet, self).list(request, *args, **kwargs)
             for i in range(len(res.data['results'])):
@@ -78,8 +78,8 @@ class UserViewSet(viewsets.ModelViewSet):
     #         return self.update(request, *args, **kwargs)
     #     return self.retrieve(request, *args, **kwargs)
     
-    @decorators.action(detail=True, methods = ['POST'], serializer_class=serializers.PasswordChangeSerializer, permission_classes = [utils.IsAuthor], allowed_methods=['POST', 'HEAD', 'OPTIONS'])
-    def change_password(self, request, username=None):
+    @decorators.action(detail=True, methods = ['POST'], serializer_class=serializers.PasswordChangeSerializer, permission_classes = [utils.IsAuthor])
+    def change_password(self, request, pk=None):
         '''
         Accepts the following POST parameters: old_password, new_password1, new_password2  
         Returns the success/fail message.
@@ -88,7 +88,7 @@ class UserViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(user, data = request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data)
+            return Response({"detail": _("New password has been saved.")})
         return Response(serializer.errors, status=404)
     
     # the detail is False and permission_classes AllowAny to call
@@ -106,7 +106,7 @@ class UserViewSet(viewsets.ModelViewSet):
     
     
     @decorators.action(detail=False, methods=['POST'], serializer_class=serializers.PasswordResetSerializer, allowed_methods=['POST', 'HEAD', 'OPTIONS'])
-    def reset_password(self, request, username=None):
+    def reset_password(self, request, pk=None):
         '''
         Accepts the following POST parameters: email
         Returns the success and visit url.
@@ -158,6 +158,11 @@ class BookAPI(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAdminUser|utils.ReadOnly]
     serializer_class = serializers.BookSerializers
     filterset_class = filters.BookFilter
+
+    @decorators.action(detail=False, methods=['GET'])
+    def lang_list(self, request):
+        res = dict(models.Book.language.field.choices)
+        return Response(res) 
     
 class BookAuthorAPI(viewsets.ModelViewSet):
     """

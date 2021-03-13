@@ -1,0 +1,1372 @@
+{
+	"id": "a05b13a0-4ed6-413a-a1aa-56006c38a9bc",
+	"name": "ePustakalay",
+	"description": "ePustakalay API TESTS",
+	"auth": null,
+	"events": null,
+	"variables": [],
+	"order": [
+		"a797bf44-3eac-4d25-be63-c47b9a3440d2",
+		"82a0f159-a49b-4571-bb22-88a26bbf0a49",
+		"67273551-83e5-4fc6-a4b9-7ee50460d83a",
+		"5951bc15-b435-4a5c-87c1-dfd85c6eaa5b",
+		"70a93d93-90dc-44cc-a52d-ee423b764b91"
+	],
+	"folders_order": [
+		"03f64427-b169-4d15-89da-ca9fc244d6a2",
+		"7032f39e-62dc-4223-b4cf-4a6408cc99d9"
+	],
+	"protocolProfileBehavior": {},
+	"folders": [
+		{
+			"id": "7032f39e-62dc-4223-b4cf-4a6408cc99d9",
+			"name": "Book",
+			"description": "",
+			"auth": null,
+			"events": null,
+			"collection": "a05b13a0-4ed6-413a-a1aa-56006c38a9bc",
+			"folder": null,
+			"order": [
+				"bc55f1b7-46be-4d92-a6e7-d942d40958d6",
+				"dfb1e94d-efb6-46fc-a8b8-80e14dd1165d",
+				"98782154-2c99-47b6-a5e6-5cff8ec801f1",
+				"04ffd11a-ea32-4d2a-ba67-bdd337011146",
+				"e49610b2-bbe0-46e6-afa4-9c31caa33876",
+				"d462d660-9448-4fd2-a2ce-164569dbbec3",
+				"843cec43-b612-43a9-a362-c3103311a537",
+				"7f2a4ab8-f4de-4b8f-b3a9-ceeb55b6e50b",
+				"68c75ac1-c3f3-48aa-a11e-11415e1c7c86",
+				"8416bd3c-b00d-4490-b0e1-0a528a8e01e7",
+				"8c85a438-d92c-40f4-bbd6-234c6fd6e686",
+				"a0be2e29-5032-46ad-a79b-5a360de6ccc1"
+			],
+			"folders_order": [],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"id": "03f64427-b169-4d15-89da-ca9fc244d6a2",
+			"name": "User",
+			"description": "",
+			"auth": null,
+			"events": null,
+			"collection": "a05b13a0-4ed6-413a-a1aa-56006c38a9bc",
+			"folder": null,
+			"order": [
+				"06b4aa17-bc9d-4947-8243-0fe3cb2e1a46",
+				"323ac365-9ede-42f6-bb75-85f139ad41a0",
+				"6b7aa312-73ee-43c0-ba37-50722be1ddf8",
+				"e908caf0-1157-46a5-9d76-5ab66666192e",
+				"70ca3b6d-2cc0-4338-8420-b9b6b3b0c27a",
+				"6a4f6045-f05c-46db-9df4-13eff65f70f0",
+				"f1eb4475-7884-46ee-af64-d0016c85574d"
+			],
+			"folders_order": [],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"requests": [
+		{
+			"id": "04ffd11a-ea32-4d2a-ba67-bdd337011146",
+			"name": "Add Book Author",
+			"url": "{{baseURL}}/book-authors/",
+			"description": "",
+			"data": [],
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": "raw",
+			"headerData": [],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{access}}"
+					}
+				]
+			},
+			"events": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9ea846a9-f73b-4932-ad2a-1c7998761b92",
+						"exec": [
+							"let moment = require ('moment');",
+							"pm.globals.set(\"author_dob\", moment('2013-08-12').format(\"YYYY-MM-DD\"));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "62f1ab3a-615f-4d8d-9c3f-d050c0c0a829",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.globals.set(\"author_id\", jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": "7032f39e-62dc-4223-b4cf-4a6408cc99d9",
+			"rawModeData": "{\n    \"first_name\": \"{{$randomFirstName}}\",\n    \"middle_name\": \"{{$randomFirstName}}\",\n    \"last_name\": \"{{$randomLastName}}\",\n    \"aboutAuthor\": \"{{$randomLoremText}}\",\n    \"date_of_birth\": \"{{author_dob}}\",\n    \"genre\": [\n        {{genre}}\n    ]\n}",
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "06b4aa17-bc9d-4947-8243-0fe3cb2e1a46",
+			"name": "Create",
+			"url": "{{baseURL}}/user/create_user/",
+			"description": "*username, *email, *password, *confirm_password, profile",
+			"data": [
+				{
+					"key": "username",
+					"value": "{{$randomUserName}}",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "email",
+					"value": "{{$randomEmail}}",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "password",
+					"value": "{{password}}",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "confirm_password",
+					"value": "{{password}}",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "profile",
+					"value": "/home/shyamkumar/Pictures/Shyamkumar Yadav/1.png",
+					"description": "",
+					"type": "file",
+					"enabled": false
+				}
+			],
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": "params",
+			"headerData": [],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "d07cf95e-7355-4377-9264-a27ab77b696d",
+						"exec": [
+							"pm.globals.set(\"password\", Math.random().toString(36).slice(-9));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "40dbf82c-b268-4397-898c-8c813c1e8de9",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"const response = pm.response.json()",
+							"pm.globals.set(\"id\", response.id);",
+							"pm.globals.set(\"username\", response.username);",
+							"pm.globals.set(\"email\", response.email);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": "03f64427-b169-4d15-89da-ca9fc244d6a2",
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "323ac365-9ede-42f6-bb75-85f139ad41a0",
+			"name": "Token Obtain",
+			"url": "{{baseURL}}/token/obtain/",
+			"description": "*username, *password",
+			"data": [],
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": "raw",
+			"headerData": [],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7a677c44-87ed-4b6d-ba61-93206d09518b",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.globals.set(\"refresh\", jsonData.refresh);",
+							"pm.globals.set(\"access\", jsonData.access);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": "03f64427-b169-4d15-89da-ca9fc244d6a2",
+			"rawModeData": "{\n\t\"username\": \"{{username}}\",\n\t\"password\": \"{{password}}\"\n}",
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "5951bc15-b435-4a5c-87c1-dfd85c6eaa5b",
+			"name": "Reset Password Confirm",
+			"url": "{{baseURL}}/user/password_reset_confirm/",
+			"description": "*refresh",
+			"data": [],
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": "raw",
+			"headerData": [],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4b04f7f1-3bc8-4b37-8e27-80b77e5ca8c7",
+						"exec": [
+							"pm.globals.set(\"password\", Math.random().toString(36).slice(-9));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "81189ffd-b2dc-400e-a539-79a8c8757c08",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.globals.set(\"access\", jsonData.access);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": null,
+			"rawModeData": "{\n\t\"new_password1\": \"{{password}}\",\n    \"new_password2\": \"{{password}}\",\n    \"uid\":\"YzRlMDRkNGItZmQ4Yi00OGZlLWJlMzItNzE0NmM5NTJiNTZk\",\n    \"token\": \"aje5fz-56785ee1251c4e6d9ee6883b260961da\"\n}",
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "67273551-83e5-4fc6-a4b9-7ee50460d83a",
+			"name": "DELETE Issue",
+			"url": "{{baseURL}}/book-issue/:id/",
+			"description": "",
+			"data": null,
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": null,
+			"headerData": [],
+			"method": "DELETE",
+			"pathVariableData": [
+				{
+					"key": "id",
+					"value": "{{issue_id}}"
+				}
+			],
+			"queryParams": [],
+			"auth": {
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{access}}"
+					}
+				],
+				"type": "bearer"
+			},
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "777daefb-00a0-4b18-8d90-6a0f4d334f44",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {
+				"id": "{{issue_id}}"
+			}
+		},
+		{
+			"id": "68c75ac1-c3f3-48aa-a11e-11415e1c7c86",
+			"name": "Get Book",
+			"url": "{{baseURL}}/books/:id/",
+			"description": "",
+			"data": null,
+			"dataOptions": null,
+			"dataMode": null,
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [
+				{
+					"key": "id",
+					"value": "{{book_id}}"
+				}
+			],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a73f659d-c5f1-4b3a-9d10-94304ebd852e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Right Data with Right Book ID\", function () {",
+							"\tvar jsonData = pm.response.json();",
+							"\tpm.expect(jsonData.id).to.eql(pm.globals.get('book_id'));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": "7032f39e-62dc-4223-b4cf-4a6408cc99d9",
+			"headers": "",
+			"pathVariables": {
+				"id": "{{book_id}}"
+			}
+		},
+		{
+			"id": "6a4f6045-f05c-46db-9df4-13eff65f70f0",
+			"name": "Delete",
+			"url": "{{baseURL}}/user/:id/",
+			"description": "A form that Update a user",
+			"data": null,
+			"dataOptions": {
+				"raw": {
+					"language": "text"
+				}
+			},
+			"dataMode": null,
+			"headerData": [],
+			"method": "DELETE",
+			"pathVariableData": [
+				{
+					"key": "id",
+					"value": "{{id}}"
+				}
+			],
+			"queryParams": [],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{access}}"
+					}
+				]
+			},
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "73e663df-5da2-483b-92a3-7f796f99b2b8",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							"",
+							"pm.globals.unset(\"access\");",
+							"pm.globals.unset(\"refresh\");",
+							"pm.globals.unset(\"username\");",
+							"pm.globals.unset(\"email\");",
+							"pm.globals.unset(\"id\");",
+							"pm.globals.unset(\"password\");",
+							"pm.globals.unset(\"new_password\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": "03f64427-b169-4d15-89da-ca9fc244d6a2",
+			"headers": "",
+			"pathVariables": {
+				"id": "{{id}}"
+			}
+		},
+		{
+			"id": "6b7aa312-73ee-43c0-ba37-50722be1ddf8",
+			"name": "Get User",
+			"url": "{{baseURL}}/user/:id/",
+			"description": "Required Auth token and get the InFo of Current User",
+			"data": null,
+			"dataOptions": null,
+			"dataMode": null,
+			"headerData": [
+				{
+					"description": "",
+					"enabled": true,
+					"key": "Authorization",
+					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE0MzM1MTMzLCJqdGkiOiI4OTZlM2QwMTgxMzk0MjYxOGJhNWZlNWRjYWQ0OGViMCIsInVzZXJuYW1lIjoidGVzdDIifQ.SSLssZmMvaDxGM5FepVhRvOAeKFdfPPNTJ9YElgQt-s"
+				}
+			],
+			"method": "GET",
+			"pathVariableData": [
+				{
+					"key": "id",
+					"value": "{{id}}"
+				}
+			],
+			"queryParams": [],
+			"auth": {
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{access}}"
+					}
+				],
+				"type": "bearer"
+			},
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b33bb523-3b01-4e3b-9658-d00b8eaed5a9",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": "03f64427-b169-4d15-89da-ca9fc244d6a2",
+			"headers": "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE0MzM1MTMzLCJqdGkiOiI4OTZlM2QwMTgxMzk0MjYxOGJhNWZlNWRjYWQ0OGViMCIsInVzZXJuYW1lIjoidGVzdDIifQ.SSLssZmMvaDxGM5FepVhRvOAeKFdfPPNTJ9YElgQt-s\n",
+			"pathVariables": {
+				"id": "{{id}}"
+			}
+		},
+		{
+			"id": "70a93d93-90dc-44cc-a52d-ee423b764b91",
+			"name": "Reset Password",
+			"url": "{{baseURL}}/user/reset_password/",
+			"description": "*refresh",
+			"data": [],
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": "raw",
+			"headerData": [],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ea115f9c-60bb-409f-a525-72a9d6cfe17f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.detail).to.eql(\"Password reset e-mail has been sent.\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": null,
+			"rawModeData": "{\n\t\"email\": \"{{email}}\"\n}",
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "70ca3b6d-2cc0-4338-8420-b9b6b3b0c27a",
+			"name": "Change Password",
+			"url": "{{baseURL}}/user/:id/change_password/",
+			"description": "Accepts the following POST parameters: old_password, new_password1, new_password2\nReturns the success/fail message.",
+			"data": [],
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": "raw",
+			"headerData": [],
+			"method": "POST",
+			"pathVariableData": [
+				{
+					"key": "id",
+					"value": "{{id}}"
+				}
+			],
+			"queryParams": [],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{access}}"
+					}
+				]
+			},
+			"events": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "1c8888b5-4acb-478f-8242-ec4387784fbd",
+						"exec": [
+							"pm.globals.set(\"new_password\", Math.random().toString(36).slice(-9));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "6fadc2c5-4fa5-4eef-8b4d-8ce5f9651d2e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Password Changed Successful\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.detail).to.eql(\"New password has been saved.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": "03f64427-b169-4d15-89da-ca9fc244d6a2",
+			"rawModeData": "{\n\t\"old_password\": \"{{password}}\",\n\t\"new_password1\": \"{{new_password}}\",\n\t\"new_password2\": \"{{new_password}}\"\n}",
+			"headers": "",
+			"pathVariables": {
+				"id": "{{id}}"
+			}
+		},
+		{
+			"id": "7f2a4ab8-f4de-4b8f-b3a9-ceeb55b6e50b",
+			"name": "Get Book Author",
+			"url": "{{baseURL}}/book-authors/:id/",
+			"description": "",
+			"data": null,
+			"dataOptions": null,
+			"dataMode": null,
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [
+				{
+					"key": "id",
+					"value": "{{author_id}}"
+				}
+			],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "44e28029-0b19-4fa5-9e99-567a30d6e558",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Right Data with Right Author ID\", function () {",
+							"\tvar jsonData = pm.response.json();",
+							"\tpm.expect(jsonData.id).to.eql(pm.globals.get('author_id'));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": "7032f39e-62dc-4223-b4cf-4a6408cc99d9",
+			"headers": "",
+			"pathVariables": {
+				"id": "{{author_id}}"
+			}
+		},
+		{
+			"id": "82a0f159-a49b-4571-bb22-88a26bbf0a49",
+			"name": "Get Issue",
+			"url": "{{baseURL}}/book-issue/:id/",
+			"description": "",
+			"data": [],
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": "raw",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [
+				{
+					"key": "id",
+					"value": "{{issue_id}}"
+				}
+			],
+			"queryParams": [],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{access}}"
+					}
+				]
+			},
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ba7ad291-7d33-4db1-925e-15313b02cf9f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Right Data with Right Issue ID\", function () {",
+							"\tvar jsonData = pm.response.json();",
+							"\tpm.expect(jsonData.id).to.eql(pm.globals.get('issue_id'));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": null,
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"rawModeData": "{\n\t\"book\": \"{{book_id}}\"\n}",
+			"headers": "",
+			"pathVariables": {
+				"id": "{{issue_id}}"
+			}
+		},
+		{
+			"id": "8416bd3c-b00d-4490-b0e1-0a528a8e01e7",
+			"name": "DELETE Book",
+			"url": "{{baseURL}}/books/:id/",
+			"description": "",
+			"data": null,
+			"dataOptions": null,
+			"dataMode": null,
+			"headerData": [],
+			"method": "DELETE",
+			"pathVariableData": [
+				{
+					"key": "id",
+					"value": "{{book_id}}"
+				}
+			],
+			"queryParams": [],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{access}}"
+					}
+				]
+			},
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a3310973-339d-4247-8fbb-e4ba0f8f4a46",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": "7032f39e-62dc-4223-b4cf-4a6408cc99d9",
+			"headers": "",
+			"pathVariables": {
+				"id": "{{book_id}}"
+			}
+		},
+		{
+			"id": "843cec43-b612-43a9-a362-c3103311a537",
+			"name": "Get Book Publish",
+			"url": "{{baseURL}}/book-publish/:id/",
+			"description": "",
+			"data": null,
+			"dataOptions": null,
+			"dataMode": null,
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [
+				{
+					"key": "id",
+					"value": "{{publish_id}}"
+				}
+			],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c1df0289-7e73-4a93-afbe-87a93cd2722c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Right Data with Right Publisher ID\", function () {",
+							"\tvar jsonData = pm.response.json();",
+							"\tpm.expect(jsonData.id).to.eql(pm.globals.get('publish_id'));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": "7032f39e-62dc-4223-b4cf-4a6408cc99d9",
+			"headers": "",
+			"pathVariables": {
+				"id": "{{publish_id}}"
+			}
+		},
+		{
+			"id": "8c85a438-d92c-40f4-bbd6-234c6fd6e686",
+			"name": "DELETE Author",
+			"url": "{{baseURL}}/book-authors/:id/",
+			"description": "",
+			"data": null,
+			"dataOptions": null,
+			"dataMode": null,
+			"headerData": [],
+			"method": "DELETE",
+			"pathVariableData": [
+				{
+					"key": "id",
+					"value": "{{author_id}}"
+				}
+			],
+			"queryParams": [],
+			"auth": {
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{access}}"
+					}
+				],
+				"type": "bearer"
+			},
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9ce12168-b244-4898-9029-be609024de4a",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": "7032f39e-62dc-4223-b4cf-4a6408cc99d9",
+			"headers": "",
+			"pathVariables": {
+				"id": "{{author_id}}"
+			}
+		},
+		{
+			"id": "98782154-2c99-47b6-a5e6-5cff8ec801f1",
+			"name": "Add Book Publisher",
+			"url": "{{baseURL}}/book-publish/",
+			"description": "",
+			"data": [],
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": "raw",
+			"headerData": [],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{access}}"
+					}
+				]
+			},
+			"events": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4d4af523-488e-4c0d-8e88-2837a7130f6f",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "45d61cd2-7d08-4c51-9514-5a101e3ef719",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.globals.set(\"publish_id\", jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": "7032f39e-62dc-4223-b4cf-4a6408cc99d9",
+			"rawModeData": "{\n    \"company_name\": \"{{$randomCompanyName}}\",\n    \"website\": \"{{$randomUrl}}\",\n    \"genre\": [\n        {{genre}}\n    ]\n}",
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "a0be2e29-5032-46ad-a79b-5a360de6ccc1",
+			"name": "DELETE Publisher",
+			"url": "{{baseURL}}/book-publish/:id/",
+			"description": "",
+			"data": null,
+			"dataOptions": null,
+			"dataMode": null,
+			"headerData": [],
+			"method": "DELETE",
+			"pathVariableData": [
+				{
+					"key": "id",
+					"value": "{{publish_id}}"
+				}
+			],
+			"queryParams": [],
+			"auth": {
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{access}}"
+					}
+				],
+				"type": "bearer"
+			},
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3176f21d-359b-4dfc-9b1c-64466bb9f968",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": "7032f39e-62dc-4223-b4cf-4a6408cc99d9",
+			"headers": "",
+			"pathVariables": {
+				"id": "{{publish_id}}"
+			}
+		},
+		{
+			"id": "a797bf44-3eac-4d25-be63-c47b9a3440d2",
+			"name": "Add Issue",
+			"url": "{{baseURL}}/book-issue/",
+			"description": "",
+			"data": [],
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": "raw",
+			"headerData": [],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{access}}"
+					}
+				]
+			},
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2487faea-f72e-4c7f-a178-8c01cbd9c93d",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.globals.set(\"issue_id\", jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": null,
+			"rawModeData": "{\n\t\"book\": \"{{book_id}}\",\n\t\"user\": \"{{id}}\"\n}",
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "bc55f1b7-46be-4d92-a6e7-d942d40958d6",
+			"name": "List Book Genres",
+			"url": "{{baseURL}}/book-genres/",
+			"description": "",
+			"data": null,
+			"dataOptions": null,
+			"dataMode": null,
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9b35bae2-d2a9-4508-92a2-b4f3e10ab859",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": "7032f39e-62dc-4223-b4cf-4a6408cc99d9",
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "d462d660-9448-4fd2-a2ce-164569dbbec3",
+			"name": "Add Book",
+			"url": "{{baseURL}}/books/",
+			"description": "",
+			"data": [],
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": "raw",
+			"headerData": [],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": {
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{access}}"
+					}
+				],
+				"type": "bearer"
+			},
+			"events": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "c690f256-1e96-4970-a751-6d883517c87d",
+						"exec": [
+							"let moment = require ('moment');",
+							"pm.globals.set(\"author_dob\", moment('2013-08-12').format(\"YYYY-MM-DD\"));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "9da1aec6-1272-46d8-b284-5b08f3ab4777",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.globals.set(\"book_id\", jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": "7032f39e-62dc-4223-b4cf-4a6408cc99d9",
+			"rawModeData": "{\n    \"name\": \"{{$randomWords}}\",\n    \"author\": \"{{author_id}}\",\n    \"publish\": \"{{publish_id}}\",\n    \"language\": \"{{lang}}\",\n    \"edition\": 1,\n    \"cost\": {{$randomInt}},\n    \"page\": {{$randomCreditCardMask}},\n    \"description\": \"{{$randomLoremSentences}}\",\n    \"stock\": {{$randomInt}},\n    \"rating\": 6.4,\n    \"genre\": [\n        {{genre}}\n    ]\n}",
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "dfb1e94d-efb6-46fc-a8b8-80e14dd1165d",
+			"name": "Book Genres Filter",
+			"url": "{{baseURL}}/book-genres/?name__contains={{genre_filter}}",
+			"description": "",
+			"data": null,
+			"dataOptions": null,
+			"dataMode": null,
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [
+				{
+					"key": "name__contains",
+					"value": "{{genre_filter}}",
+					"equals": true,
+					"description": null,
+					"enabled": true
+				}
+			],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "38e2c905-3032-43ba-9aad-3c2ae89a785e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Count gt 0\", function () {",
+							"\tvar jsonData = pm.response.json();",
+							"\tpm.expect(jsonData.count).gt(0);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"const results = jsonData.results.slice(-6)",
+							"",
+							"pm.globals.set(\"genre\", results.map(val => `\"${val.id}\"`));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a5467f44-485b-43ef-9d2e-a72ccc7fe020",
+						"exec": [
+							"let chars = 'abcdefghijklmnopqrstuvwxyz'",
+							"pm.globals.set(\"genre_filter\", chars.charAt(Math.floor(Math.random() * chars.length)));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": "7032f39e-62dc-4223-b4cf-4a6408cc99d9",
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "e49610b2-bbe0-46e6-afa4-9c31caa33876",
+			"name": "Get Books Language",
+			"url": "{{baseURL}}/books/lang_list/",
+			"description": "",
+			"data": [],
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": "raw",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": {
+				"type": "noauth",
+				"noauth": []
+			},
+			"events": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e847abe8-df14-4d5f-b414-c477c81d5fb3",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c9b39c26-20d5-493c-a236-1e4e9afe65a8",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"const random = Math.floor(Math.random() * Object.keys(jsonData).length)",
+							"pm.globals.set('lang', Object.keys(jsonData)[random])"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": "7032f39e-62dc-4223-b4cf-4a6408cc99d9",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"rawModeData": "",
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "e908caf0-1157-46a5-9d76-5ab66666192e",
+			"name": "Update",
+			"url": "{{baseURL}}/user/:id/",
+			"description": "A form that Update a user",
+			"data": [
+				{
+					"key": "first_name",
+					"value": "{{$randomFirstName}}",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "email",
+					"value": "{{email}}",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "last_name",
+					"value": "{{$randomLastName}}",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "country",
+					"value": "{{$randomCountry}}",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "state",
+					"value": "{{$randomStreetName}}",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "city",
+					"value": "{{$randomCity}}",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "pincode",
+					"value": "{{$randomInt}}",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "full_address",
+					"value": "{{$randomStreetAddress}}",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "profile",
+					"value": "/home/shyamkumar/Pictures/Shyamkumar Yadav/Shyamkumar_Yadav_107 (1).png",
+					"description": "",
+					"type": "file",
+					"enabled": true
+				}
+			],
+			"dataOptions": {
+				"raw": {
+					"language": "text"
+				}
+			},
+			"dataMode": "params",
+			"headerData": [],
+			"method": "PUT",
+			"pathVariableData": [
+				{
+					"key": "id",
+					"value": "{{id}}"
+				}
+			],
+			"queryParams": [],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{access}}"
+					}
+				]
+			},
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "67866784-80d2-4455-82db-27584aa2e53e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": "03f64427-b169-4d15-89da-ca9fc244d6a2",
+			"headers": "",
+			"pathVariables": {
+				"id": "{{id}}"
+			}
+		},
+		{
+			"id": "f1eb4475-7884-46ee-af64-d0016c85574d",
+			"name": "Token Refresh",
+			"url": "{{baseURL}}/token/refresh/",
+			"description": "*refresh",
+			"data": [],
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": "raw",
+			"headerData": [],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1253918c-3885-4360-aad2-f8a65bd4f0ae",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.globals.set(\"access\", jsonData.access);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": "03f64427-b169-4d15-89da-ca9fc244d6a2",
+			"rawModeData": "{\n\t\"refresh\": \"{{refresh}}\"\n}",
+			"headers": "",
+			"pathVariables": {}
+		}
+	]
+}

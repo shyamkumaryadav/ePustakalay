@@ -11,8 +11,6 @@
 </template>
 
 <script>
-import auth from '../services/auth.service'
-
 export default {
     name: 'Login',
     data(){
@@ -34,15 +32,10 @@ export default {
     },
     methods:{
         submitForm(){
-            console.log("lol ***************************************")
-            auth.login(this.username, this.password)
-            .then(res => this.info = res)
-            .catch(error => {
-                console.error(error.response.data)
-                this.username.errors = error.response.data.username
-                this.password.errors = error.response.data.password
-            })
-
+            // console.log("lol ***************************************")
+            const data = {username: this.username.value, password: this.password.value}
+            this.password.value = ""
+            this.$store.dispatch('users/login', data)
         }
     },
 }

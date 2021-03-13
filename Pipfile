@@ -37,6 +37,7 @@ PyJWT = "==2.0.0"
 python_version = "3.8"
 
 [scripts]
+help="bash -c 'tail Pipfile -n 13 | head'"
 cmd="python backend/manage.py"
 collect = "python backend/manage.py collectstatic --noinput"
 make = "python backend/manage.py makemigrations emanagement"
