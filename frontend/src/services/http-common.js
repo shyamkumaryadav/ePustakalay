@@ -21,31 +21,27 @@ const REFRESH_TOKEN = 'refresh_token';
 const xsrfCookieName = 'csrftoken';
 const xsrfHeaderName = 'X-CSRFTOKEN';
 
-// List of URL in My API
+// List of URL https://documenter.getpostman.com/view/13650818/Tz5qZx48
 const URL = {
-  "apiRoot": "/",
-  "apiLogin": "/auth/login/",
-  "apiLogout": "/auth/logout/",
-  "gettoken": "/token/obtain/",
-  "reftoken": "/token/refresh/",
-  "vertoken": "/token/verify/",
-  "bookauthorList": "/book-authors/",
-  "bookauthorDetail": "/book-authors/{pk}/",
-  "genreList": "/book-genres/",
-  "genreDetail": "/book-genres/{pk}/",
-  "issueList": "/book-issue/",
-  "issueDetail": "/book-issue/{pk}/",
-  "bookpublishList": "/book-publish/",
-  "bookpublishDetail": "/book-publish/{pk}/",
-  "bookList": "/books/",
-  "bookDetail": "/books/{pk}/",
-  "userList": "/user/",
-  "userDetail": "/user/{username}/",
-  "userChangePassword": "/user/{username}/change_password/",
-  "userUpdateUser": "/user/{username}/update_user/",
-  "userCreateUser": "/user/create_user/",
-  "userPasswordResetConfirm": "/user/password_reset_confirm/",
-  "userResetPassword": "/user/reset_password/"
+  "gettoken": "/token/obtain/", // POST
+  "reftoken": "/token/refresh/", // POST
+  "vertoken": "/token/verify/", // POST
+  "bookauthor": "/book-authors/", // GET POST
+  "bookauthorDetail": "/book-authors/{pk}/", // GET PUT DETELE
+  "genre": "/book-genres/", // GET POST
+  "genreDetail": "/book-genres/{pk}/", // GET PUT DETELE
+  "issue": "/book-issue/", // GET POST
+  "issueDetail": "/book-issue/{pk}/", // GET PUT DETELE
+  "bookPublish": "/book-publish/", // GET POST
+  "bookPublishDetail": "/book-publish/{pk}/", // GET PUT DETELE
+  "book": "/books/", // GET POST
+  "bookDetail": "/books/{pk}/", // GET PUT DETELE
+  "userList": "/user/", // GET
+  "userDetail": "/user/{pk}/", // GET PUT DETELE
+  "ChangePassword": "/user/{pk}/change_password/", // POST
+  "userCreate": "/user/create_user/", // POST
+  "passwordResetConfirm": "/user/password_reset_confirm/", // POST
+  "resetPassword": "/user/reset_password/" // POST
 }
 
 // call me any Time any place

@@ -65,31 +65,14 @@ class UserCreateSerializers(serializers.ModelSerializer):
         }
 
     def validate_confirm_password(self, value):
-        if self.initial_data.get('password') == value:
-            return value
-        raise serializers.ValidationError("The two password fields didn’t match.")
+        if self.initial_data.get('password') != value:
+            raise serializers.ValidationError(_("The two password fields didn’t match."))
+        return value
             
     def create(self, validated_data):
         validated_data.pop('confirm_password')
         return self.Meta.model.objects.create_user(**validated_data)
-    
-# class UserUpdateSerializer(serializers.ModelSerializer):
-#     url = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-detail", lookup_field='pk')
-#     # update = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-update-user", lookup_field='pk')
-#     setpassword = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-change-password", lookup_field='pk')
-#     issue_set = IssueSetSerializers( many=True, read_only=True)
 
-#     class Meta(UserSerializer.Meta):
-#         read_only_fields = ['last_login', 'is_superuser', 'is_active', 'is_staff', 'date_joined', 'username', 'is_defaulter', 'user_permissions', 'groups', 'password', 'issue_set',]
-#         extra_kwargs = {
-#             'first_name': {'required': True, 'allow_blank': False},
-#             'middle_name': {'required': True, 'allow_blank': False},
-#             'last_name': {'required': True, 'allow_blank': False},
-#             'phone_number': {'required': True, 'style': {
-#                 'input_type': 'tel'
-#             }},
-#             'date_of_birth': {'required': True,},
-#         }
 
 # https://github.com/Tivix/django-rest-auth
 class PasswordResetSerializer(serializers.Serializer):

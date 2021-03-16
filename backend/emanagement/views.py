@@ -55,18 +55,10 @@ class UserViewSet(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         if request.user.is_authenticated and not request.user.is_staff:
             return HttpResponseRedirect(reverse('user-detail', kwargs = {'pk': self.request.user.id}))
-        elif request.user.is_staff:
-            res = super(UserViewSet, self).list(request, *args, **kwargs)
-            for i in range(len(res.data['results'])):
-                if res.data['results'][i]["username"] == request.user.username:
-                    res.data.update(res.data['results'][i])
-            return res
+        elif request.user.is_authenticated and request.user.is_staff:
+            return super(UserViewSet, self).list(request, *args, **kwargs)
         else:
             raise Http404
-       
-
-    def create(self, request, *args, **kwargs):
-        raise Http404
     
     # the detail is True
     # @decorators.action(detail = True, methods = ['PUT'], serializer_class=serializers.UserUpdateSerializer, permission_classes = [utils.IsAuthor], allowed_methods=['GET', 'PUT', 'HEAD', 'OPTIONS'])
