@@ -46,7 +46,6 @@ class UserViewSet(viewsets.ModelViewSet):
     '''
     User View
     '''
-    allowed_methods = ['GET', 'HEAD', 'OPTIONS', 'PUT', 'DELETE']
     permission_classes = [utils.IsAuthor]
     serializer_class = serializers.UserSerializer
     queryset = get_user_model().objects.all()
@@ -60,16 +59,9 @@ class UserViewSet(viewsets.ModelViewSet):
         else:
             raise Http404
     
-    # the detail is True
-    # @decorators.action(detail = True, methods = ['PUT'], serializer_class=serializers.UserUpdateSerializer, permission_classes = [utils.IsAuthor], allowed_methods=['GET', 'PUT', 'HEAD', 'OPTIONS'])
-    # def update_user(self, request, *args, **kwargs):
-    #     '''
-    #     A form that Update a user.
-    #     '''
-    #     if request.method == 'PUT':
-    #         return self.update(request, *args, **kwargs)
-    #     return self.retrieve(request, *args, **kwargs)
-    
+    def create(self, request, *args, **kwargs):
+        raise Http404
+
     @decorators.action(detail=True, methods = ['POST'], serializer_class=serializers.PasswordChangeSerializer, permission_classes = [utils.IsAuthor])
     def change_password(self, request, pk=None):
         '''
@@ -84,7 +76,7 @@ class UserViewSet(viewsets.ModelViewSet):
         return Response(serializer.errors, status=404)
     
     # the detail is False and permission_classes AllowAny to call
-    @decorators.action(detail = False, methods = ['POST'], serializer_class=serializers.UserCreateSerializers, allowed_methods = ['POST','HEAD', 'OPTIONS'])
+    @decorators.action(detail = False, methods = ['POST'], serializer_class=serializers.UserCreateSerializers)
     def create_user(self, request, *args, **kwargs):
         '''
         # A form that creates a user, with no privileges, from the given username, email, password and confirm_password.  
@@ -97,7 +89,7 @@ class UserViewSet(viewsets.ModelViewSet):
         return Response(serializer.data, status=201, headers=headers)
     
     
-    @decorators.action(detail=False, methods=['POST'], serializer_class=serializers.PasswordResetSerializer, allowed_methods=['POST', 'HEAD', 'OPTIONS'])
+    @decorators.action(detail=False, methods=['POST'], serializer_class=serializers.PasswordResetSerializer)
     def reset_password(self, request, pk=None):
         '''
         Accepts the following POST parameters: email
@@ -113,7 +105,7 @@ class UserViewSet(viewsets.ModelViewSet):
             status=200
         )
 
-    @decorators.action(detail=False, methods=['POST'], serializer_class=serializers.PasswordResetConfirmSerializer, allowed_methods=['POST', 'HEAD', 'OPTIONS'])
+    @decorators.action(detail=False, methods=['POST'], serializer_class=serializers.PasswordResetConfirmSerializer)
     def password_reset_confirm(self, request):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)

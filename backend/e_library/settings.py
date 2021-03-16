@@ -170,6 +170,7 @@ OLD_PASSWORD_FIELD_ENABLED = True
 # EMAIL On Console
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' 
 
+
 # Email
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_HOST = 

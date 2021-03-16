@@ -7,7 +7,7 @@ from rest_framework import serializers
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.utils.encoding import force_text
-from django.contrib.auth.password_validation import validate_password
+from django.contrib.auth import password_validation
 from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
 from django.utils.http import urlsafe_base64_decode as uid_decoder
 from django.contrib.auth.tokens import default_token_generator
@@ -17,6 +17,7 @@ from django.utils.translation import ugettext_lazy as _
 
 
 UserModel = get_user_model()
+password_help_text = '<br>'.join([str(elem) for elem in password_validation.password_validators_help_texts()])
 
 class IssueSetSerializers(serializers.ModelSerializer):
     book_name = serializers.SlugRelatedField(source="book", many= False, read_only=True, slug_field="name")
@@ -32,7 +33,6 @@ class IssueSetSerializers(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-detail", lookup_field='pk')
-    # update = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-update-user", lookup_field='pk')
     setpassword = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-change-password", lookup_field='pk')
     issue_set = IssueSetSerializers( many=True, read_only=True)
     
@@ -40,18 +40,18 @@ class UserSerializer(serializers.ModelSerializer):
         model = UserModel
         fields = ['url', 'id', 'username', 'first_name', 'middle_name', 'last_name', 'email', 'phone_number', 'date_of_birth', 'country', 'state', 'city', 'pincode', 'full_address', 'is_defaulter', 'profile', 'groups', 'user_permissions','is_superuser', 'last_login', 'is_superuser', 'is_active', 'is_staff', 'date_joined', 'setpassword', 'issue_set']
         read_only_fields = ['last_login', 'is_superuser', 'is_active', 'is_staff', 'date_joined', 'username', 'is_defaulter', 'user_permissions', 'groups', 'password', 'issue_set',]
+    
+    
 
 class UserCreateSerializers(serializers.ModelSerializer):
-    confirm_password = serializers.CharField(style={'input_type': 'password', 'autocomplete': 'new-password'}, write_only=True, required=True,) # validators=[validate_password])
+    confirm_password = serializers.CharField(help_text=_("Enter the same password as before, for verification."), style={'input_type': 'password', 'autocomplete': 'new-password'}, write_only=True, required=True,) # validators=[validate_password])
     url = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-detail", lookup_field='pk')
-    # update = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-update-user", lookup_field='pk')
     setpassword = serializers.HyperlinkedIdentityField(read_only=True, view_name="user-change-password", lookup_field='pk')
 
     class Meta(UserSerializer.Meta):
         fields = ['id', 'url', 'username', 'email', 'password', 'confirm_password', 'profile', 'date_joined', 'is_active', 'setpassword']
         read_only_fields = ['id', 'is_superuser', 'last_login', 'date_joined',]
         extra_kwargs = {
-            'username': { 'style': {'autofocus': True}},
             'is_active': {'read_only': True},
             'password': {
                 'write_only': True,
@@ -60,7 +60,8 @@ class UserCreateSerializers(serializers.ModelSerializer):
                     'input_type': 'password',
                     'autocomplete': 'new-password'
                 },
-                'validators': [validate_password]
+                'help_text': password_help_text,
+                'validators': [password_validation.validate_password]
             },
         }
 
@@ -111,8 +112,8 @@ class PasswordResetConfirmSerializer(serializers.Serializer):
     """
     Serializer for requesting a password reset e-mail.
     """
-    new_password1 = serializers.CharField(max_length=128, style={'input_type': 'password', 'autocomplete': 'new-password'}, label="password")
-    new_password2 = serializers.CharField(max_length=128, style={'input_type': 'password', 'autocomplete': 'new-password'}, label="confirm password")
+    new_password1 = serializers.CharField(max_length=128, style={'input_type': 'password', 'autocomplete': 'new-password'}, label="password", help_text=password_validation.password_validators_help_texts())
+    new_password2 = serializers.CharField(max_length=128, style={'input_type': 'password', 'autocomplete': 'new-password'}, label="confirm password", help_text=_('Enter the same password as before, for verification.'))
     uid = serializers.CharField()
     token = serializers.CharField()
 
