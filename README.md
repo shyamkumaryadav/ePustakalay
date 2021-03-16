@@ -31,5 +31,5 @@ $ pipenv run start
 ```  
 > for more info abour pipenv script [visit](https://pipenv.pypa.io/en/latest/advanced/#custom-script-shortcuts)
 
-## Home Page Image
-![./docs/Image/LightDarkHome.png](./docs/Image/LightDarkHome.png)
+## API
+[EPUSTAKALAY](https://documenter.getpostman.com/view/13650818/Tz5qZx48)
