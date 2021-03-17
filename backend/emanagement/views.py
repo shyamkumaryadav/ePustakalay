@@ -55,7 +55,9 @@ class UserViewSet(viewsets.ModelViewSet):
         if request.user.is_authenticated and not request.user.is_staff:
             return HttpResponseRedirect(reverse('user-detail', kwargs = {'pk': self.request.user.id}))
         elif request.user.is_authenticated and request.user.is_staff:
-            return super(UserViewSet, self).list(request, *args, **kwargs)
+            res = super(UserViewSet, self).list(request, *args, **kwargs)
+            res.data.update({'id':request.user.id})
+            return res
         else:
             raise Http404
     

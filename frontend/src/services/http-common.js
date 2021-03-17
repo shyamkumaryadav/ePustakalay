@@ -23,11 +23,11 @@ const xsrfHeaderName = 'X-CSRFTOKEN';
 
 // List of URL https://documenter.getpostman.com/view/13650818/Tz5qZx48
 const URL = {
-  "gettoken": "/token/obtain/", // POST
-  "reftoken": "/token/refresh/", // POST
-  "vertoken": "/token/verify/", // POST
-  "bookauthor": "/book-authors/", // GET POST
-  "bookauthorDetail": "/book-authors/{pk}/", // GET PUT DETELE
+  "getToken": "/token/obtain/", // POST
+  "refToken": "/token/refresh/", // POST
+  "verToken": "/token/verify/", // POST
+  "bookAuthor": "/book-authors/", // GET POST
+  "bookAuthorDetail": "/book-authors/{pk}/", // GET PUT DETELE
   "genre": "/book-genres/", // GET POST
   "genreDetail": "/book-genres/{pk}/", // GET PUT DETELE
   "issue": "/book-issue/", // GET POST
@@ -36,12 +36,12 @@ const URL = {
   "bookPublishDetail": "/book-publish/{pk}/", // GET PUT DETELE
   "book": "/books/", // GET POST
   "bookDetail": "/books/{pk}/", // GET PUT DETELE
-  "userList": "/user/", // GET
-  "userDetail": "/user/{pk}/", // GET PUT DETELE
-  "ChangePassword": "/user/{pk}/change_password/", // POST
-  "userCreate": "/user/create_user/", // POST
-  "passwordResetConfirm": "/user/password_reset_confirm/", // POST
-  "resetPassword": "/user/reset_password/" // POST
+  "userList": "/users/", // GET
+  "userDetail": "/users/{pk}/", // GET PUT DETELE
+  "ChangePassword": "/users/{pk}/change_password/", // POST
+  "userCreate": "/users/create_user/", // POST
+  "passwordResetConfirm": "/users/password_reset_confirm/", // POST
+  "resetPassword": "/users/reset_password/" // POST
 }
 
 // call me any Time any place
@@ -91,7 +91,7 @@ const errorInterceptor = (error) => {
 // To Log The User
 const login = (username, password) => {
   const loginData = {username, password};
-  return API.post(URL.gettoken, loginData)
+  return API.post(URL.getToken, loginData)
   .then(response => {
     window.localStorage.setItem(ACCESS_TOKEN, response.data.access);
     window.localStorage.setItem(REFRESH_TOKEN, response.data.refresh);
@@ -115,10 +115,10 @@ const refreshToken = () => {
   const refreshData = { 
     refresh: window.localStorage.getItem(REFRESH_TOKEN)
   };
-  return API.post(URL.reftoken, refreshData)
+  return API.post(URL.refToken, refreshData)
     .then(response => {
       window.localStorage.setItem(ACCESS_TOKEN, response.data.access);
-      return Promise.resolve(response.data);
+      return Promise.resolve(response.data.statusText);
     }).catch((error) => Promise.reject(error));
 };
 // Promise

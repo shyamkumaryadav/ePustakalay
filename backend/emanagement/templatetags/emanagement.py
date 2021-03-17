@@ -14,13 +14,14 @@ def optional_info(request, user):
     """
     Include a logout snippet if REST framework's logout view is in the URLconf.
     """
-    try:
-        logout_url = reverse('rest_framework:logout')
-        seeProfile = reverse('user-detail', kwargs={'username': user.username})
-        setpassword = reverse('user-change-password', kwargs={'username': user.username})
-    except:
-        snippet = format_html('<li class="navbar-text">{user}</li>', user=escape(user))
-        return mark_safe(snippet)
+    logout_url = reverse('rest_framework:logout')
+    if user.is_authenticated:
+        try:
+            seeProfile = reverse('user-detail', kwargs={'pk': user.pk})
+            setpassword = reverse('user-change-password', kwargs={'pk': user.pk})
+        except:
+            snippet = format_html('<li class="navbar-text"><a href="{href}">{user}</a></li>', href=logout_url, user=escape(user).upper())
+            return mark_safe(snippet)
 
     snippet = """<li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -33,7 +34,7 @@ def optional_info(request, user):
             <li><a href='{href}'>Log out</a></li>
         </ul>
     </li>"""
-    snippet = format_html(snippet, seeProfile = seeProfile, setpassword = setpassword, user=escape(user), href=logout_url)
+    snippet = format_html(snippet, seeProfile = seeProfile, setpassword = setpassword, user=escape(user).upper(), href=logout_url)
 
     return mark_safe(snippet)
 
