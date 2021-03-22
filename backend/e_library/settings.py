@@ -5,11 +5,13 @@ from pathlib import Path
 import os
 import re
 
+import django_heroku
+
 # backend/e_library.
 BASE_DIR = Path(__file__).resolve().parent.parent
-SECRET_KEY = 'zx6n)1_o^4*&6ypp-*@h37wd%s+g02(j-g&%p(yzyajl9uu&tg'
-DEBUG = os.getenv('DEBUG', '1') == '1'
-ALLOWED_HOSTS = ['*']
+SECRET_KEY = os.getenv('SECRET_KEY', 'zx6n)1_o^4*&6ypp-*@h37wd%s+g02(j-g&%p(yzyajl9uu&tg')
+DEBUG = os.getenv('DEBUG', False)
+ALLOWED_HOSTS = ['.herokuapps.com', '*',]
 
 
 # Application definition
@@ -31,6 +33,7 @@ INSTALLED_APPS = [
 
     # app for All E-library Funcation
     'emanagement', # E-Management models, views
+    'whitenoise.runserver_nostatic',
     'django_cleanup', # To cleanup the storage
 
 ]
@@ -47,9 +50,6 @@ MIDDLEWARE = [
     # whitenoise for serve static file on producation
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
-
-SESSION_COOKIE_HTTPONLY = False
-CSRF_USE_SESSIONS = True
 
 ROOT_URLCONF = 'e_library.urls'
 
@@ -82,6 +82,11 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+if not DEBUG:
+    import dj_database_url
+    DATABASES['default'].update(dj_database_url.config(
+        conn_max_age=600, ssl_require=True))
+
 
 
 # Password validation
@@ -133,6 +138,8 @@ STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = (BASE_DIR / "static",)
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -172,9 +179,16 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 # Email
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 
-# EMAIT_PORT = 587
-# EMAIL_USE_TLS = True
-# EMAIL_HOST_USER = 
-# EMAIL_HOST_PASSWORD = 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'Shyamkumar Yadav'
+
+# Media File
+DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
+DROPBOX_OAUTH2_TOKEN = os.getenv("DROPBOX_TOKEN")
+
+django_heroku.settings(locals())

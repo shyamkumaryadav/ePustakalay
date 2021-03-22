@@ -32,5 +32,4 @@ urlpatterns = [
     path('token/obtain/', TokenObtainPairView.as_view(), name="gettoken"),
     path('token/refresh/', TokenRefreshView.as_view(), name="reftoken"),
     path('token/verify/', TokenVerifyView.as_view(), name="vertoken"),
-    path('updatexfcBQRdMgeNr/', man_views.update),
 ]
