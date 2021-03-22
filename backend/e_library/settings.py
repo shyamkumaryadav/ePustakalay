@@ -4,8 +4,8 @@ SETTINGS for e_library project.
 from pathlib import Path
 import os
 import re
-
-import django_heroku
+from dotenv import load_dotenv
+load_dotenv()
 
 # backend/e_library.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -82,10 +82,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-if not DEBUG:
-    import dj_database_url
-    DATABASES['default'].update(dj_database_url.config(
-        conn_max_age=600, ssl_require=True))
 
 
 
@@ -190,5 +186,3 @@ DEFAULT_FROM_EMAIL = 'Shyamkumar Yadav'
 # Media File
 DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
 DROPBOX_OAUTH2_TOKEN = os.getenv("DROPBOX_TOKEN")
-
-django_heroku.settings(locals())
