@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   viewBox="0 0 1286.04 743.14"
+   version="1.1"
+   id="svg143"
+   sodipodi:docname="responsive.svg"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)">
+  <metadata
+     id="metadata147">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1016"
+     id="namedview145"
+     showgrid="false"
+     inkscape:zoom="0.63514276"
+     inkscape:cx="417.3951"
+     inkscape:cy="259.70266"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg143" />
+  <defs
+     id="defs9">
+    <style
+       id="style2">.cls-1{fill:url(#linear-gradient);}.cls-2{fill:#e7f6ff;}.cls-3{fill:none;}.cls-4{fill:#426572;}.cls-5{fill:#fff;}.cls-6{fill:#e2f2ff;}.cls-7{fill:#cadce8;}.cls-8{fill:#e8837e;}.cls-9{fill:#dde4ed;}.cls-10{fill:#606060;opacity:0.2;}.cls-11{fill:#a8ef9e;}.cls-12{fill:#e8edf7;}.cls-13{fill:#c1cede;opacity:0.3;}</style>
+    <linearGradient
+       id="linear-gradient"
+       x1="1.32"
+       y1="371.19"
+       x2="1254.6"
+       y2="371.19"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         offset="0"
+         stop-color="#c5e9fa"
+         id="stop4" />
+      <stop
+         offset="1"
+         stop-color="#c4f4ea"
+         id="stop6" />
+    </linearGradient>
+  </defs>
+  <title
+     id="title11">Asset 20</title>
+  <g
+     id="g133">
+    <path
+       style="fill:#e7f6ff"
+       inkscape:connector-curvature="0"
+       id="path15"
+       d="m 1248.42,542.54 a 26.3,26.3 0 0 1 -6.2,-0.75 25.94,25.94 0 1 1 6.2,0.75 z m 0,-40.18 a 14.09,14.09 0 0 0 -3.32,27.77 v 0 a 14.08,14.08 0 1 0 3.32,-27.77 z"
+       class="cls-2" />
+    <circle
+       style="fill:#e7f6ff"
+       id="circle17"
+       transform="rotate(-76.37)"
+       r="11.33"
+       cy="1313.2568"
+       cx="-265.38412"
+       class="cls-2" />
+    <path
+       style="fill:#e7f6ff"
+       inkscape:connector-curvature="0"
+       id="path19"
+       d="m 55.19,540.07 a 26.09,26.09 0 1 1 1.14,0 z m 0,-40.17 H 54.6 a 14.09,14.09 0 1 0 0.61,0 z"
+       class="cls-2" />
+    <circle
+       style="fill:#e7f6ff"
+       id="circle21"
+       transform="rotate(-2.47)"
+       r="11.33"
+       cy="573.55701"
+       cx="11.393235"
+       class="cls-2" />
+    <path
+       style="fill:#e7f6ff"
+       inkscape:connector-curvature="0"
+       id="path23"
+       d="m 709.08,118.26 a 26.06,26.06 0 1 1 14.92,-4.71 26.07,26.07 0 0 1 -14.92,4.71 z M 709,78.1 a 14.14,14.14 0 1 0 2.47,0.22 A 14.17,14.17 0 0 0 709,78.1 Z"
+       class="cls-2" />
+    <circle
+       style="fill:#e7f6ff"
+       id="circle25"
+       transform="rotate(-35.04)"
+       r="11.33"
+       cy="460.90317"
+       cx="469.92661"
+       class="cls-2" />
+    <rect
+       style="fill:none"
+       id="rect27"
+       height="44.48"
+       width="44.48"
+       y="105.14"
+       x="713.35999"
+       class="cls-3" />
+    <rect
+       style="fill:none"
+       id="rect29"
+       height="44.48"
+       width="44.48"
+       y="105.14"
+       x="713.35999"
+       class="cls-3" />
+    <path
+       style="fill:#426572"
+       inkscape:connector-curvature="0"
+       id="path31"
+       d="M 839.66,724.13"
+       class="cls-4" />
+    <path
+       style="fill:#426572"
+       inkscape:connector-curvature="0"
+       id="path37"
+       d="m 954.18,742.93 h -596.5 v -13 h 596.5 a 6.5,6.5 0 1 1 0,13 z"
+       class="cls-4" />
+    <path
+       style="fill:#426572"
+       inkscape:connector-curvature="0"
+       id="path39"
+       d="m 331,742.93 h -36.47 a 6.5,6.5 0 0 1 0,-13 H 331 a 6.5,6.5 0 1 1 0,13 z"
+       class="cls-4" />
+    <path
+       style="fill:#426572"
+       inkscape:connector-curvature="0"
+       id="path41"
+       d="m 270.86,742.93 h -11.62 a 6.5,6.5 0 0 1 0,-13 h 11.62 a 6.5,6.5 0 0 1 0,13 z"
+       class="cls-4" />
+    <path
+       style="fill:#426572"
+       inkscape:connector-curvature="0"
+       id="path43"
+       d="M 1163.34,742.93 H 980 v -13 h 183.34 a 6.5,6.5 0 0 1 0,13 z"
+       class="cls-4" />
+    <path
+       style="fill:#426572"
+       inkscape:connector-curvature="0"
+       id="path45"
+       d="M 226,742.93 H 42.65 v -13 H 226 a 6.5,6.5 0 1 1 0,13 z"
+       class="cls-4" />
+    <path
+       style="fill:#426572"
+       inkscape:connector-curvature="0"
+       id="path47"
+       d="M 979.78,613.42"
+       class="cls-4" />
+    <path
+       style="fill:#ffffff"
+       inkscape:connector-curvature="0"
+       id="path49"
+       d="M 712,174.82 V 737.14 H 102.84 V 174.82 a 11.53,11.53 0 0 1 11.49,-11.49 H 700.5 a 11.29,11.29 0 0 1 2.06,0.19 11.53,11.53 0 0 1 9.44,11.3 z"
+       class="cls-5" />
+    <polygon
+       style="fill:#e2f2ff"
+       id="polygon51"
+       points="175.64,163.33 114.34,163.33 104.76,178.48 104.76,218.88 112.42,218.88 713.91,218.88 713.91,178.48 702.41,163.33 "
+       class="cls-6" />
+    <path
+       style="fill:#426572"
+       inkscape:connector-curvature="0"
+       id="path53"
+       d="M 719.91,743.14 H 98.76 V 174.82 a 17.51,17.51 0 0 1 17.49,-17.49 h 586.16 a 17.51,17.51 0 0 1 17.49,17.49 z m -609.15,-12 H 707.91 V 174.82 a 5.5,5.5 0 0 0 -5.49,-5.49 H 116.25 a 5.5,5.5 0 0 0 -5.49,5.49 z"
+       class="cls-4" />
+    <circle
+       style="fill:#cadce8"
+       id="circle55"
+       r="7.6599998"
+       cy="193.25999"
+       cx="139.74001"
+       class="cls-7" />
+    <circle
+       style="fill:#cadce8"
+       id="circle57"
+       r="7.6599998"
+       cy="193.25999"
+       cx="162.72"
+       class="cls-7" />
+    <circle
+       style="fill:#cadce8"
+       id="circle59"
+       r="7.6599998"
+       cy="193.25999"
+       cx="185.71001"
+       class="cls-7" />
+    <rect
+       style="fill:#cadce8"
+       id="rect61"
+       ry="6.5"
+       rx="6.5"
+       height="15.32"
+       width="478.89001"
+       y="185.59"
+       x="211.57001"
+       class="cls-7" />
+    <path
+       style="fill:#ffffff"
+       inkscape:connector-curvature="0"
+       id="path63"
+       d="M 1117.13,65.63 V 737.14 H 508 V 65.63 a 11.53,11.53 0 0 1 11.49,-11.49 h 586.16 a 11.29,11.29 0 0 1 2.06,0.19 11.53,11.53 0 0 1 9.42,11.3 z"
+       class="cls-5" />
+    <polygon
+       style="fill:#e2f2ff"
+       id="polygon65"
+       points="580.78,54.14 529.06,54.14 509.9,69.29 509.9,109.69 517.56,109.69 1119.05,109.69 1119.05,69.29 1107.55,54.14 "
+       class="cls-6" />
+    <path
+       style="fill:#426572"
+       inkscape:connector-curvature="0"
+       id="path67"
+       d="M 1125,743.14 H 503.9 V 65.63 a 17.51,17.51 0 0 1 17.49,-17.49 h 586.16 A 17.51,17.51 0 0 1 1125,65.63 Z m -609.15,-12 H 1113 V 65.63 a 5.5,5.5 0 0 0 -5.49,-5.49 H 521.39 a 5.5,5.5 0 0 0 -5.49,5.49 z"
+       class="cls-4" />
+    <circle
+       style="fill:#cadce8"
+       id="circle69"
+       r="7.6599998"
+       cy="84.07"
+       cx="544.88"
+       class="cls-7" />
+    <circle
+       style="fill:#cadce8"
+       id="circle71"
+       r="7.6599998"
+       cy="84.07"
+       cx="567.85999"
+       class="cls-7" />
+    <circle
+       style="fill:#cadce8"
+       id="circle73"
+       r="7.6599998"
+       cy="84.07"
+       cx="590.84998"
+       class="cls-7" />
+    <rect
+       style="fill:#cadce8"
+       id="rect75"
+       ry="6.5"
+       rx="6.5"
+       height="15.32"
+       width="478.89001"
+       y="76.410004"
+       x="616.71002"
+       class="cls-7" />
+    <rect
+       style="fill:#e8837e"
+       id="rect77"
+       height="142.71001"
+       width="125.25"
+       y="181.63"
+       x="583.28003"
+       class="cls-8" />
+    <rect
+       style="fill:#e8837e"
+       id="rect79"
+       height="142.71001"
+       width="296.98001"
+       y="181.63"
+       x="720.34998"
+       class="cls-8" />
+    <rect
+       style="fill:#dde4ed"
+       id="rect81"
+       height="142.71001"
+       width="140.22"
+       y="340.14001"
+       x="877.10999"
+       class="cls-9" />
+    <rect
+       style="fill:#dde4ed"
+       id="rect83"
+       height="142.71001"
+       width="280.42999"
+       y="340.14001"
+       x="584.85999"
+       class="cls-9" />
+    <rect
+       style="fill:#dde4ed"
+       id="rect85"
+       height="142.71001"
+       width="433.26001"
+       y="498.64999"
+       x="584.85999"
+       class="cls-9" />
+    <rect
+       style="fill:#dde4ed"
+       id="rect87"
+       height="10"
+       width="97.510002"
+       y="530.04999"
+       x="163.78"
+       class="cls-9" />
+    <rect
+       style="fill:#dde4ed"
+       id="rect89"
+       height="10"
+       width="97.510002"
+       y="556.87"
+       x="163.78"
+       class="cls-9" />
+    <rect
+       style="fill:#dde4ed"
+       id="rect91"
+       height="10"
+       width="97.510002"
+       y="583.67999"
+       x="163.78"
+       class="cls-9" />
+    <rect
+       style="fill:#dde4ed"
+       id="rect93"
+       height="10"
+       width="97.510002"
+       y="610.5"
+       x="163.78"
+       class="cls-9" />
+    <rect
+       style="fill:#dde4ed"
+       id="rect95"
+       height="10"
+       width="97.510002"
+       y="637.32001"
+       x="163.78"
+       class="cls-9" />
+    <rect
+       style="fill:#dde4ed"
+       id="rect97"
+       height="10"
+       width="97.510002"
+       y="664.14001"
+       x="163.78"
+       class="cls-9" />
+    <polygon
+       style="fill:#dde4ed"
+       id="polygon99"
+       points="180.58,473.14 200.82,445.19 214.31,458.25 233.59,425.19 263.46,450.25 263.46,473.14 "
+       class="cls-9" />
+    <polygon
+       style="fill:#dde4ed"
+       id="polygon101"
+       points="301.61,425.53 301.61,442.64 272.7,442.64 272.7,407.46 278.48,401.92 "
+       class="cls-9" />
+    <path
+       style="fill:#dde4ed"
+       inkscape:connector-curvature="0"
+       id="path103"
+       d="m 194.26,439.76 a 15.79,15.79 0 1 0 -15.8,-15.76 15.84,15.84 0 0 0 15.8,15.76 z"
+       class="cls-9" />
+    <path
+       style="opacity:0.2;fill:#606060"
+       inkscape:connector-curvature="0"
+       id="path105"
+       d="M 894.93,316.06 V 729.48 H 285.78 V 316.06 a 11.7,11.7 0 0 1 11.49,-11.84 h 586.16 a 11.7,11.7 0 0 1 11.5,11.84 z"
+       class="cls-10" />
+    <path
+       style="fill:#ffffff"
+       inkscape:connector-curvature="0"
+       id="path107"
+       d="M 872.9,335.73 V 737.14 H 263.75 V 335.73 a 11.53,11.53 0 0 1 11.49,-11.49 H 861.4 a 11.29,11.29 0 0 1 2.06,0.19 11.53,11.53 0 0 1 9.44,11.3 z"
+       class="cls-5" />
+    <polygon
+       style="fill:#e2f2ff"
+       id="polygon109"
+       points="336.54,324.23 270.46,324.23 265.67,339.38 265.67,379.78 273.33,379.78 874.81,379.78 874.81,339.38 863.32,324.23 "
+       class="cls-6" />
+    <circle
+       style="fill:#cadce8"
+       id="circle111"
+       r="7.6599998"
+       cy="352.25"
+       cx="300.64001"
+       class="cls-7" />
+    <circle
+       style="fill:#cadce8"
+       id="circle113"
+       r="7.6599998"
+       cy="352.25"
+       cx="323.63"
+       class="cls-7" />
+    <circle
+       style="fill:#cadce8"
+       id="circle115"
+       r="7.6599998"
+       cy="352.25"
+       cx="346.62"
+       class="cls-7" />
+    <rect
+       style="fill:#cadce8"
+       id="rect117"
+       ry="6.5"
+       rx="6.5"
+       height="15.32"
+       width="478.89001"
+       y="344.59"
+       x="372.48001"
+       class="cls-7" />
+    <circle
+       style="fill:#dde4ed"
+       id="circle119"
+       r="26.74"
+       cy="608.88"
+       cx="438.17999"
+       class="cls-9" />
+    <circle
+       style="fill:#dde4ed"
+       id="circle121"
+       r="26.74"
+       cy="608.88"
+       cx="569.53003"
+       class="cls-9" />
+    <circle
+       style="fill:#dde4ed"
+       id="circle123"
+       r="26.74"
+       cy="608.88"
+       cx="700.88"
+       class="cls-9" />
+    <rect
+       style="fill:#a8ef9e"
+       id="rect125"
+       ry="12"
+       rx="12"
+       height="122.6"
+       width="453.03"
+       y="430.64999"
+       x="343.01999"
+       class="cls-11" />
+    <rect
+       style="fill:#e8edf7"
+       id="rect127"
+       height="12"
+       width="216.46001"
+       y="667.92999"
+       x="346.70999"
+       class="cls-12" />
+    <rect
+       style="fill:#e8edf7"
+       id="rect129"
+       height="12"
+       width="348.63"
+       y="691.87"
+       x="345.76001"
+       class="cls-12" />
+    <rect
+       style="fill:#e8edf7"
+       id="rect131"
+       height="12"
+       width="206.88"
+       y="667.92999"
+       x="593.82001"
+       class="cls-12" />
+    <polygon
+       style="opacity:0.3;fill:#c1cede"
+       id="polygon133"
+       points="872.53,393.01 279.38,393.01 279.38,736.18 270.38,736.18 270.38,384.01 872.53,384.01 "
+       class="cls-13" />
+    <rect
+       style="fill:#426572"
+       id="rect135"
+       height="12"
+       width="606.65002"
+       y="373.78"
+       x="266.35001"
+       class="cls-4" />
+    <path
+       style="fill:#426572"
+       inkscape:connector-curvature="0"
+       id="path137"
+       d="M 880.81,743.14 H 259.67 V 335.73 a 17.51,17.51 0 0 1 17.49,-17.49 h 586.16 a 17.51,17.51 0 0 1 17.49,17.49 z m -609.15,-12 H 868.81 V 335.73 a 5.5,5.5 0 0 0 -5.49,-5.49 H 277.16 a 5.5,5.5 0 0 0 -5.49,5.49 z"
+       class="cls-4" />
+    <rect
+       style="fill:#dde4ed"
+       id="rect139"
+       height="8"
+       width="111.1"
+       y="664.17999"
+       x="923.28998"
+       class="cls-9" />
+  </g>
+</svg>

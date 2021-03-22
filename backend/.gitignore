@@ -16,7 +16,6 @@ locales/*.mo
 
 # Django stuff:
 db.sqlite3
-staticfiles
 !media/user.png
 media
 system/migrations/0*

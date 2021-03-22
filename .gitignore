@@ -5,7 +5,6 @@
 .env
 .venv
 __pycache__/
-backend/system/__pycache__/
 backend/emanagement/__pycache__/
 backend/e_library/__pycache__/
 backend/__pycache__/
@@ -15,7 +14,6 @@ backend/locales/*.mo
 
 # Django stuff:
 backend/db.sqlite3
-backend/staticfiles
 backend/media
 !backend/media/default.png
 backend/system/migrations/0*
