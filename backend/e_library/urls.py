@@ -5,7 +5,6 @@ from django.urls import path, include, re_path
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
-from django.contrib.staticfiles.storage import staticfiles_storage
 from django.views.generic.base import RedirectView, TemplateView
 from django.utils.translation import gettext as _, gettext_lazy
 
@@ -31,9 +30,7 @@ admin.AdminSite.empty_value_display = '<i>undefined</i>'
 urlpatterns = [
     path('api/', include('emanagement.urls')),
     path('admin/', admin.site.urls),
-    path('favicon.ico', RedirectView.as_view(
-        url=staticfiles_storage.url('favicon.ico'))),
-    path('', TemplateView.as_view(template_name="emanagement/index.html"), name='home'),
+    path('', TemplateView.as_view(template_name="index.html"), name='home'),
 ]
 
 

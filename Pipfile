@@ -50,6 +50,7 @@ serve = "./start.sh"
 server = "bash -c 'printf \"$(tput bold)$(tput setaf 2)Starting development server also on http://$(hostname -I)\b:8000/$(tput sgr0)\n\";python backend/manage.py runserver 0.0.0.0:8000'"
 test = "python backend/manage.py test emanagement --verbosity 2 --keepdb'"
 clean = "rm -r backend/db.sqlite3 backend/emanagement/migrations"
+report = "newman run ePustakalay.postman_collection.json -r htmlextra --reporter-htmlextra-export ./backend/templates/index.html --reporter-htmlextra-title 'ePustakalay Api Report' --reporter-htmlextra-browserTitle 'ePustakalay'"
 
 [pipenv]
 allow_prereleases = true
