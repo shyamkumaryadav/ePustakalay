@@ -6,7 +6,7 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
 from rest_framework.schemas import get_schema_view
-from django.views.generic.base import RedirectView, TemplateView
+from django.views.generic.base import TemplateView
 from django.utils.translation import gettext as _, gettext_lazy
 
 # `Django Admin`
@@ -31,15 +31,11 @@ admin.AdminSite.empty_value_display = '<i>undefined</i>'
 urlpatterns = [
     path('api/', include('emanagement.urls')),
     path('admin/', admin.site.urls),
-    path('doc/open/', get_schema_view(
+    path('schema/', get_schema_view(
         title="E-Pustakalay",
         urlconf="emanagement.urls",
     ), name="openapi-schema"),
-    path('doc/', TemplateView.as_view(
-        template_name='swagger-ui.html',
-        extra_context={'schema_url':'openapi-schema'}
-    ), name='swagger-ui'),
-    path('', TemplateView.as_view(template_name="index.html"), name='home'),
+    path('test/', TemplateView.as_view(template_name="index.html"), name='home'),
 ]
 
 
