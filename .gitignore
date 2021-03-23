@@ -19,3 +19,5 @@ backend/media
 !backend/media/default.png
 backend/system/migrations/0*
 backend/emanagement/migrations/0*
+
+.firebase
