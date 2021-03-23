@@ -14,6 +14,7 @@ backend/locales/*.mo
 
 # Django stuff:
 backend/db.sqlite3
+backend/staticfiles/
 backend/media
 !backend/media/default.png
 backend/system/migrations/0*
