@@ -9,8 +9,6 @@ pylint-django = "*"
 bpython = "*"
 pygraphviz = "*"
 Faker = "==5.1.0"
-pyyaml = "*"
-uritemplate = "*"
 
 [packages]
 Django = "==3.1.4"
@@ -26,6 +24,9 @@ Pillow = "==8.0.1"
 gunicorn = "*"
 django-storages = {extras = ["dropbox"], version = "*"}
 python-dotenv = "*"
+pyyaml = "*"
+uritemplate = "*"
+
 
 [requires]
 python_version = "3.8"
