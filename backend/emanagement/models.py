@@ -41,7 +41,7 @@ class AbstractUser(BaseAbstractUser):
     full_address = models.TextField(_("Full Address"), null=True, blank=True, max_length=50)
     is_defaulter = models.BooleanField(default=False, help_text=_('User in defaulter list'))
     profile = models.FileField(upload_to=utils.pic_upload,
-                               default='user.jpg', null=True, blank=True,
+                               default='default.jpg', null=True, blank=True,
                                validators=[validators.FileExtensionValidator(
                                    allowed_extensions=validators.get_available_image_extensions(),
                                    message=_(
@@ -193,7 +193,7 @@ class Book(models.Model):
         max_digits=3, decimal_places=1, verbose_name="Rating", validators=[utils.validate_rating])
     profile = models.FileField(
         upload_to=utils.pic_upload, verbose_name="Book cover",
-        default="elibrary.jpg", blank=True,
+        default="default.jpg", blank=True,
         validators=[validators.FileExtensionValidator(
                 allowed_extensions=validators.get_available_image_extensions(),
                 message="Select valid Cover Image."), utils.profile_size

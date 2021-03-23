@@ -186,3 +186,4 @@ DEFAULT_FROM_EMAIL = 'Shyamkumar Yadav'
 # Media File
 DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
 DROPBOX_OAUTH2_TOKEN = os.getenv("DROPBOX_TOKEN")
+DROPBOX_ROOT_PATH = '/ePustakalay'
