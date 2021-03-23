@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "shyam-kumar-yadav"
+  },
+  "targets": {
+    "shyam-kumar-yadav": {
+      "hosting": {
+        "shyam-kumar-yadav": [
+          "epustakalaya"
+        ]
+      }
+    }
+  }
+}

@@ -15,12 +15,12 @@ const routes = [
   {
     path: '/about',
     name: 'About',
-    component: () => import('@/views/About.vue')
+    component: () => import(/* webpackChunkName: "About" */ '@/views/About.vue')
   },
   {
     path: '/terms',
     name: 'Terms',
-    component: () => import('@/views/Terms.vue'),
+    component: () => import(/* webpackChunkName: "Terms" */ '@/views/Terms.vue'),
     meta: {
       requiredAuth: true
     }
@@ -28,7 +28,7 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: () => import('@/views/Login.vue'),
+    component: () => import(/* webpackChunkName: "Login" */ '@/views/Login.vue'),
     meta: {
       logout: true
     }
@@ -36,7 +36,7 @@ const routes = [
   {
     path: '/404',
     name: 'ErrorPage',
-    component: () => import('@/views/404.vue')
+    component: () => import(/* webpackChunkName: "404" */ '@/views/404.vue')
   },
   {
     path: '*',

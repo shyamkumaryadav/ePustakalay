@@ -55,6 +55,17 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'e_library.urls'
 
+CORS_ORIGIN_WHITELIST = [
+    "*",
+    "https://epustakalaya.web.app",
+    "https://epustakalaya.firebaseapp.com"
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "epustakalaya.web.app",
+    "epustakalaya.firebaseapp.com"
+]
+
 
 TEMPLATES = [
     {

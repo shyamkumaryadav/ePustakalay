@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import users from '@/store/modules/users.js'
-import books from '@/store/modules/books.js'
+import users from './modules/users.js'
+import books from './modules/epustak.js'
 
 Vue.use(Vuex)
 

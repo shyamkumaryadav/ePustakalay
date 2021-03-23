@@ -15,11 +15,11 @@ import axios from "axios";
  *          // handle any errors. if Unauthorized try refreshToken
  *        });
 */
-const BASE_URL = '/api';
+const BASE_URL = 'http://192.168.0.102:8000/api';
 const ACCESS_TOKEN = 'access_token';
 const REFRESH_TOKEN = 'refresh_token';
-const xsrfCookieName = 'csrftoken';
-const xsrfHeaderName = 'X-CSRFTOKEN';
+// const xsrfCookieName = 'csrftoken';
+// const xsrfHeaderName = 'X-CSRFTOKEN';
 
 // List of URL https://documenter.getpostman.com/view/13650818/Tz5qZx48
 const URL = {
@@ -48,10 +48,10 @@ const URL = {
 const API = axios.create({
   baseURL: BASE_URL,
   // timeout: 5000,
-  headers: {
-    xsrfCookieName,
-    xsrfHeaderName,
-  }
+  // headers: {
+  //   xsrfCookieName,
+  //   xsrfHeaderName,
+  // }
 });
 
 // Use Me If Auth required
@@ -60,8 +60,8 @@ const AUTHAPI = axios.create({
   // timeout: 5000,
   headers: {
     Authorization: `Bearer ${window.localStorage.getItem(ACCESS_TOKEN)}`,
-    xsrfCookieName,
-    xsrfHeaderName,
+    // xsrfCookieName,
+    // xsrfHeaderName,
   },
 });
 

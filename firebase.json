@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "site": "epustakalaya",
+    "public": "frontend/dist",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

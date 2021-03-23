@@ -1,4 +1,4 @@
-import { URL, API, AUTHAPI} from '@/services/http-common.js'
+import { URL, API} from '@/services/http-common.js'
 
 export default {
     namespaced: true,
@@ -10,7 +10,7 @@ export default {
       bookIssue: {}
     },
     actions: {
-      getBooks({dispatch}, payload){
+      getBooks({dispatch}){
         API.get(URL.books)
         .then(response => {
           dispatch("setData", {name: 'books', value: response.data})
@@ -20,7 +20,7 @@ export default {
           console.log(error)
         })
       },
-      getAuthors({dispatch}, payload){
+      getAuthors({dispatch}){
         API.get(URL.books)
         .then(response => {
           dispatch("setData", {name: 'books', value: response.data})
@@ -30,16 +30,7 @@ export default {
           console.log(error)
         })
       },
-      getBooks({dispatch}, payload){
-        API.get(URL.books)
-        .then(response => {
-          dispatch("setData", {name: 'books', value: response.data})
-          console.log(response)
-        })
-        .catch(error => {
-          console.log(error)
-        })
-      },
+      
     },
     mutations: {
       setData(state, payload){
