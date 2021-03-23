@@ -59,7 +59,7 @@ class UserViewSet(viewsets.ModelViewSet):
     
     # the detail is False and permission_classes AllowAny to call
     @decorators.action(detail = False, methods = ['POST'], serializer_class=serializers.UserCreateSerializers)
-    def create_user(self, request, *args, **kwargs):
+    def create_new(self, request, *args, **kwargs):
         '''
         # A form that creates a user, with no privileges, from the given username, email, password and confirm_password.  
         `profile not required`

@@ -34,7 +34,7 @@ class AbstractUser(BaseAbstractUser):
                                         regex=r"^(\+91)(\d{10})$", message=_("Enter Valid Phone Number.")), ],
                                     help_text=_("Include country prefix code. (E.g. +91 for IN)")
     )
-    country = models.CharField(_("Country Name"), max_length=25, null=True, blank=True)
+    country = models.CharField(_("Country Name"), max_length=50, null=True, blank=True)
     state = models.CharField(_("State Name"), max_length=50, null=True, blank=True)
     city = models.CharField(_("City Name"), max_length=50, null=True, blank=True)
     pincode = models.CharField(_("Pincode"), max_length=6, null=True, blank=True)

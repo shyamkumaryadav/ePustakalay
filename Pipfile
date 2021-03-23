@@ -9,6 +9,8 @@ pylint-django = "*"
 bpython = "*"
 pygraphviz = "*"
 Faker = "==5.1.0"
+pyyaml = "*"
+uritemplate = "*"
 
 [packages]
 Django = "==3.1.4"

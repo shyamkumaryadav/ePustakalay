@@ -9,8 +9,8 @@
 		"a797bf44-3eac-4d25-be63-c47b9a3440d2",
 		"82a0f159-a49b-4571-bb22-88a26bbf0a49",
 		"67273551-83e5-4fc6-a4b9-7ee50460d83a",
-		"5951bc15-b435-4a5c-87c1-dfd85c6eaa5b",
-		"70a93d93-90dc-44cc-a52d-ee423b764b91"
+		"70a93d93-90dc-44cc-a52d-ee423b764b91",
+		"5951bc15-b435-4a5c-87c1-dfd85c6eaa5b"
 	],
 	"folders_order": [
 		"03f64427-b169-4d15-89da-ca9fc244d6a2",
@@ -127,7 +127,7 @@
 		{
 			"id": "06b4aa17-bc9d-4947-8243-0fe3cb2e1a46",
 			"name": "Create",
-			"url": "{{baseURL}}/user/create_user/",
+			"url": "{{baseURL}}/users/create_user/",
 			"description": "*username, *email, *password, *confirm_password, profile",
 			"data": [
 				{
@@ -253,7 +253,7 @@
 		{
 			"id": "5951bc15-b435-4a5c-87c1-dfd85c6eaa5b",
 			"name": "Reset Password Confirm",
-			"url": "{{baseURL}}/user/password_reset_confirm/",
+			"url": "{{baseURL}}/users/password_reset_confirm/",
 			"description": "*refresh",
 			"data": [],
 			"dataOptions": {
@@ -296,7 +296,7 @@
 				}
 			],
 			"folder": null,
-			"rawModeData": "{\n\t\"new_password1\": \"{{password}}\",\n    \"new_password2\": \"{{password}}\",\n    \"uid\":\"YzRlMDRkNGItZmQ4Yi00OGZlLWJlMzItNzE0NmM5NTJiNTZk\",\n    \"token\": \"aje5fz-56785ee1251c4e6d9ee6883b260961da\"\n}",
+			"rawModeData": "{\n\t\"new_password1\": \"{{password}}\",\n    \"new_password2\": \"{{password}}\",\n    \"uid\":\"{{uid}}\",\n    \"token\": \"{{token}}\"\n}",
 			"headers": "",
 			"pathVariables": {}
 		},
@@ -397,7 +397,7 @@
 		{
 			"id": "6a4f6045-f05c-46db-9df4-13eff65f70f0",
 			"name": "Delete",
-			"url": "{{baseURL}}/user/:id/",
+			"url": "{{baseURL}}/users/:id/",
 			"description": "A form that Update a user",
 			"data": null,
 			"dataOptions": {
@@ -432,15 +432,15 @@
 						"exec": [
 							"pm.test(\"Status code is 204\", function () {",
 							"    pm.response.to.have.status(204);",
+							"\tpm.globals.unset(\"access\");",
+							"\tpm.globals.unset(\"refresh\");",
+							"\tpm.globals.unset(\"username\");",
+							"\tpm.globals.unset(\"email\");",
+							"\tpm.globals.unset(\"id\");",
+							"\tpm.globals.unset(\"password\");",
+							"\tpm.globals.unset(\"new_password\");",
 							"});",
-							"",
-							"pm.globals.unset(\"access\");",
-							"pm.globals.unset(\"refresh\");",
-							"pm.globals.unset(\"username\");",
-							"pm.globals.unset(\"email\");",
-							"pm.globals.unset(\"id\");",
-							"pm.globals.unset(\"password\");",
-							"pm.globals.unset(\"new_password\");"
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -455,35 +455,23 @@
 		{
 			"id": "6b7aa312-73ee-43c0-ba37-50722be1ddf8",
 			"name": "Get User",
-			"url": "{{baseURL}}/user/:id/",
+			"url": "{{baseURL}}/users/",
 			"description": "Required Auth token and get the InFo of Current User",
 			"data": null,
 			"dataOptions": null,
 			"dataMode": null,
-			"headerData": [
-				{
-					"description": "",
-					"enabled": true,
-					"key": "Authorization",
-					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE0MzM1MTMzLCJqdGkiOiI4OTZlM2QwMTgxMzk0MjYxOGJhNWZlNWRjYWQ0OGViMCIsInVzZXJuYW1lIjoidGVzdDIifQ.SSLssZmMvaDxGM5FepVhRvOAeKFdfPPNTJ9YElgQt-s"
-				}
-			],
+			"headerData": [],
 			"method": "GET",
-			"pathVariableData": [
-				{
-					"key": "id",
-					"value": "{{id}}"
-				}
-			],
+			"pathVariableData": [],
 			"queryParams": [],
 			"auth": {
+				"type": "bearer",
 				"bearer": [
 					{
 						"key": "token",
 						"value": "{{access}}"
 					}
-				],
-				"type": "bearer"
+				]
 			},
 			"events": [
 				{
@@ -495,6 +483,7 @@
 							"    pm.response.to.have.status(200);",
 							"});",
 							"",
+							"",
 							""
 						],
 						"type": "text/javascript"
@@ -502,15 +491,13 @@
 				}
 			],
 			"folder": "03f64427-b169-4d15-89da-ca9fc244d6a2",
-			"headers": "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE0MzM1MTMzLCJqdGkiOiI4OTZlM2QwMTgxMzk0MjYxOGJhNWZlNWRjYWQ0OGViMCIsInVzZXJuYW1lIjoidGVzdDIifQ.SSLssZmMvaDxGM5FepVhRvOAeKFdfPPNTJ9YElgQt-s\n",
-			"pathVariables": {
-				"id": "{{id}}"
-			}
+			"headers": "",
+			"pathVariables": {}
 		},
 		{
 			"id": "70a93d93-90dc-44cc-a52d-ee423b764b91",
 			"name": "Reset Password",
-			"url": "{{baseURL}}/user/reset_password/",
+			"url": "{{baseURL}}/users/reset_password/",
 			"description": "*refresh",
 			"data": [],
 			"dataOptions": {
@@ -552,7 +539,7 @@
 		{
 			"id": "70ca3b6d-2cc0-4338-8420-b9b6b3b0c27a",
 			"name": "Change Password",
-			"url": "{{baseURL}}/user/:id/change_password/",
+			"url": "{{baseURL}}/users/:id/change_password/",
 			"description": "Accepts the following POST parameters: old_password, new_password1, new_password2\nReturns the success/fail message.",
 			"data": [],
 			"dataOptions": {
@@ -602,6 +589,8 @@
 							"pm.test(\"Password Changed Successful\", function () {",
 							"    var jsonData = pm.response.json();",
 							"    pm.expect(jsonData.detail).to.eql(\"New password has been saved.\");",
+							"",
+							"\tpm.globals.set(\"password\", pm.globals.get('new_password'));",
 							"});"
 						],
 						"type": "text/javascript"
@@ -1217,7 +1206,7 @@
 		{
 			"id": "e908caf0-1157-46a5-9d76-5ab66666192e",
 			"name": "Update",
-			"url": "{{baseURL}}/user/:id/",
+			"url": "{{baseURL}}/users/:id/",
 			"description": "A form that Update a user",
 			"data": [
 				{
