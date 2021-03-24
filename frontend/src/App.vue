@@ -21,12 +21,6 @@
       >
         <v-icon>mdi-theme-light-dark</v-icon>
       </v-btn>
-      <v-btn
-        icon
-        :to="{path: '/login'}"
-      >
-        <v-icon>mdi-account</v-icon>
-      </v-btn>
     </v-app-bar>
 
     <v-navigation-drawer v-model="drawer" fixed app temporary>
@@ -78,22 +72,9 @@
       </template>
     </v-navigation-drawer>
     <v-main>
-      <router-view></router-view>
-       <v-alert :type='error.type' v-for="error in $store.state.errors" :key="error.text">
-      {{ error.text }}
-    </v-alert>
-    <v-snackbar
-      :type='error.type' v-for="error in $store.state.errors" :key="error.text"
-      :timeout="error.time"
-      :value="true"
-      absolute
-      bottom
-      color="success"
-      outlined
-      right
-    >
-      {{ error.text }}
-    </v-snackbar>
+      <v-container>
+        <router-view></router-view>
+      </v-container>
     </v-main>
 
     <v-footer absolute app>

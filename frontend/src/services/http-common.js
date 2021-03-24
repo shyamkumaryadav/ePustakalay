@@ -15,7 +15,7 @@ import axios from "axios";
  *          // handle any errors. if Unauthorized try refreshToken
  *        });
 */
-const BASE_URL = 'http://192.168.0.102:8000/api';
+const BASE_URL = 'https://epustakalay.pythonanywhere.com/api';
 const ACCESS_TOKEN = 'access_token';
 const REFRESH_TOKEN = 'refresh_token';
 // const xsrfCookieName = 'csrftoken';
