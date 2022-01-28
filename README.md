@@ -33,3 +33,9 @@ $ pipenv run start
 
 ## API
 [EPUSTAKALAY](https://documenter.getpostman.com/view/13650818/Tz5qZx48)
+
+## Backend
+[Python anywhere](https://epustakalay.pythonanywhere.com/)
+
+## Frontend
+[Firebase](https://epustakalaya.web.app/)
